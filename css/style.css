@@ -3726,3 +3726,436 @@ td.vazio {
 #catalogo-cursos .curso-meta + .btn {
   margin-top: 1.2rem;
 }
+/* =========================================================
+   QUIZ — COLE ESTE BLOCO NO FINAL DA SUA CSS
+   Usa as variáveis que você já tem (--pri, --bd, --ok...).
+
+   ESTRUTURA HTML ESPERADA:
+
+   <form id="quiz" class="quiz">
+
+     <div class="quiz-progresso">
+       <div class="quiz-progresso-topo">
+         <span class="quiz-progresso-txt"><b>0</b> de 10 respondidas</b></span>
+       </div>
+       <div class="quiz-barra"><span style="width:0%"></span></div>
+     </div>
+
+     <fieldset class="quiz-pergunta">
+       <legend>
+         <span class="quiz-num">Pergunta 9</span>
+         <span class="quiz-enunciado">O que é a internet?</span>
+       </legend>
+
+       <label class="quiz-opcao">
+         <input type="radio" name="q9" value="0">
+         <span class="quiz-letra">A</span>
+         <span class="quiz-texto">Texto da alternativa</span>
+       </label>
+       ... (mais labels)
+
+       <p class="quiz-explicacao">Explicação (aparece ao finalizar)</p>
+     </fieldset>
+
+     <button type="button" class="btn quiz-finalizar">Finalizar perguntas</button>
+   </form>
+
+   <div class="quiz-resultado" hidden>
+     <p class="quiz-placar">2 de 10</p>
+     <p class="quiz-mensagem">Resultado: 2 de 10 acertos (20%).</p>
+   </div>
+
+   DEPOIS DE FINALIZAR, o JS faz:
+     - form.classList.add("finalizado")
+     - na alternativa certa:   label.classList.add("certa")
+     - na alternativa marcada errada: label.classList.add("errada")
+     - no .quiz-resultado: classe "bom" (>=70%), "medio" (40-69%) ou "baixo" (<40%)
+   ========================================================= */
+
+
+/* ---------- Container ---------- */
+
+.quiz {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+
+/* ---------- Progresso ---------- */
+
+.quiz-progresso {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  padding: 0.85rem 1.1rem;
+
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.quiz-progresso-txt {
+  color: var(--mut);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.quiz-progresso-txt b {
+  color: var(--pri-dark);
+}
+
+.quiz-barra {
+  height: 8px;
+  margin-top: 0.55rem;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.quiz-barra span {
+  display: block;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(90deg, var(--pri), #60a5fa);
+
+  transition: width 0.3s ease;
+}
+
+
+/* ---------- Pergunta (cartão) ---------- */
+
+.quiz-pergunta {
+  margin: 0;
+  padding: 1.5rem;
+
+  background: var(--card);
+
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.035);
+
+  min-width: 0;
+}
+
+.quiz-pergunta legend {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.quiz-num {
+  display: inline-flex;
+
+  margin-bottom: 0.55rem;
+  padding: 0.28rem 0.65rem;
+
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+
+  background: var(--pri-soft);
+  color: var(--pri-dark);
+
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.quiz-enunciado {
+  display: block;
+
+  color: #0b2a6f;
+
+  font-size: 1.15rem;
+  font-weight: 750;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+
+/* ---------- Alternativas ----------
+   OBS: o seu CSS global tem  input { width:100% }  e
+   label { display:block; margin... }  — é isso que deixava
+   as bolinhas centralizadas e sem texto. As regras abaixo
+   corrigem só dentro do quiz.
+   ---------------------------------------------------- */
+
+.quiz-opcao {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+
+  margin: 0 0 0.65rem;
+  padding: 0.85rem 1rem;
+  min-height: 54px;
+
+  background: #ffffff;
+
+  border: 1.5px solid var(--bd);
+  border-radius: 12px;
+
+  color: var(--txt);
+
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.quiz-opcao:last-of-type {
+  margin-bottom: 0;
+}
+
+/* Radio real escondido, mas clicável e acessível */
+.quiz-opcao input[type="radio"] {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  box-shadow: none;
+
+  opacity: 0;
+
+  cursor: pointer;
+}
+
+.quiz-opcao:hover {
+  border-color: #93c5fd;
+  background: #f8fbff;
+}
+
+.quiz-opcao:has(input:focus-visible) {
+  outline: 3px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+/* Letra A / B / C */
+.quiz-letra {
+  flex: none;
+
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--bd);
+  border-radius: 8px;
+
+  background: #f8fafc;
+  color: var(--mut);
+
+  font-size: 0.82rem;
+  font-weight: 750;
+
+  transition: all 0.15s ease;
+}
+
+.quiz-texto {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Selecionada */
+.quiz-opcao:has(input:checked) {
+  border-color: var(--pri);
+  background: var(--pri-soft);
+  box-shadow: 0 0 0 1px var(--pri) inset;
+}
+
+.quiz-opcao:has(input:checked) .quiz-letra {
+  background: var(--pri);
+  border-color: var(--pri);
+  color: #ffffff;
+}
+
+
+/* ---------- Depois de finalizar ---------- */
+
+.quiz.finalizado .quiz-opcao {
+  pointer-events: none;
+}
+
+.quiz-opcao.certa {
+  border-color: var(--ok);
+  background: var(--ok-bg);
+  box-shadow: 0 0 0 1px var(--ok) inset;
+}
+
+.quiz-opcao.certa .quiz-letra {
+  background: var(--ok);
+  border-color: var(--ok);
+  color: #ffffff;
+}
+
+.quiz-opcao.certa::after {
+  content: "Correta";
+
+  color: var(--ok);
+
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.quiz-opcao.errada {
+  border-color: var(--bad);
+  background: var(--bad-bg);
+  box-shadow: 0 0 0 1px var(--bad) inset;
+}
+
+.quiz-opcao.errada .quiz-letra {
+  background: var(--bad);
+  border-color: var(--bad);
+  color: #ffffff;
+}
+
+.quiz-opcao.errada::after {
+  content: "Sua resposta";
+
+  color: var(--bad);
+
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.quiz-explicacao {
+  display: none;
+
+  margin: 0.9rem 0 0;
+  padding-left: 0.9rem;
+
+  border-left: 3px solid #bfdbfe;
+
+  color: var(--mut);
+
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.quiz.finalizado .quiz-explicacao {
+  display: block;
+}
+
+
+/* ---------- Botão Finalizar ---------- */
+
+.quiz-finalizar {
+  align-self: flex-start;
+
+  min-width: 190px;
+  padding: 0.85rem 1.5rem;
+
+  border-radius: 12px;
+
+  font-size: 0.95rem;
+}
+
+.quiz.finalizado .quiz-finalizar {
+  display: none;
+}
+
+
+/* ---------- Resultado ---------- */
+
+.quiz-resultado {
+  max-width: 760px;
+  margin: 1.25rem auto 0;
+  padding: 1.5rem;
+
+  background: var(--card);
+
+  border: 1.5px solid var(--bd);
+  border-radius: 16px;
+
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+
+  animation: quizPop 0.35s ease both;
+}
+
+.quiz-placar {
+  margin: 0;
+
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.quiz-mensagem {
+  margin: 0.7rem 0 0;
+
+  color: var(--txt);
+
+  font-size: 1rem;
+}
+
+.quiz-resultado.bom   { border-color: var(--ok);       background: #f3fcf6; }
+.quiz-resultado.bom   .quiz-placar { color: var(--ok); }
+
+.quiz-resultado.medio { border-color: #93c5fd;         background: var(--pri-soft); }
+.quiz-resultado.medio .quiz-placar { color: var(--pri-dark); }
+
+.quiz-resultado.baixo { border-color: #fecaca;         background: #fef7f7; }
+.quiz-resultado.baixo .quiz-placar { color: var(--bad); }
+
+@keyframes quizPop {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 560px) {
+
+  .quiz-pergunta {
+    padding: 1.1rem;
+  }
+
+  .quiz-enunciado {
+    font-size: 1.05rem;
+  }
+
+  .quiz-finalizar {
+    width: 100%;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .quiz-barra span,
+  .quiz-opcao,
+  .quiz-letra,
+  .quiz-resultado {
+    transition: none;
+    animation: none;
+  }
+
+}
