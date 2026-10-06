@@ -1,34 +1,28 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Painel administrativo · Capacita Gov</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-
+<html lang="pt-BR"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <title>Painel administrativo · Capacita Gov</title> 
+  <link rel="stylesheet" href="css/style.css"> 
+</head> 
 <!-- Oculto até o perfil admin ser confirmado (evita "piscar" o painel) -->
-
-<body hidden>
+<body hidden> 
   <div class="layout">
+    <aside class="side">
+      <div class="brand">Capacita Gov</div>
+      <nav>
+        <button class="nav-btn ativo" data-tab="resumo">Visão geral</button>
+        <button class="nav-btn" data-tab="alunos">Alunos</button>
+        <button class="nav-btn" data-tab="cursos">Cursos</button>
+        <button class="nav-btn" data-tab="matriculas">Matrículas</button>
+      </nav>
+      <button id="btn-sair" class="btn ghost" type="button">Sair</button>
+    </aside>
 
-```
-<aside class="side">
-  <div class="brand">Capacita Gov</div>
-
-  <nav>
-    <button class="nav-btn ativo" data-tab="resumo">Visão geral</button>
-    <button class="nav-btn" data-tab="alunos">Alunos</button>
-    <button class="nav-btn" data-tab="cursos">Cursos</button>
-    <button class="nav-btn" data-tab="matriculas">Matrículas</button>
-  </nav>
-
-  <button id="btn-sair" class="btn ghost" type="button">Sair</button>
-</aside>
 
 <main>
-
   <header class="top">
     <h1 id="titulo">Visão geral</h1>
     <span class="mut">Admin: <b id="admin-nome"></b></span>
@@ -36,332 +30,176 @@
 
   <!-- ============ VISÃO GERAL ============ -->
   <section id="tab-resumo" class="tab">
-
     <div class="stats">
-      <div class="card stat">
-        <span class="mut">Alunos</span>
-        <b id="st-alunos">–</b>
-      </div>
-
-      <div class="card stat">
-        <span class="mut">Cursos ativos</span>
-        <b id="st-cursos">–</b>
-      </div>
-
-      <div class="card stat">
-        <span class="mut">Matrículas ativas</span>
-        <b id="st-matriculas">–</b>
-      </div>
+      <div class="card stat"><span class="mut">Alunos</span><b id="st-alunos">–</b></div>
+      <div class="card stat"><span class="mut">Cursos ativos</span><b id="st-cursos">–</b></div>
+      <div class="card stat"><span class="mut">Matrículas ativas</span><b id="st-matriculas">–</b></div>
     </div>
 
     <div class="grid" style="margin-top:1rem">
-
       <div class="card">
         <h3>Evolução de alunos</h3>
         <div id="grafico-alunos"></div>
       </div>
-
       <div class="card">
         <h3>Matrículas por curso</h3>
         <div id="grafico-matriculas"></div>
       </div>
-
     </div>
 
     <div class="card futuro" style="margin-top:1rem">
       Em breve: aulas, materiais, progresso, certificados, categorias, turmas e estatísticas.
     </div>
-
   </section>
 
   <!-- ============ ALUNOS ============ -->
   <section id="tab-alunos" class="tab" hidden>
-
     <div class="card" style="margin-bottom:1rem">
-
       <h3>Cadastrar aluno</h3>
-
       <form id="form-cadastrar-aluno" style="display:grid;gap:.75rem;max-width:480px">
-
-        <label>
-          Nome
+        <label>Nome
           <input id="aluno-nome" type="text" autocomplete="off" required>
         </label>
-
-        <label>
-          E-mail
+        <label>E-mail
           <input id="aluno-email" type="email" autocomplete="off" required>
         </label>
-
-        <label>
-          Senha
+        <label>Senha
           <input id="aluno-senha" type="password" autocomplete="new-password" required>
         </label>
-
         <div>
-          <button id="btn-cadastrar-aluno" class="btn" type="submit">
-            Cadastrar aluno
-          </button>
+          <button id="btn-cadastrar-aluno" class="btn" type="submit">Cadastrar aluno</button>
         </div>
-
         <p id="msg-cadastrar-aluno" class="mut" hidden></p>
-
       </form>
-
     </div>
 
     <div class="card table-wrap" style="margin-bottom:1rem">
-
       <h3>Solicitações de acesso</h3>
-
       <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Status</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-
+        <thead><tr><th>Nome</th><th>E-mail</th><th>Status</th><th>Ação</th></tr></thead>
         <tbody id="tb-solicitacoes"></tbody>
       </table>
-
     </div>
 
     <div class="card table-wrap">
-
       <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Status</th>
-            <th>Cadastro</th>
-          </tr>
-        </thead>
-
+        <thead><tr><th>Nome</th><th>E-mail</th><th>Status</th><th>Cadastro</th></tr></thead>
         <tbody id="tb-alunos"></tbody>
       </table>
-
     </div>
-
   </section>
 
   <!-- ============ CURSOS ============ -->
   <section id="tab-cursos" class="tab" hidden>
-
     <div class="card" style="margin-bottom:1rem">
-
       <h3>Cadastrar curso</h3>
-
       <form id="form-cadastrar-curso" style="display:grid;gap:.75rem;max-width:640px">
-
-        <label>
-          Nome do curso
+        <label>Nome do curso
           <input id="curso-nome" type="text" autocomplete="off" required>
         </label>
-
-        <label>
-          Descrição
+        <label>Descrição
           <textarea id="curso-descricao" rows="3"></textarea>
         </label>
-
-        <label>
-          Categoria
+        <label>Categoria
           <input id="curso-categoria" type="text" autocomplete="off">
         </label>
-
-        <label>
-          Carga horária (horas)
+        <label>Carga horária (horas)
           <input id="curso-carga-horaria" type="number" min="1" step="1">
         </label>
-
-        <label>
-          Imagem do curso
+        <label>Imagem do curso
           <input id="curso-imagem-arquivo" type="file" accept="image/*">
         </label>
-
         <div id="preview-curso-imagem-container" style="display:none">
-          <img
-            id="preview-curso-imagem"
-            alt="Prévia da imagem do curso"
-            style="max-width:100%;max-height:220px;border-radius:12px"
-          >
+          <img id="preview-curso-imagem" alt="Prévia da imagem do curso" style="max-width:100%;max-height:220px;border-radius:12px">
         </div>
-
-        <label>
-          Conteúdo do curso
+        <label>Conteúdo do curso
           <textarea id="curso-conteudo" rows="5"></textarea>
         </label>
-
-        <label>
-          Material em PDF
+        <label>Material em PDF
           <input id="curso-pdf-arquivo" type="file" accept="application/pdf">
         </label>
-
-        <label>
-          URL do curso
+        <label>URL do curso
           <input id="curso-url" type="url" placeholder="https://" autocomplete="off">
         </label>
-
         <div>
-          <button id="btn-cadastrar-curso" class="btn" type="submit">
-            Cadastrar curso
-          </button>
+          <button id="btn-cadastrar-curso" class="btn" type="submit">Cadastrar curso</button>
         </div>
-
         <p id="msg-cadastrar-curso" class="mut" hidden></p>
-
       </form>
-
     </div>
 
     <div class="card" style="margin-bottom:1rem">
-
       <h3>Cadastrar pergunta</h3>
-
       <div style="display:grid;gap:.75rem;max-width:640px">
-
-        <label>
-          Curso
+        <label>Curso
           <select id="questao-curso">
             <option value="">Selecione o curso</option>
           </select>
         </label>
-
-        <label>
-          Pergunta
+        <label>Pergunta
           <textarea id="questao-pergunta" rows="2"></textarea>
         </label>
-
-        <label>
-          Alternativa A
+        <label>Alternativa A
           <input id="questao-a" type="text" autocomplete="off">
         </label>
-
-        <label>
-          Alternativa B
+        <label>Alternativa B
           <input id="questao-b" type="text" autocomplete="off">
         </label>
-
-        <label>
-          Alternativa C
+        <label>Alternativa C
           <input id="questao-c" type="text" autocomplete="off">
         </label>
-
         <div>
           <span class="mut">Alternativa correta:</span>
-
-          <label style="margin-left:.75rem">
-            <input id="questao-correta-a" type="checkbox">
-            A
-          </label>
-
-          <label style="margin-left:.75rem">
-            <input id="questao-correta-b" type="checkbox">
-            B
-          </label>
-
-          <label style="margin-left:.75rem">
-            <input id="questao-correta-c" type="checkbox">
-            C
-          </label>
+          <label style="margin-left:.75rem"><input id="questao-correta-a" type="checkbox"> A</label>
+          <label style="margin-left:.75rem"><input id="questao-correta-b" type="checkbox"> B</label>
+          <label style="margin-left:.75rem"><input id="questao-correta-c" type="checkbox"> C</label>
         </div>
-
         <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-
-          <button id="btn-cadastrar-questao" class="btn" type="button">
-            Cadastrar pergunta
-          </button>
-
-          <button id="btn-cadastrar-questao-proxima" class="btn" type="button">
-            Cadastrar pergunta e próxima
-          </button>
-
-          <button id="btn-ver-curso" class="btn ghost" type="button">
-            Ver curso
-          </button>
-
-          <button id="btn-ver-perguntas" class="btn ghost" type="button">
-            Ver perguntas
-          </button>
-
+          <button id="btn-cadastrar-questao" class="btn" type="button">Cadastrar pergunta</button>
+          <button id="btn-cadastrar-questao-proxima" class="btn" type="button">Cadastrar pergunta e próxima</button>
+          <button id="btn-ver-curso" class="btn ghost" type="button">Ver curso</button>
+          <button id="btn-ver-perguntas" class="btn ghost" type="button">Ver perguntas</button>
         </div>
-
         <p id="msg-cadastrar-questao" class="mut" hidden></p>
-
       </div>
-
     </div>
 
     <div class="card table-wrap">
-
       <table>
-
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Carga horária</th>
-            <th>Criado em</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-
+        <thead><tr><th>Nome</th><th>Categoria</th><th>Carga horária</th><th>Criado em</th><th>Ações</th></tr></thead>
         <tbody id="tb-cursos"></tbody>
-
       </table>
-
     </div>
-
   </section>
 
   <!-- ============ MATRÍCULAS ============ -->
   <section id="tab-matriculas" class="tab" hidden>
-
     <div class="card" style="margin-bottom:1rem">
-
       <h3>Nova matrícula</h3>
-
       <div style="display:grid;gap:.75rem;max-width:480px">
-
-        <label>
-          Aluno
+        <label>Aluno
           <select id="matricula-aluno">
             <option value="">Selecione o aluno</option>
           </select>
         </label>
-
-        <label>
-          Curso
+        <label>Curso
           <select id="matricula-curso">
             <option value="">Selecione o curso</option>
           </select>
         </label>
-
         <div>
-          <button id="btn-matricular" class="btn" type="button">
-            Matricular aluno
-          </button>
+          <button id="btn-matricular" class="btn" type="button">Matricular aluno</button>
         </div>
-
         <p id="msg-matricula" class="mut" hidden></p>
-
       </div>
-
     </div>
 
     <div id="lista-matriculas" class="grid"></div>
-
   </section>
-
 </main>
-```
+
 
   </div>
-
   <script type="module" src="js/admin.js"></script>
-
 </body>
 </html>
