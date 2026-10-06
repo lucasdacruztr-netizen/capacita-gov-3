@@ -1,853 +1,310 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curso - Capacita Gov</title>
+
+  <title>Curso | Capacita Gov</title>
+
   <link rel="stylesheet" href="css/style.css">
 
   <style>
-    :root {
-      --azul-950: #0b1f44;
-      --azul-900: #0f2a5c;
-      --azul-800: #173b7a;
-      --azul-700: #1d4ed8;
-      --azul-600: #2563eb;
-      --azul-500: #3b82f6;
-      --azul-100: #dbeafe;
-      --azul-50: #eff6ff;
-
-      --texto: #0f172a;
-      --texto-suave: #64748b;
-      --borda: #e2e8f0;
-      --fundo: #f8fafc;
-
-      --verde: #15803d;
-      --verde-bg: #f0fdf4;
-      --verde-borda: #bbf7d0;
-
-      --vermelho: #b91c1c;
-      --vermelho-bg: #fef2f2;
-      --vermelho-borda: #fecaca;
-
-      --sombra: 0 4px 16px rgba(15, 42, 92, .07);
-      --sombra-hover: 0 8px 24px rgba(15, 42, 92, .12);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background:
-        linear-gradient(
-          180deg,
-          var(--azul-50) 0,
-          #f8fafc 340px
-        );
-      color: var(--texto);
-      font-family:
-        system-ui,
-        -apple-system,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
+    .curso-pagina {
       min-height: 100vh;
+      background: #f5f7fb;
     }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    .curso-wrap {
-      width: 100%;
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 24px 18px 60px;
-    }
-
-    /* =========================
-       TOPO
-    ========================= */
 
     .curso-topo {
+      background: #0b5ed7;
+      color: #fff;
+      padding: 16px 24px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 16px;
-      flex-wrap: wrap;
-
-      margin-bottom: 26px;
-      padding: 14px 18px;
-
-      background: rgba(255, 255, 255, .96);
-      border: 1px solid var(--borda);
-      border-radius: 16px;
-
-      box-shadow: var(--sombra);
     }
 
-    .curso-topo strong {
-      color: var(--azul-900);
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: .2px;
-    }
-
-    .curso-topo .acoes {
-      display: flex;
-      gap: 8px;
-    }
-
-    .curso-btn {
-      border: 1px solid var(--azul-700);
-      background: var(--azul-700);
-      color: #fff;
-
-      padding: 9px 17px;
-      border-radius: 10px;
-
-      font-size: 14px;
-      font-weight: 700;
-
-      cursor: pointer;
-
-      transition:
-        background .2s,
-        border-color .2s,
-        transform .15s,
-        box-shadow .2s;
-    }
-
-    .curso-btn:hover {
-      background: var(--azul-900);
-      border-color: var(--azul-900);
-      box-shadow: 0 5px 14px rgba(29, 78, 216, .2);
-    }
-
-    .curso-btn:active {
-      transform: translateY(1px);
-    }
-
-    .curso-btn.sec {
-      background: #fff;
-      color: var(--azul-700);
-    }
-
-    .curso-btn.sec:hover {
-      background: var(--azul-50);
-      color: var(--azul-900);
-      box-shadow: none;
-    }
-
-    /* =========================
-       AVISOS
-    ========================= */
-
-    .aviso {
-      padding: 16px 18px;
-      border-radius: 13px;
-      margin-top: 16px;
-
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    .aviso.erro {
-      background: var(--vermelho-bg);
-      color: #991b1b;
-      border: 1px solid var(--vermelho-borda);
-    }
-
-    .aviso.info {
-      background: var(--azul-50);
-      color: #1e3a8a;
-      border: 1px solid var(--azul-100);
-    }
-
-    /* =========================
-       CABEÇALHO DO CURSO
-    ========================= */
-
-    .curso-header {
-      position: relative;
-      overflow: hidden;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul-950),
-          var(--azul-700)
-        );
-
-      color: #fff;
-
-      padding: 34px 30px;
-      border-radius: 20px;
-
-      box-shadow:
-        0 12px 30px rgba(29, 78, 216, .22);
-    }
-
-    .curso-header::after {
-      content: "";
-      position: absolute;
-
-      width: 220px;
-      height: 220px;
-
-      right: -80px;
-      top: -90px;
-
-      border-radius: 50%;
-
-      background: rgba(255, 255, 255, .07);
-    }
-
-    .curso-header h1 {
-      position: relative;
-      z-index: 1;
-
-      margin: 0 0 10px;
-
-      font-size: 30px;
-      line-height: 1.2;
-      font-weight: 800;
-    }
-
-    .curso-header p {
-      position: relative;
-      z-index: 1;
-
-      max-width: 760px;
-
+    .curso-topo h1 {
       margin: 0;
-
-      color: #dbeafe;
-
-      line-height: 1.7;
-      font-size: 15px;
+      font-size: 22px;
+      font-weight: 700;
     }
 
-    /* =========================
-       SEÇÕES
-    ========================= */
-
-    .curso-secao {
-      margin-top: 42px;
-    }
-
-    .curso-secao h2 {
+    .curso-topo-acoes {
       display: flex;
       align-items: center;
       gap: 10px;
-
-      margin: 0 0 18px;
-
-      color: var(--azul-900);
-
-      font-size: 21px;
-      font-weight: 800;
     }
 
-    .curso-secao h2::before {
-      content: "";
-      display: block;
-
-      width: 5px;
-      height: 25px;
-
-      border-radius: 999px;
-
-      background:
-        linear-gradient(
-          180deg,
-          var(--azul-500),
-          var(--azul-900)
-        );
+    .curso-topo button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
     }
 
-    /* =========================
-       MÓDULOS
-    ========================= */
-
-    .modulos-lista {
-      display: grid;
-      gap: 18px;
-    }
-
-    .modulo-card {
+    #btnVoltar {
       background: #fff;
-
-      border: 1px solid var(--borda);
-      border-radius: 16px;
-
-      padding: 22px;
-
-      box-shadow: var(--sombra);
-
-      transition:
-        transform .2s,
-        box-shadow .2s,
-        border-color .2s;
+      color: #0b5ed7;
     }
 
-    .modulo-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--sombra-hover);
-      border-color: #cbd5e1;
-    }
-
-    .modulo-topo {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-
-      margin-bottom: 18px;
-    }
-
-    .modulo-num {
-      flex: 0 0 42px;
-
-      width: 42px;
-      height: 42px;
-
-      border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul-600),
-          var(--azul-900)
-        );
-
+    #btnSair {
+      background: rgba(255,255,255,.15);
       color: #fff;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      font-weight: 800;
-      box-shadow: 0 5px 12px rgba(37, 99, 235, .2);
+      border: 1px solid rgba(255,255,255,.3);
     }
 
-    .modulo-card h3 {
-      margin: 0 0 5px;
-
-      font-size: 18px;
-      font-weight: 750;
-
-      color: var(--texto);
+    .curso-conteudo {
+      width: min(1100px, calc(100% - 32px));
+      margin: 30px auto;
     }
 
-    .modulo-card > .modulo-topo p {
+    .curso-cabecalho {
+      background: #fff;
+      border-radius: 14px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .curso-cabecalho h2 {
+      margin: 0 0 10px;
+      color: #123;
+      font-size: 28px;
+    }
+
+    .curso-cabecalho p {
       margin: 0;
-
-      color: var(--texto-suave);
-
-      font-size: 14px;
+      color: #667085;
       line-height: 1.6;
     }
 
-    /* =========================
-       AULAS
-    ========================= */
+    .curso-secao {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .curso-secao h2 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      color: #123;
+    }
+
+    .modulo-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .modulo-titulo {
+      background: #f8fafc;
+      padding: 16px 18px;
+      font-weight: 700;
+      color: #123;
+    }
 
     .aulas-lista {
-      display: grid;
-      gap: 12px;
-
-      margin-top: 16px;
+      padding: 10px;
     }
 
     .aula-card {
-      background: #f8fafc;
-
-      border: 1px solid var(--borda);
-      border-radius: 13px;
-
-      padding: 17px;
-
-      transition:
-        background .2s,
-        border-color .2s;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 10px;
     }
 
-    .aula-card:hover {
-      background: #fff;
-      border-color: #cbd5e1;
+    .aula-card:last-child {
+      margin-bottom: 0;
     }
 
-    .aula-tipo {
-      display: inline-flex;
-
-      margin-bottom: 9px;
-      padding: 5px 10px;
-
-      border-radius: 999px;
-
-      background: var(--azul-100);
-      color: #1e3a8a;
-
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .3px;
-    }
-
-    .aula-card h4 {
-      margin: 0 0 8px;
-
-      font-size: 16px;
-      font-weight: 750;
-
-      color: var(--texto);
-    }
-
-    .aula-texto {
-      margin: 0;
-
-      color: var(--texto-suave);
-
-      line-height: 1.7;
-      white-space: pre-wrap;
-      font-size: 14px;
-    }
-
-    .aula-acoes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-
-      margin-top: 14px;
-    }
-
-    .link-material {
-      display: inline-flex;
-      align-items: center;
-
-      text-decoration: none;
-
-      padding: 9px 14px;
-
-      border-radius: 9px;
-
-      background: var(--azul-700);
-      color: #fff;
-
-      font-size: 13px;
+    .aula-titulo {
       font-weight: 700;
-
-      transition:
-        background .2s,
-        transform .15s;
+      color: #123;
+      margin-bottom: 8px;
     }
 
-    .link-material:hover {
-      background: var(--azul-900);
-      transform: translateY(-1px);
+    .aula-descricao {
+      color: #667085;
+      line-height: 1.5;
     }
 
-    /* =========================
-       PERGUNTAS
-    ========================= */
+    .aula-material {
+      margin-top: 12px;
+    }
+
+    .aula-material a {
+      color: #0b5ed7;
+      font-weight: 600;
+      text-decoration: none;
+    }
 
     .perguntas-lista {
-      display: grid;
-      gap: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
 
     .pergunta-card {
-      position: relative;
-
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 20px;
       background: #fff;
-
-      border: 1px solid var(--borda);
-      border-radius: 18px;
-
-      padding: 24px;
-
-      box-shadow: var(--sombra);
-
-      transition:
-        border-color .2s,
-        box-shadow .2s,
-        transform .2s;
-    }
-
-    .pergunta-card:hover {
-      border-color: #cbd5e1;
-      box-shadow: var(--sombra-hover);
     }
 
     .pergunta-numero {
-      display: inline-flex;
-      align-items: center;
-
-      padding: 6px 11px;
-
-      border-radius: 999px;
-
-      background: var(--azul-50);
-      color: var(--azul-700);
-
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .2px;
-
-      margin-bottom: 13px;
+      display: inline-block;
+      background: #eaf2ff;
+      color: #0b5ed7;
+      border-radius: 7px;
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
     .pergunta-enunciado {
-      margin: 0 0 19px;
-
-      color: var(--texto);
-
-      font-size: 17px;
-      font-weight: 700;
-
-      line-height: 1.55;
+      margin: 0 0 16px;
+      color: #1f2937;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.5;
     }
 
-    /* =========================
-       ALTERNATIVAS
-    ========================= */
-
     .alternativas {
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
     }
 
     .alternativa {
-      position: relative;
-
       display: flex;
-      align-items: center;
-      gap: 12px;
-
-      min-height: 52px;
-
-      padding: 13px 15px;
-
-      background: #fff;
-
-      border: 1.5px solid var(--borda);
-      border-radius: 12px;
-
+      align-items: flex-start;
+      gap: 10px;
+      padding: 13px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
       cursor: pointer;
-
-      color: #334155;
-
-      font-size: 14px;
-      line-height: 1.45;
-
-      transition:
-        background .18s,
-        border-color .18s,
-        box-shadow .18s,
-        transform .12s;
+      transition: .2s;
+      background: #fff;
     }
 
     .alternativa:hover {
-      background: var(--azul-50);
-      border-color: #93c5fd;
-      transform: translateX(2px);
-    }
-
-    .alternativa:has(input:checked) {
-      background: #eff6ff;
-      border-color: var(--azul-600);
-
-      box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .10);
+      border-color: #0b5ed7;
+      background: #f8fbff;
     }
 
     .alternativa input {
-      appearance: none;
-
-      flex: 0 0 19px;
-
-      width: 19px;
-      height: 19px;
-
-      margin: 0;
-
-      border: 2px solid #94a3b8;
-      border-radius: 50%;
-
-      background: #fff;
-
+      margin-top: 3px;
+      accent-color: #0b5ed7;
       cursor: pointer;
-
-      transition:
-        border-color .18s,
-        background .18s,
-        box-shadow .18s;
-    }
-
-    .alternativa input:checked {
-      border-color: var(--azul-600);
-
-      background:
-        radial-gradient(
-          circle,
-          #fff 0 28%,
-          var(--azul-600) 31% 100%
-        );
-
-      box-shadow:
-        0 0 0 3px rgba(37, 99, 235, .12);
     }
 
     .alternativa span {
-      flex: 1;
+      color: #374151;
+      line-height: 1.4;
     }
 
-    /* =========================
-       BOTÃO FINALIZAR
-    ========================= */
-
     .quiz-acoes {
+      margin-top: 24px;
       display: flex;
       justify-content: flex-end;
-
-      margin-top: 22px;
     }
 
     .btn-finalizar {
-      border: 0;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul-600),
-          var(--azul-900)
-        );
-
+      border: none;
+      border-radius: 10px;
+      background: #0b5ed7;
       color: #fff;
-
-      padding: 12px 22px;
-
-      border-radius: 11px;
-
-      font-size: 14px;
-      font-weight: 800;
-
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
-
-      box-shadow:
-        0 6px 16px rgba(29, 78, 216, .22);
-
-      transition:
-        transform .15s,
-        box-shadow .2s,
-        filter .2s;
     }
 
     .btn-finalizar:hover {
-      filter: brightness(1.05);
-
-      transform: translateY(-1px);
-
-      box-shadow:
-        0 9px 20px rgba(29, 78, 216, .28);
+      background: #084298;
     }
-
-    .btn-finalizar:active {
-      transform: translateY(1px);
-    }
-
-    /* =========================
-       RESULTADO
-    ========================= */
 
     .resultado-quiz {
-      margin-top: 22px;
-
-      padding: 28px 22px;
-
-      border-radius: 18px;
-
-      text-align: center;
-
-      font-weight: 600;
-
       display: none;
-
-      box-shadow:
-        0 8px 24px rgba(15, 42, 92, .08);
+      margin-top: 20px;
+      padding: 22px;
+      border-radius: 12px;
+      text-align: center;
     }
 
     .resultado-quiz.sucesso {
       display: block;
-
-      background:
-        linear-gradient(
-          180deg,
-          #f0fdf4,
-          #f7fff9
-        );
-
-      color: var(--verde);
-
-      border: 1px solid var(--verde-borda);
-
-      animation: resultadoEntrada .35s ease;
+      background: #ecfdf3;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
     }
 
     .resultado-quiz.erro {
       display: block;
-
-      background:
-        linear-gradient(
-          180deg,
-          #fef2f2,
-          #fffafa
-        );
-
-      color: var(--vermelho);
-
-      border: 1px solid var(--vermelho-borda);
-
-      animation: resultadoEntrada .35s ease;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
     }
 
     .resultado-percentual {
-      font-size: 52px;
-      line-height: 1;
-
-      font-weight: 900;
-
-      letter-spacing: -1px;
+      font-size: 38px;
+      font-weight: 800;
+      margin-bottom: 5px;
     }
 
     .resultado-detalhe {
-      margin-top: 10px;
-
-      font-size: 17px;
-      font-weight: 800;
+      font-size: 16px;
+      font-weight: 600;
     }
 
     .resultado-mensagem {
-      margin-top: 7px;
-
-      font-size: 14px;
-      font-weight: 500;
-
-      opacity: .9;
+      margin-top: 8px;
     }
 
-    @keyframes resultadoEntrada {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    #estado {
+      width: min(1100px, calc(100% - 32px));
+      margin: 30px auto;
+      text-align: center;
+      color: #667085;
     }
-
-    /* =========================
-       VAZIO
-    ========================= */
-
-    .vazio {
-      padding: 17px;
-
-      background: #f8fafc;
-
-      border: 1px dashed var(--borda);
-      border-radius: 11px;
-
-      color: var(--texto-suave);
-
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* =========================
-       RESPONSIVO
-    ========================= */
 
     @media (max-width: 700px) {
-
-      .curso-wrap {
-        padding: 14px 12px 40px;
-      }
-
       .curso-topo {
-        padding: 12px 14px;
+        padding: 14px 16px;
       }
 
-      .curso-topo strong {
-        font-size: 16px;
+      .curso-topo h1 {
+        font-size: 18px;
       }
 
-      .curso-topo .acoes {
-        width: 100%;
+      .curso-topo-acoes {
+        gap: 6px;
       }
 
-      .curso-topo .acoes .curso-btn {
-        flex: 1;
+      .curso-topo button {
+        padding: 8px 10px;
+        font-size: 13px;
       }
 
-      .curso-header {
-        padding: 25px 20px;
-        border-radius: 16px;
+      .curso-conteudo {
+        width: min(100% - 20px, 1100px);
+        margin: 20px auto;
       }
 
-      .curso-header h1 {
-        font-size: 23px;
-      }
-
-      .curso-header p {
-        font-size: 14px;
-      }
-
+      .curso-cabecalho,
       .curso-secao {
-        margin-top: 32px;
-      }
-
-      .curso-secao h2 {
-        font-size: 19px;
-      }
-
-      .modulo-card {
-        padding: 17px;
-      }
-
-      .modulo-topo {
-        gap: 12px;
-      }
-
-      .modulo-num {
-        flex-basis: 38px;
-        width: 38px;
-        height: 38px;
-      }
-
-      .pergunta-card {
         padding: 18px;
-        border-radius: 15px;
       }
 
-      .pergunta-enunciado {
-        font-size: 16px;
-      }
-
-      .alternativa {
-        min-height: 55px;
-        padding: 13px;
+      .curso-cabecalho h2 {
+        font-size: 23px;
       }
 
       .quiz-acoes {
@@ -857,138 +314,65 @@
       .btn-finalizar {
         width: 100%;
       }
-
-      .resultado-percentual {
-        font-size: 46px;
-      }
-    }
-
-    @media (max-width: 420px) {
-
-      .curso-topo {
-        align-items: stretch;
-      }
-
-      .curso-topo .acoes {
-        flex-direction: column;
-      }
-
-      .curso-header {
-        padding: 22px 17px;
-      }
-
-      .pergunta-card {
-        padding: 15px;
-      }
-
-      .alternativa {
-        gap: 10px;
-        padding: 12px;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="curso-wrap">
+  <div class="curso-pagina">
 
-    <!-- TOPO -->
-    <div class="curso-topo">
+    <header class="curso-topo">
+      <h1>Capacita Gov</h1>
 
-      <strong>
-        Capacita Gov
-      </strong>
-
-      <div class="acoes">
-
-        <button
-          class="curso-btn sec"
-          id="btnVoltar"
-          type="button">
+      <div class="curso-topo-acoes">
+        <button type="button" id="btnVoltar">
           Voltar
         </button>
 
-        <button
-          class="curso-btn"
-          id="btnSair"
-          type="button">
+        <button type="button" id="btnSair">
           Sair
         </button>
-
       </div>
+    </header>
 
-    </div>
-
-    <!-- ESTADO -->
-    <div
-      id="estado"
-      class="aviso info">
+    <div id="estado">
       Carregando curso...
     </div>
 
-    <!-- CONTEÚDO -->
-    <div
-      id="conteudo"
-      style="display:none">
+    <main id="conteudo" class="curso-conteudo" style="display:none">
 
-      <!-- CABEÇALHO DO CURSO -->
-      <div class="curso-header">
-
-        <h1 id="cursoNome"></h1>
-
+      <section class="curso-cabecalho">
+        <h2 id="cursoNome"></h2>
         <p id="cursoDescricao"></p>
-
-      </div>
-
-      <!-- MÓDULOS -->
-      <section class="curso-secao">
-
-        <h2>
-          Conteúdo do curso
-        </h2>
-
-        <div
-          id="modulos"
-          class="modulos-lista">
-        </div>
-
       </section>
 
-      <!-- PERGUNTAS -->
-      <section
-        class="curso-secao"
-        id="secaoPerguntas"
-        style="display:none">
+      <section class="curso-secao">
+        <h2>Módulos do curso</h2>
 
-        <h2>
-          Perguntas do curso
-        </h2>
+        <div id="modulos"></div>
+      </section>
 
-        <div
-          id="perguntas"
-          class="perguntas-lista">
-        </div>
+      <section class="curso-secao" id="secaoPerguntas" style="display:none">
+
+        <h2>Perguntas do curso</h2>
+
+        <div id="perguntas" class="perguntas-lista"></div>
 
         <div class="quiz-acoes">
-
           <button
             type="button"
             id="btnFinalizarQuiz"
             class="btn-finalizar">
             Finalizar perguntas
           </button>
-
         </div>
 
-        <div
-          id="resultadoQuiz"
-          class="resultado-quiz">
-        </div>
+        <div id="resultadoQuiz" class="resultado-quiz"></div>
 
       </section>
 
-    </div>
+    </main>
 
   </div>
 
@@ -1001,426 +385,202 @@
       esc
     } from "./js/config.js";
 
-    const el = id =>
-      document.getElementById(id);
 
+    const el = id => document.getElementById(id);
+
+    let cursoAtual = null;
     let perguntasCurso = [];
 
-    function mostrarEstado(msg, tipo) {
-
-      const e = el("estado");
-
-      e.className =
-        "aviso " + (tipo || "info");
-
-      e.textContent = msg;
-
-      e.style.display = "block";
-
-      el("conteudo").style.display =
-        "none";
-    }
-
-    function tipoAula(tipo) {
-
-      const tipos = {
-        texto: "Texto",
-        atividade: "Material",
-        video: "Material externo",
-        pdf: "PDF"
-      };
-
-      return tipos[
-        String(tipo || "").toLowerCase()
-      ] || "Conteúdo";
-    }
 
     function renderizarAula(aula) {
 
-      const tipo =
-        String(aula.tipo || "")
-          .toLowerCase();
+      return `
+        <article class="aula-card">
 
-      let conteudo = "";
-
-      /*
-       * TEXTO
-       */
-      if (tipo === "texto") {
-
-        conteudo = `
-          <p class="aula-texto">
-            ${esc(aula.descricao || "")}
-          </p>
-        `;
-
-      /*
-       * PDF / MATERIAL
-       */
-      } else if (
-        tipo === "atividade" ||
-        tipo === "pdf"
-      ) {
-
-        conteudo = `
-          <p class="aula-texto">
-            ${esc(
-              aula.descricao ||
-              "Material disponível para consulta."
-            )}
-          </p>
+          <div class="aula-titulo">
+            ${esc(aula.titulo || "Aula")}
+          </div>
 
           ${
-            aula.url
+            aula.descricao
               ? `
-                <div class="aula-acoes">
+                <div class="aula-descricao">
+                  ${esc(aula.descricao)}
+                </div>
+              `
+              : ""
+          }
 
+          ${
+            aula.material_url
+              ? `
+                <div class="aula-material">
                   <a
-                    class="link-material"
-                    href="${esc(aula.url)}"
+                    href="${esc(aula.material_url)}"
                     target="_blank"
                     rel="noopener noreferrer">
                     Abrir material
                   </a>
-
                 </div>
               `
               : ""
           }
-        `;
 
-      /*
-       * LINK EXTERNO / VÍDEO
-       */
-      } else if (
-        tipo === "video" ||
-        tipo === "link"
-      ) {
-
-        conteudo = `
-          <p class="aula-texto">
-            ${esc(
-              aula.descricao ||
-              "Material externo disponível."
-            )}
-          </p>
-
-          ${
-            aula.url
-              ? `
-                <div class="aula-acoes">
-
-                  <a
-                    class="link-material"
-                    href="${esc(aula.url)}"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Acessar material
-                  </a>
-
-                </div>
-              `
-              : ""
-          }
-        `;
-
-      /*
-       * OUTROS TIPOS
-       */
-      } else {
-
-        conteudo = `
-          ${
-            aula.descricao
-              ? `
-                <p class="aula-texto">
-                  ${esc(aula.descricao)}
-                </p>
-              `
-              : ""
-          }
-
-          ${
-            aula.url
-              ? `
-                <div class="aula-acoes">
-
-                  <a
-                    class="link-material"
-                    href="${esc(aula.url)}"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Abrir conteúdo
-                  </a>
-
-                </div>
-              `
-              : ""
-          }
-        `;
-      }
-
-      return `
-        <div class="aula-card">
-
-          <span class="aula-tipo">
-            ${esc(tipoAula(aula.tipo))}
-          </span>
-
-          <h4>
-            ${esc(
-              aula.titulo ||
-              "Conteúdo"
-            )}
-          </h4>
-
-          ${conteudo}
-
-        </div>
+        </article>
       `;
     }
 
+
     async function carregarAulas(modulos) {
 
-      const moduloIds =
-        modulos.map(m => m.id);
-
-      if (!moduloIds.length) {
-        return {};
+      if (!modulos.length) {
+        return [];
       }
 
-      const {
-        data: aulas,
-        error
-      } = await supabase
+      const ids = modulos.map(modulo => modulo.id);
+
+      const { data, error } = await supabase
         .from("aulas")
         .select("*")
-        .in("modulo_id", moduloIds)
+        .in("modulo_id", ids)
         .eq("ativo", true)
-        .order(
-          "ordem",
-          {
-            ascending: true
-          }
-        );
+        .order("ordem", { ascending: true });
 
       if (error) {
-
         throw new Error(
-          "Erro ao carregar conteúdos: " +
-          error.message
+          "Erro ao carregar aulas: " + error.message
         );
       }
 
-      const agrupadas = {};
-
-      (aulas || []).forEach(aula => {
-
-        if (!agrupadas[aula.modulo_id]) {
-          agrupadas[aula.modulo_id] = [];
-        }
-
-        agrupadas[aula.modulo_id]
-          .push(aula);
-
-      });
-
-      return agrupadas;
+      return data || [];
     }
 
-    function renderizarModulos(
-      modulos,
-      aulasPorModulo
-    ) {
 
-      const lista =
-        el("modulos");
+    function renderizarModulos(modulos, aulas) {
 
-      if (
-        !modulos ||
-        modulos.length === 0
-      ) {
+      const container = el("modulos");
 
-        lista.innerHTML = `
-          <div class="vazio">
-            Este curso ainda não possui
-            módulos cadastrados.
-          </div>
+      if (!modulos.length) {
+
+        container.innerHTML = `
+          <p>
+            Nenhum módulo disponível neste curso.
+          </p>
         `;
 
         return;
       }
 
-      lista.innerHTML =
-        modulos.map((m, i) => {
+      container.innerHTML = modulos
+        .map(modulo => {
 
-          const aulas =
-            aulasPorModulo[m.id] || [];
+          const aulasModulo = aulas.filter(
+            aula => aula.modulo_id === modulo.id
+          );
 
           return `
             <article class="modulo-card">
 
-              <div class="modulo-topo">
-
-                <div class="modulo-num">
-                  ${esc(
-                    m.ordem != null
-                      ? m.ordem
-                      : i + 1
-                  )}
-                </div>
-
-                <div>
-
-                  <h3>
-                    ${esc(
-                      m.nome ||
-                      m.titulo ||
-                      "Módulo"
-                    )}
-                  </h3>
-
-                  ${
-                    m.descricao
-                      ? `
-                        <p>
-                          ${esc(
-                            m.descricao
-                          )}
-                        </p>
-                      `
-                      : ""
-                  }
-
-                </div>
-
+              <div class="modulo-titulo">
+                ${esc(modulo.nome || "Módulo")}
               </div>
 
-              ${
-                aulas.length
-                  ? `
-                    <div class="aulas-lista">
-                      ${aulas
-                        .map(
-                          renderizarAula
-                        )
-                        .join("")}
-                    </div>
-                  `
-                  : `
-                    <div class="vazio">
-                      Este módulo ainda não
-                      possui conteúdos.
-                    </div>
-                  `
-              }
+              <div class="aulas-lista">
+
+                ${
+                  aulasModulo.length
+                    ? aulasModulo
+                        .map(renderizarAula)
+                        .join("")
+                    : `
+                      <p>
+                        Nenhuma aula disponível neste módulo.
+                      </p>
+                    `
+                }
+
+              </div>
 
             </article>
           `;
 
-        }).join("");
+        })
+        .join("");
     }
+
 
     function renderizarPerguntas() {
 
-      const secao =
-        el("secaoPerguntas");
-
-      const lista =
-        el("perguntas");
+      const secao = el("secaoPerguntas");
+      const lista = el("perguntas");
 
       if (!perguntasCurso.length) {
 
-        secao.style.display =
-          "none";
+        secao.style.display = "none";
 
         return;
       }
 
-      secao.style.display =
-        "block";
+      secao.style.display = "block";
+
 
       lista.innerHTML =
         perguntasCurso
           .map((pergunta, indice) => {
 
             return `
-              <article
-                class="pergunta-card">
+              <article class="pergunta-card">
 
-                <div
-                  class="pergunta-numero">
+                <div class="pergunta-numero">
                   Pergunta ${indice + 1}
                 </div>
 
-                <p
-                  class="pergunta-enunciado">
-
+                <p class="pergunta-enunciado">
                   ${esc(
-                    pergunta.enunciado ||
                     pergunta.pergunta ||
-                    pergunta.titulo ||
                     "Pergunta"
                   )}
-
                 </p>
 
-                <div
-                  class="alternativas">
+                <div class="alternativas">
 
-                  <label
-                    class="alternativa">
+                  <label class="alternativa">
 
                     <input
                       type="radio"
-                      name="pergunta-${esc(
-                        pergunta.id
-                      )}"
+                      name="pergunta-${esc(pergunta.id)}"
                       value="1">
 
                     <span>
-                      ${esc(
-                        pergunta.opcao1 ||
-                        ""
-                      )}
+                      ${esc(pergunta.opcao_a || "")}
                     </span>
 
                   </label>
 
-                  <label
-                    class="alternativa">
+
+                  <label class="alternativa">
 
                     <input
                       type="radio"
-                      name="pergunta-${esc(
-                        pergunta.id
-                      )}"
+                      name="pergunta-${esc(pergunta.id)}"
                       value="2">
 
                     <span>
-                      ${esc(
-                        pergunta.opcao2 ||
-                        ""
-                      )}
+                      ${esc(pergunta.opcao_b || "")}
                     </span>
 
                   </label>
 
-                  <label
-                    class="alternativa">
+
+                  <label class="alternativa">
 
                     <input
                       type="radio"
-                      name="pergunta-${esc(
-                        pergunta.id
-                      )}"
+                      name="pergunta-${esc(pergunta.id)}"
                       value="3">
 
                     <span>
-                      ${esc(
-                        pergunta.opcao3 ||
-                        ""
-                      )}
+                      ${esc(pergunta.opcao_c || "")}
                     </span>
 
                   </label>
@@ -1433,14 +593,15 @@
           })
           .join("");
 
+
       /*
        * Permite que o CSS controle
        * quando o resultado aparece.
        */
-      el(
-        "resultadoQuiz"
-      ).style.display = "";
+      el("resultadoQuiz").style.display = "";
+
     }
+
 
     function finalizarQuiz() {
 
@@ -1448,42 +609,42 @@
         return;
       }
 
+
       let acertos = 0;
       let respondidas = 0;
 
-      perguntasCurso.forEach(
-        pergunta => {
 
-          const selecionada =
-            document.querySelector(
-              `input[name="pergunta-${pergunta.id}"]:checked`
-            );
+      perguntasCurso.forEach(pergunta => {
 
-          if (!selecionada) {
-            return;
-          }
+        const selecionada =
+          document.querySelector(
+            `input[name="pergunta-${pergunta.id}"]:checked`
+          );
 
-          respondidas++;
 
-          if (
-            Number(
-              selecionada.value
-            ) ===
-            Number(
-              pergunta.resposta_correta
-            )
-          ) {
-            acertos++;
-          }
+        if (!selecionada) {
+          return;
+        }
+
+
+        respondidas++;
+
+
+        if (
+          Number(selecionada.value) ===
+          Number(pergunta.resposta_correta)
+        ) {
+
+          acertos++;
 
         }
-      );
 
-      const resultado =
-        el("resultadoQuiz");
+      });
 
-      const total =
-        perguntasCurso.length;
+
+      const resultado = el("resultadoQuiz");
+      const total = perguntasCurso.length;
+
 
       if (respondidas < total) {
 
@@ -1496,20 +657,18 @@
         return;
       }
 
+
       const percentual =
-        Math.round(
-          (acertos / total) * 100
-        );
+        Math.round((acertos / total) * 100);
+
 
       resultado.className =
         "resultado-quiz " +
-        (
-          percentual >= 50
-            ? "sucesso"
-            : "erro"
-        );
+        (percentual >= 50 ? "sucesso" : "erro");
+
 
       resultado.innerHTML = `
+
         <div class="resultado-percentual">
           ${percentual}%
         </div>
@@ -1527,29 +686,20 @@
           }
 
         </div>
+
       `;
+
     }
 
-    async function carregarPerguntas(
-      cursoId
-    ) {
 
-      const {
-        data,
-        error
-      } = await supabase
+    async function carregarPerguntas(cursoId) {
+
+      const { data, error } = await supabase
         .from("questoes")
         .select("*")
-        .eq(
-          "curso_id",
-          cursoId
-        )
-        .order(
-          "ordem",
-          {
-            ascending: true
-          }
-        );
+        .eq("curso_id", cursoId)
+        .order("ordem", { ascending: true });
+
 
       if (error) {
 
@@ -1557,32 +707,213 @@
           "Erro ao carregar perguntas: " +
           error.message
         );
+
       }
 
-      perguntasCurso =
-        data || [];
+
+      perguntasCurso = data || [];
 
       renderizarPerguntas();
+
     }
 
-    /* =========================
-       BOTÕES
-    ========================= */
+
+    async function iniciar() {
+
+      try {
+
+        await exigirPerfil("aluno");
+
+
+        const {
+          data: {
+            session
+          }
+        } = await supabase.auth.getSession();
+
+
+        if (!session) {
+          throw new Error("Usuário não autenticado.");
+        }
+
+
+        const params =
+          new URLSearchParams(
+            window.location.search
+          );
+
+
+        const cursoId =
+          params.get("id");
+
+
+        if (!cursoId) {
+          throw new Error(
+            "Curso não informado."
+          );
+        }
+
+
+        const {
+          data: matricula,
+          error: erroMatricula
+        } = await supabase
+          .from("matriculas")
+          .select("id, ativo")
+          .eq("usuario_id", session.user.id)
+          .eq("curso_id", cursoId)
+          .eq("ativo", true)
+          .maybeSingle();
+
+
+        if (erroMatricula) {
+
+          throw new Error(
+            "Erro ao verificar matrícula: " +
+            erroMatricula.message
+          );
+
+        }
+
+
+        if (!matricula) {
+
+          throw new Error(
+            "Você não está matriculado neste curso."
+          );
+
+        }
+
+
+        const {
+          data: curso,
+          error: erroCurso
+        } = await supabase
+          .from("cursos")
+          .select("*")
+          .eq("id", cursoId)
+          .eq("ativo", true)
+          .single();
+
+
+        if (erroCurso) {
+
+          throw new Error(
+            "Erro ao carregar curso: " +
+            erroCurso.message
+          );
+
+        }
+
+
+        if (!curso) {
+
+          throw new Error(
+            "Curso não encontrado."
+          );
+
+        }
+
+
+        cursoAtual = curso;
+
+
+        el("cursoNome").textContent =
+          curso.nome || "Curso";
+
+
+        el("cursoDescricao").textContent =
+          curso.descricao ||
+          "Curso disponível no Capacita Gov.";
+
+
+        const {
+          data: modulos,
+          error: erroModulos
+        } = await supabase
+          .from("modulos")
+          .select("*")
+          .eq("curso_id", cursoId)
+          .eq("ativo", true)
+          .order("ordem", {
+            ascending: true
+          });
+
+
+        if (erroModulos) {
+
+          throw new Error(
+            "Erro ao carregar módulos: " +
+            erroModulos.message
+          );
+
+        }
+
+
+        const listaModulos =
+          modulos || [];
+
+
+        const aulas =
+          await carregarAulas(
+            listaModulos
+          );
+
+
+        renderizarModulos(
+          listaModulos,
+          aulas
+        );
+
+
+        await carregarPerguntas(
+          cursoId
+        );
+
+
+        el("estado").style.display =
+          "none";
+
+        el("conteudo").style.display =
+          "block";
+
+      }
+
+      catch (erro) {
+
+        console.error(erro);
+
+        el("estado").textContent =
+          "Erro inesperado: " +
+          erro.message;
+
+      }
+
+    }
+
 
     el("btnVoltar")
       .addEventListener(
         "click",
         () => {
+
           window.location.href =
             "aluno.html";
+
         }
       );
+
 
     el("btnSair")
       .addEventListener(
         "click",
-        () => sair()
+        async () => {
+
+          await sair();
+
+        }
       );
+
 
     el("btnFinalizarQuiz")
       .addEventListener(
@@ -1590,227 +921,10 @@
         finalizarQuiz
       );
 
-    /* =========================
-       INICIAR
-    ========================= */
 
-    async function iniciar() {
-
-      /*
-       * 1. Verificar perfil
-       */
-      const perfil =
-        await exigirPerfil("aluno");
-
-      if (!perfil) {
-        return;
-      }
-
-      /*
-       * 2. Usuário logado
-       */
-      const {
-        data: sess
-      } =
-        await supabase.auth
-          .getSession();
-
-      const user =
-        sess?.session?.user;
-
-      if (!user) {
-
-        window.location.href =
-          "index.html";
-
-        return;
-      }
-
-      /*
-       * 3. ID do curso
-       */
-      const cursoId =
-        new URLSearchParams(
-          window.location.search
-        ).get("id");
-
-      if (!cursoId) {
-
-        return mostrarEstado(
-          "Curso não informado na URL.",
-          "erro"
-        );
-      }
-
-      /*
-       * 4. Verificar matrícula
-       */
-      const {
-        data: mat,
-        error: errMat
-      } =
-        await supabase
-          .from("matriculas")
-          .select("*")
-          .eq(
-            "usuario_id",
-            user.id
-          )
-          .eq(
-            "curso_id",
-            cursoId
-          )
-          .eq(
-            "ativo",
-            true
-          )
-          .limit(1);
-
-      if (errMat) {
-
-        return mostrarEstado(
-          "Erro ao verificar matrícula: " +
-          errMat.message,
-          "erro"
-        );
-      }
-
-      if (
-        !mat ||
-        mat.length === 0
-      ) {
-
-        return mostrarEstado(
-          "Acesso não autorizado: você não está matriculado neste curso.",
-          "erro"
-        );
-      }
-
-      /*
-       * 5. Carregar curso
-       */
-      const {
-        data: curso,
-        error: errCurso
-      } =
-        await supabase
-          .from("cursos")
-          .select("*")
-          .eq(
-            "id",
-            cursoId
-          )
-          .maybeSingle();
-
-      if (
-        errCurso ||
-        !curso
-      ) {
-
-        return mostrarEstado(
-          "Curso não encontrado.",
-          "erro"
-        );
-      }
-
-      el("cursoNome")
-        .textContent =
-        curso.nome ||
-        curso.titulo ||
-        "Curso";
-
-      el("cursoDescricao")
-        .textContent =
-        curso.descricao ||
-        "";
-
-      /*
-       * 6. Carregar módulos
-       */
-      const {
-        data: modulos,
-        error: errMod
-      } =
-        await supabase
-          .from("modulos")
-          .select("*")
-          .eq(
-            "curso_id",
-            cursoId
-          )
-          .eq(
-            "ativo",
-            true
-          )
-          .order(
-            "ordem",
-            {
-              ascending: true
-            }
-          );
-
-      if (errMod) {
-
-        return mostrarEstado(
-          "Erro ao carregar módulos: " +
-          errMod.message,
-          "erro"
-        );
-      }
-
-      /*
-       * 7. Carregar aulas
-       */
-      const aulasPorModulo =
-        await carregarAulas(
-          modulos || []
-        );
-
-      /*
-       * 8. Mostrar módulos
-       */
-      renderizarModulos(
-        modulos || [],
-        aulasPorModulo
-      );
-
-      /*
-       * 9. Carregar perguntas
-       */
-      await carregarPerguntas(
-        cursoId
-      );
-
-      /*
-       * 10. Mostrar página
-       */
-      el("estado")
-        .style.display =
-        "none";
-
-      el("conteudo")
-        .style.display =
-        "block";
-    }
-
-    iniciar()
-      .catch(err => {
-
-        console.error(
-          "Erro ao carregar curso:",
-          err
-        );
-
-        mostrarEstado(
-          "Erro inesperado: " +
-          err.message,
-          "erro"
-        );
-
-      });
+    iniciar();
 
   </script>
 
 </body>
 </html>
-```
