@@ -4669,5 +4669,336 @@ body .curso-pagina .cronometro-quiz.bloqueado .cronometro-info strong {
   }
 
 }
+/* =========================================================
+   ÁREA DO ALUNO — NOVO VISUAL (branco e azul)
+   Só CSS. Não altera aluno.html nem aluno.js.
+   Vale apenas na tela do aluno (por causa do #titulo-boas-vindas).
+   ========================================================= */
 
+.layout:has(#titulo-boas-vindas) {
+  background: #EEF4FF;
+}
+
+
+/* ---------- Menu lateral ---------- */
+
+.layout:has(#titulo-boas-vindas) .side {
+  background: #ffffff;
+  border-right: 1px solid #D6E2F7;
+  box-shadow: none;
+}
+
+/* Logo no lugar do texto "Capacita Gov".
+   O subtítulo tem largura fixa (textLength), então não passa da linha do menu. */
+.layout:has(#titulo-boas-vindas) .side .brand {
+  box-sizing: border-box;
+  width: 216px;
+  max-width: 100%;
+  height: 65px;
+  margin: 0;
+  padding: 0 0 18px;
+
+  font-size: 0;
+  color: transparent;
+
+  border-bottom: 1px solid #E3EDFE;
+
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='216' height='46' viewBox='0 0 216 46'><rect x='0' y='3' width='40' height='40' rx='11' fill='%231D5FE0'/><g transform='translate(8 11)' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 10 12 5 2 10l10 5 10-5z'/><path d='M6 12v5c3 2 9 2 12 0v-5'/><path d='M22 10v6'/></g><text x='50' y='22' font-family='Inter,Arial,sans-serif' font-size='20' font-weight='800' fill='%230B2A6F'>Capacita <tspan fill='%231D5FE0'>Gov</tspan></text><text x='50' y='37' font-family='Inter,Arial,sans-serif' font-size='8.6' font-weight='700' fill='%2364748B' textLength='160' lengthAdjust='spacing'>PLATAFORMA DE CAPACITA%C3%87%C3%83O</text></svg>") no-repeat left top / auto 46px;
+}
+
+/* Remove o item "Catálogo" do menu */
+.layout:has(#titulo-boas-vindas) .side nav a[href="#catalogo"] {
+  display: none !important;
+}
+
+/* Itens do menu: sem sublinhado */
+.layout:has(#titulo-boas-vindas) .side .nav-btn {
+  text-decoration: none;
+  color: #5B6F94;
+}
+
+.layout:has(#titulo-boas-vindas) .side .nav-btn:hover {
+  background: #F6F9FF;
+  color: #1D5FE0;
+}
+
+.layout:has(#titulo-boas-vindas) .side .nav-btn.ativo {
+  background: #E3EDFE;
+  color: #1D5FE0;
+  border-color: transparent;
+}
+
+/* Botão Sair */
+.layout:has(#titulo-boas-vindas) .side #btn-sair {
+  width: 100%;
+  background: #ffffff;
+  color: #1D5FE0;
+  border: 1px solid #1D5FE0;
+  border-radius: 10px;
+}
+
+.layout:has(#titulo-boas-vindas) .side #btn-sair:hover {
+  background: #E3EDFE;
+  color: #1D5FE0;
+  border-color: #1D5FE0;
+}
+
+
+/* ---------- Banner azul: saudação + perfil + pesquisa ---------- */
+
+.layout:has(#titulo-boas-vindas) main > .top {
+  margin: 0;
+  padding: 22px 24px 16px;
+
+  background: #1D5FE0;
+  border-radius: 14px 14px 0 0;
+}
+
+.layout:has(#titulo-boas-vindas) main > .top h1 {
+  color: #ffffff;
+  font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+  letter-spacing: -0.02em;
+}
+
+.layout:has(#titulo-boas-vindas) main > .top h1::after {
+  content: "Continue de onde parou e evolua na sua capacitação.";
+
+  display: block;
+  margin-top: 4px;
+
+  color: #DCE8FF;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Perfil do aluno em "pílula" branca */
+.layout:has(#titulo-boas-vindas) main > .top .mut {
+  padding: 4px 14px 4px 4px;
+
+  border-radius: 999px;
+
+  background: #ffffff;
+  color: #0F2A5C;
+  font-size: 0.85rem;
+}
+
+.layout:has(#titulo-boas-vindas) #aluno-avatar-letra {
+  background: #1D5FE0 !important;
+  color: #ffffff;
+}
+
+/* Cartão da pesquisa vira a parte de baixo do banner */
+.layout:has(#titulo-boas-vindas) main > section.card {
+  margin-bottom: 1.75rem !important;
+  padding: 0 24px 22px;
+
+  background: #1D5FE0;
+  border: 0;
+  border-radius: 0 0 14px 14px;
+  box-shadow: none;
+}
+
+.layout:has(#titulo-boas-vindas) main > section.card > div {
+  gap: 8px !important;
+  padding: 6px;
+
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.layout:has(#titulo-boas-vindas) #campo-busca {
+  height: 44px;
+  padding: 0 12px;
+
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  color: #0F2A5C;
+}
+
+.layout:has(#titulo-boas-vindas) #campo-busca:focus {
+  border: 0;
+  box-shadow: none;
+}
+
+.layout:has(#titulo-boas-vindas) #btn-pesquisar {
+  min-height: 44px;
+  padding: 0 22px;
+
+  border-radius: 9px;
+  background: #1D5FE0;
+}
+
+.layout:has(#titulo-boas-vindas) #btn-pesquisar:hover {
+  background: #174BB5;
+}
+
+
+/* ---------- Títulos das seções ---------- */
+
+.layout:has(#titulo-boas-vindas) #meus-cursos > h2,
+.layout:has(#titulo-boas-vindas) #catalogo > h2 {
+  margin-bottom: 0.9rem;
+
+  color: #0B2A6F;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+
+/* ---------- Categorias do catálogo ---------- */
+
+.layout:has(#titulo-boas-vindas) #categorias .categoria-btn {
+  border: 1px solid #D6E2F7;
+  background: #ffffff;
+  color: #5B6F94;
+}
+
+.layout:has(#titulo-boas-vindas) #categorias .categoria-btn:hover {
+  background: #E3EDFE;
+  border-color: #9DBCF5;
+  color: #1D5FE0;
+}
+
+.layout:has(#titulo-boas-vindas) #categorias .categoria-btn.ativo {
+  background: #1D5FE0;
+  border-color: #1D5FE0;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+
+/* ---------- Cartões dos cursos ---------- */
+
+.layout:has(#titulo-boas-vindas) #cursos .curso-card,
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card {
+  border: 1px solid #D6E2F7;
+  border-radius: 14px;
+  box-shadow: none;
+}
+
+.layout:has(#titulo-boas-vindas) #cursos .curso-card:hover,
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card:hover {
+  transform: translateY(-3px);
+  border-color: #9DBCF5;
+  box-shadow: 0 12px 28px rgba(29, 95, 224, 0.12);
+}
+
+/* Faixa azul no topo do cartão */
+.layout:has(#titulo-boas-vindas) #cursos .curso-card::before,
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card::before {
+  content: "";
+  display: block;
+  flex: none;
+  height: 6px;
+  background: #1D5FE0;
+}
+
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card::before {
+  background: #9DBCF5;
+}
+
+.layout:has(#titulo-boas-vindas) .curso-categoria {
+  border: 0;
+  background: #E3EDFE;
+  color: #1D5FE0;
+}
+
+.layout:has(#titulo-boas-vindas) .curso-titulo {
+  color: #0B2A6F;
+}
+
+.layout:has(#titulo-boas-vindas) .curso-descricao {
+  color: #5B6F94;
+}
+
+/* Carga horária com linha separadora */
+.layout:has(#titulo-boas-vindas) .curso-meta {
+  margin-top: 14px;
+  padding-top: 12px;
+
+  border-top: 1px solid #E3EDFE;
+  color: #5B6F94;
+}
+
+/* Botão "Acessar curso" */
+.layout:has(#titulo-boas-vindas) #cursos .curso-card .btn,
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card .btn {
+  margin-top: auto;
+  padding: 0.8rem 1rem;
+
+  border-radius: 10px;
+  background: #1D5FE0;
+  color: #ffffff;
+}
+
+.layout:has(#titulo-boas-vindas) #cursos .curso-card .btn::after,
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card .btn::after {
+  content: "→";
+  margin-left: 8px;
+}
+
+.layout:has(#titulo-boas-vindas) #cursos .curso-card .btn:hover {
+  background: #174BB5;
+  box-shadow: none;
+}
+
+.layout:has(#titulo-boas-vindas) .curso-meta + .btn {
+  margin-top: 1.1rem;
+}
+
+/* No catálogo o botão fica só com contorno, para o "Meus cursos" se destacar */
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card .btn {
+  background: #ffffff;
+  color: #1D5FE0;
+  border: 1px solid #1D5FE0;
+}
+
+.layout:has(#titulo-boas-vindas) #catalogo-cursos .curso-card .btn:hover {
+  background: #E3EDFE;
+  box-shadow: none;
+}
+
+/* Aviso "Você ainda não está matriculado" */
+.layout:has(#titulo-boas-vindas) .curso-nao-matriculado {
+  margin-top: auto;
+  padding: 0.7rem 1rem;
+
+  border-radius: 10px;
+  background: #F6F9FF;
+  color: #5B6F94;
+  font-size: 0.85rem;
+}
+
+/* Mensagens "Nenhum curso encontrado" */
+.layout:has(#titulo-boas-vindas) .estado {
+  padding: 1.25rem;
+
+  border: 1px dashed #9DBCF5;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #5B6F94;
+}
+
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 900px) {
+
+  .layout:has(#titulo-boas-vindas) .side .brand {
+    height: 46px;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .layout:has(#titulo-boas-vindas) main > .top {
+    padding: 18px 16px 14px;
+  }
+
+  .layout:has(#titulo-boas-vindas) main > section.card {
+    padding: 0 16px 18px;
+  }
+
+}
 
