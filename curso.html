@@ -831,6 +831,11 @@
 
       alterarEstadoQuiz(false);
 
+      el("resultadoQuiz").className =
+        "resultado-quiz";
+
+      el("resultadoQuiz").innerHTML = "";
+
       atualizarCronometro();
 
       intervaloQuiz = setInterval(() => {
@@ -1074,8 +1079,19 @@
       }
 
 
+      clearInterval(intervaloQuiz);
+
+      const tempoUtilizado =
+        TEMPO_QUIZ - tempoRestanteQuiz;
+
       const percentual =
         Math.round((acertos / total) * 100);
+
+      const erros =
+        total - acertos;
+
+
+      alterarEstadoQuiz(true);
 
 
       resultado.className =
@@ -1090,20 +1106,36 @@
         </div>
 
         <div class="resultado-detalhe">
-          ${acertos} de ${total} acertos
+          ${acertos} acertos e ${erros} erros
+        </div>
+
+        <div class="resultado-detalhe">
+          Tempo utilizado: ${formatarTempo(tempoUtilizado)}
         </div>
 
         <div class="resultado-mensagem">
 
           ${
             percentual >= 50
-              ? "Parabéns, você foi aprovado!"
-              : "Continue estudando e tente novamente!"
+              ? "Teste aprovado"
+              : "Teste reprovado"
+          }
+
+        </div>
+
+        <div class="resultado-mensagem">
+
+          ${
+            percentual >= 50
+              ? "Teste finalizado com sucesso."
+              : "Você poderá refazer o teste após o período de bloqueio."
           }
 
         </div>
 
       `;
+
+      iniciarBloqueioQuiz();
 
     }
 
