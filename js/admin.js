@@ -166,7 +166,7 @@ async function carregarCursos() {
     console.error("Erro ao carregar cursos:", error);
 
     $("tb-cursos").innerHTML = linhaVazia(
-      4,
+      5,
       "Erro ao carregar cursos."
     );
 
@@ -198,11 +198,118 @@ async function carregarCursos() {
               <td>
                 ${fmtData(c.criado_em)}
               </td>
+
+              <td>
+                <div
+                  style="
+                    display:flex;
+                    gap:8px;
+                    flex-wrap:wrap;
+                  "
+                >
+                  <button
+                    class="btn"
+                    type="button"
+                    data-renomear-curso="${esc(c.id)}"
+                  >
+                    Renomear
+                  </button>
+
+                  ${
+                    c.ativo
+                      ? `
+                        <button
+                          class="btn"
+                          type="button"
+                          data-remover-curso="${esc(c.id)}"
+                        >
+                          Remover
+                        </button>
+                      `
+                      : `
+                        <button
+                          class="btn"
+                          type="button"
+                          data-ativar-curso="${esc(c.id)}"
+                        >
+                          Ativar
+                        </button>
+                      `
+                  }
+                </div>
+              </td>
             </tr>
           `
         )
         .join("")
-    : linhaVazia(4, "Nenhum curso criado.");
+    : linhaVazia(5, "Nenhum curso criado.");
+}
+
+
+// ===============================
+// RENOMEAR CURSO
+// ===============================
+
+async function renomearCurso(id, botao) {
+  const { data: curso, error: erroBusca } = await supabase
+    .from("cursos")
+    .select("id, nome")
+    .eq("id", id)
+    .single();
+
+  if (erroBusca || !curso) {
+    alert("Não foi possível carregar o curso.");
+    return;
+  }
+
+  const novoNome = prompt(
+    "Digite o novo nome do curso:",
+    curso.nome
+  );
+
+  if (novoNome === null) {
+    return;
+  }
+
+  const nome = novoNome.trim();
+
+  if (!nome) {
+    alert("O nome do curso não pode ficar vazio.");
+    return;
+  }
+
+  if (nome === curso.nome) {
+    return;
+  }
+
+  botao.disabled = true;
+  botao.textContent = "Salvando...";
+
+  const { error } = await supabase
+    .from("cursos")
+    .update({
+      nome
+    })
+    .eq("id", id);
+
+  if (error) {
+    console.error("Erro ao renomear curso:", error);
+
+    botao.disabled = false;
+    botao.textContent = "Renomear";
+
+    alert(
+      "Não foi possível renomear o curso: " +
+      error.message
+    );
+
+    return;
+  }
+
+  await carregarCursos();
+  await prepararMatricula();
+  await carregarMatriculas();
+  await carregarGraficos();
 }
 
 
@@ -238,6 +345,8 @@ async function removerCurso(id, botao) {
 
   await carregarCursos();
   await prepararMatricula();
+  await carregarMatriculas();
+  await carregarGraficos();
 }
 
 
@@ -269,6 +378,8 @@ async function ativarCurso(id, botao) {
 
   await carregarCursos();
   await prepararMatricula();
+  await carregarMatriculas();
+  await carregarGraficos();
 }
 
 
@@ -912,16 +1023,16 @@ async function cadastrarCurso(e) {
       throw error;
     }
 
-  cursoCriado = data;
-ultimoCursoId = data.id;
+    cursoCriado = data;
+    ultimoCursoId = data.id;
 
-await criarEstruturaInternaCurso(
-  data.id,
-  nome,
-  conteudo,
-  pdfUrl,
-  urlCurso
-);
+    await criarEstruturaInternaCurso(
+      data.id,
+      nome,
+      conteudo,
+      pdfUrl,
+      urlCurso
+    );
 
     mensagem.textContent =
       "Curso cadastrado com sucesso.";
@@ -1712,7 +1823,7 @@ async function autorizarAcesso(
     return;
   }
 
-    const { error: erroEmail } =
+  const { error: erroEmail } =
     await supabase.functions.invoke(
       "enviar-email-acesso",
       {
@@ -1728,7 +1839,7 @@ async function autorizarAcesso(
       "Erro ao enviar e-mail:",
       erroEmail
     );
-   }
+  }
 
   const linha =
     botao.closest("tr");
@@ -2603,6 +2714,63 @@ async function init() {
         }
       );
   }
+
+
+  // ===============================
+  // AÇÕES DOS CURSOS
+  // ===============================
+
+  if ($("tb-cursos")) {
+    $("tb-cursos")
+      .addEventListener(
+        "click",
+        (e) => {
+
+          const renomear =
+            e.target.closest(
+              "[data-renomear-curso]"
+            );
+
+          if (renomear) {
+            renomearCurso(
+              renomear.dataset.renomearCurso,
+              renomear
+            );
+
+            return;
+          }
+
+          const remover =
+            e.target.closest(
+              "[data-remover-curso]"
+            );
+
+          if (remover) {
+            removerCurso(
+              remover.dataset.removerCurso,
+              remover
+            );
+
+            return;
+          }
+
+          const ativar =
+            e.target.closest(
+              "[data-ativar-curso]"
+            );
+
+          if (ativar) {
+            ativarCurso(
+              ativar.dataset.ativarCurso,
+              ativar
+            );
+
+            return;
+          }
+        }
+      );
+  }
+
 
   document.body.hidden = false;
 
