@@ -4159,3 +4159,9 @@ td.vazio {
   }
 
 }
+[data-curso-id="ID_343232"],
+[data-curso-id="ID_aaaaaaaaaaaaa"],
+[data-curso-id="ID_admistracao"],
+[data-curso-id="ID_sadsdsa"] {
+  display: none !important;
+}
