@@ -438,7 +438,17 @@ async function carregarMatriculas() {
             ${lista
               .map(
                 (m) =>
-                  `<li>${esc(m.perfis?.nome)} ${badge(m.ativo)}</li>`
+                  `<li>${esc(m.perfis?.nome)} ${badge(m.ativo)}
+                    <button
+                      class="btn"
+                      type="button"
+                      data-alterar-matricula="${esc(m.id)}"
+                      data-matricula-ativa="${m.ativo ? "true" : "false"}"
+                      style="margin-left:8px;"
+                    >
+                      ${m.ativo ? "Remover" : "Ativar"}
+                    </button>
+                  </li>`
               )
               .join("")}
           </ul>
@@ -446,6 +456,55 @@ async function carregarMatriculas() {
       `
     )
     .join("");
+}
+
+
+// ===============================
+// REMOVER / ATIVAR MATRÍCULA
+// ===============================
+
+async function alterarMatricula(id, estaAtiva, botao) {
+  const confirmar = confirm(
+    estaAtiva
+      ? "Tem certeza que deseja remover esta matrícula?"
+      : "Deseja ativar esta matrícula novamente?"
+  );
+
+  if (!confirmar) return;
+
+  const textoOriginal = botao.textContent;
+
+  botao.disabled = true;
+  botao.textContent = estaAtiva
+    ? "Removendo..."
+    : "Ativando...";
+
+  const { error } = await supabase
+    .from("matriculas")
+    .update({
+      ativo: !estaAtiva
+    })
+    .eq("id", id);
+
+  if (error) {
+    console.error(
+      "Erro ao alterar matrícula:",
+      error
+    );
+
+    botao.disabled = false;
+    botao.textContent = textoOriginal;
+
+    alert(
+      "Não foi possível alterar a matrícula: " +
+      error.message
+    );
+
+    return;
+  }
+
+  await carregarMatriculas();
+  await carregarGraficos();
 }
 
 
@@ -2767,6 +2826,32 @@ async function init() {
 
             return;
           }
+        }
+      );
+  }
+
+
+  // ===============================
+  // AÇÕES DAS MATRÍCULAS
+  // ===============================
+
+  if ($("lista-matriculas")) {
+    $("lista-matriculas")
+      .addEventListener(
+        "click",
+        (e) => {
+          const botaoMatricula =
+            e.target.closest(
+              "[data-alterar-matricula]"
+            );
+
+          if (!botaoMatricula) return;
+
+          alterarMatricula(
+            botaoMatricula.dataset.alterarMatricula,
+            botaoMatricula.dataset.matriculaAtiva === "true",
+            botaoMatricula
+          );
         }
       );
   }
