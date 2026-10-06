@@ -51,6 +51,37 @@
       </section>
     </main>
   </div>
+
   <script type="module" src="js/aluno.js"></script>
+
+  <!-- Esconde só estes cursos, visualmente, para todos os alunos -->
+  <script>
+    (function () {
+      const ESCONDER = ["343232", "aaaaaaaaaaaaa", "admistracao", "sadsdsa"];
+
+      const norm = t =>
+        (t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
+
+      const bloqueados = ESCONDER.map(norm);
+
+      function filtrar() {
+        document
+          .querySelectorAll("#catalogo-cursos > *, #cursos > *")
+          .forEach(card => {
+            const titulo = card.querySelector(".curso-titulo, h3");
+            if (titulo && bloqueados.includes(norm(titulo.textContent))) {
+              card.style.display = "none";
+            }
+          });
+      }
+
+      filtrar();
+
+      new MutationObserver(filtrar).observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    })();
+  </script>
 </body>
 </html>
