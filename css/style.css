@@ -4165,5 +4165,509 @@ td.vazio {
 [data-curso-id="ID_sadsdsa"] {
   display: none !important;
 }
+/* =========================================================
+   TELA DO CURSO — NOVO VISUAL (branco e azul)
+   Só CSS. Não altera HTML nem JS.
+   ========================================================= */
+
+body .curso-pagina {
+  --azul: #1D5FE0;
+  --azul-escuro: #0B2A6F;
+  --azul-hover: #174BB5;
+  --azul-claro: #E3EDFE;
+  --azul-borda: #D6E2F7;
+  --azul-medio: #9DBCF5;
+  --texto: #0F2A5C;
+  --texto-suave: #5B6F94;
+
+  background: #EEF4FF;
+  color: var(--texto);
+}
+
+.curso-pagina #estado {
+  color: var(--texto-suave);
+}
+
+
+/* ---------- Cabeçalho com a logo ---------- */
+
+.curso-pagina .curso-topo {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  padding: 12px max(24px, calc((100vw - 1100px) / 2));
+
+  background: #ffffff;
+  color: var(--azul-escuro);
+  border-bottom: 1px solid var(--azul-borda);
+}
+
+/* O texto "Capacita Gov" do h1 é escondido e no lugar entra a logo
+   (ícone + nome + subtítulo) desenhada em SVG. */
+.curso-pagina .curso-topo h1 {
+  width: 250px;
+  height: 48px;
+  margin: 0;
+  overflow: hidden;
+
+  font-size: 0;
+  color: transparent;
+
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='48' viewBox='0 0 260 48'><rect x='1' y='1' width='46' height='46' rx='13' fill='%231D5FE0'/><g transform='translate(10.5 10.5) scale(1.1)' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M22 10 12 5 2 10l10 5 10-5z'/><path d='M6 12v5c3 2 9 2 12 0v-5'/><path d='M22 10v6'/></g><text x='58' y='26' font-family='Inter,Arial,sans-serif' font-size='23' font-weight='800' fill='%230B2A6F'>Capacita <tspan fill='%231D5FE0'>Gov</tspan></text><text x='58' y='41' font-family='Inter,Arial,sans-serif' font-size='9.5' font-weight='700' letter-spacing='1.3' fill='%2364748B'>PLATAFORMA DE CAPACITA%C3%87%C3%83O</text></svg>") no-repeat left center / contain;
+}
+
+.curso-pagina .curso-topo button {
+  min-height: 38px;
+  padding: 0 18px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.curso-pagina #btnVoltar {
+  background: #ffffff;
+  color: var(--azul);
+  border: 1px solid var(--azul);
+}
+
+.curso-pagina #btnVoltar:hover {
+  background: var(--azul-claro);
+}
+
+.curso-pagina #btnSair {
+  background: var(--azul);
+  color: #ffffff;
+  border: 1px solid var(--azul);
+}
+
+.curso-pagina #btnSair:hover {
+  background: var(--azul-hover);
+}
+
+
+/* ---------- Apresentação do curso ---------- */
+
+.curso-pagina .curso-cabecalho,
+.curso-pagina .curso-secao {
+  border: 1px solid var(--azul-borda);
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.curso-pagina .curso-cabecalho {
+  padding: 28px;
+}
+
+/* Selo "Curso" acima do título */
+.curso-pagina .curso-cabecalho h2::before {
+  content: "Curso";
+
+  display: block;
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 5px 13px;
+
+  border-radius: 999px;
+
+  background: var(--azul-claro);
+  color: var(--azul);
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.curso-pagina .curso-cabecalho h2 {
+  color: var(--azul-escuro);
+  letter-spacing: -0.03em;
+}
+
+.curso-pagina .curso-cabecalho p {
+  max-width: 75ch;
+  color: var(--texto-suave);
+}
+
+.curso-pagina .curso-secao h2 {
+  color: var(--azul-escuro);
+  letter-spacing: -0.02em;
+}
+
+
+/* ---------- Módulos e aulas ---------- */
+
+.curso-pagina .modulo-card {
+  border: 1px solid var(--azul-borda);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.curso-pagina .modulo-card:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--azul-medio);
+}
+
+.curso-pagina .modulo-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: #F6F9FF;
+  border-bottom: 1px solid var(--azul-borda);
+  color: var(--azul-escuro);
+}
+
+.curso-pagina .modulo-titulo::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--azul);
+}
+
+.curso-pagina .aula-card {
+  padding: 18px;
+  border: 1px solid var(--azul-borda);
+  border-radius: 12px;
+}
+
+.curso-pagina .aula-titulo {
+  color: var(--azul-escuro);
+}
+
+.curso-pagina .aula-descricao {
+  color: var(--texto);
+  line-height: 1.75;
+}
+
+.curso-pagina .aula-material a {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 9px;
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.curso-pagina .aula-material a:hover {
+  background: var(--azul-hover);
+}
+
+
+/* ---------- Cronômetro ---------- */
+
+.curso-pagina .cronometro-quiz {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  padding: 14px 18px;
+
+  border: 1px solid var(--azul-borda);
+  border-radius: 12px;
+
+  background: var(--azul-claro);
+}
+
+.curso-pagina #cronometroQuiz {
+  min-width: 0;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--azul-escuro);
+}
+
+.curso-pagina .cronometro-quiz .cronometro-info {
+  color: var(--azul-escuro);
+  font-weight: 650;
+}
+
+.curso-pagina .cronometro-quiz .cronometro-info strong {
+  margin-left: 6px;
+  color: var(--azul);
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+body .curso-pagina .cronometro-quiz.aviso {
+  border-color: var(--azul);
+  background: #ffffff;
+}
+
+body .curso-pagina .cronometro-quiz.aviso .cronometro-info,
+body .curso-pagina .cronometro-quiz.aviso .cronometro-info strong {
+  color: var(--azul);
+}
+
+body .curso-pagina .cronometro-quiz.bloqueado {
+  border-color: var(--azul);
+  background: var(--azul);
+}
+
+body .curso-pagina .cronometro-quiz.bloqueado .cronometro-info,
+body .curso-pagina .cronometro-quiz.bloqueado .cronometro-info strong {
+  color: #ffffff;
+}
+
+
+/* ---------- Perguntas ---------- */
+
+.curso-pagina .pergunta-card {
+  padding: 22px;
+  border: 1px solid var(--azul-borda);
+  border-radius: 14px;
+}
+
+.curso-pagina .pergunta-numero {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--azul-claro);
+  color: var(--azul);
+}
+
+.curso-pagina .pergunta-enunciado {
+  color: var(--azul-escuro);
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+
+/* ---------- Alternativas (alinhadas) ----------
+   Corrige o desalinhamento causado pelo "input { width:100% }"
+   e pelo "label { display:block }" do style.css.
+   A letra (A, B, C) vem de um contador CSS, no lado direito. */
+
+.curso-pagina .alternativas {
+  counter-reset: alt;
+}
+
+.curso-pagina .alternativa {
+  counter-increment: alt;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin: 0;
+  padding: 13px 16px;
+  min-height: 54px;
+
+  border: 1.5px solid var(--azul-borda);
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  text-align: left;
+  font-weight: 500;
+}
+
+.curso-pagina .alternativa input {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  box-shadow: none;
+
+  opacity: 0;
+  cursor: pointer;
+}
+
+.curso-pagina .alternativa span {
+  order: 1;
+  flex: 1;
+  min-width: 0;
+
+  color: var(--texto);
+  line-height: 1.45;
+}
+
+.curso-pagina .alternativa::before {
+  content: counter(alt, upper-alpha);
+
+  order: 2;
+  flex: none;
+
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--azul-borda);
+  border-radius: 9px;
+
+  background: #F6F9FF;
+  color: var(--texto-suave);
+
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.curso-pagina .alternativa:hover {
+  border-color: var(--azul-medio);
+  background: #F6F9FF;
+}
+
+.curso-pagina .alternativa:has(input:checked) {
+  border-color: var(--azul);
+  background: var(--azul-claro);
+  box-shadow: 0 0 0 1px var(--azul) inset;
+}
+
+.curso-pagina .alternativa:has(input:checked)::before {
+  border-color: var(--azul);
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.curso-pagina .alternativa:has(input:focus-visible) {
+  outline: 3px solid rgba(29, 95, 224, .35);
+  outline-offset: 2px;
+}
+
+
+/* ---------- Botão Finalizar ---------- */
+
+.curso-pagina .btn-finalizar {
+  min-height: 46px;
+  padding: 0 24px;
+  border-radius: 11px;
+  background: var(--azul);
+}
+
+.curso-pagina .btn-finalizar:hover {
+  background: var(--azul-hover);
+}
+
+.curso-pagina .btn-finalizar:disabled,
+.curso-pagina .btn-finalizar:disabled:hover {
+  background: #8FB0F2;
+  opacity: 1;
+}
+
+
+/* ---------- Resultado ---------- */
+
+.curso-pagina .resultado-quiz.sucesso,
+.curso-pagina .resultado-quiz.erro,
+.curso-pagina .resultado-quiz.atencao {
+  padding: 32px 22px;
+
+  border: 0;
+  border-radius: 16px;
+
+  background: var(--azul);
+  color: #ffffff;
+}
+
+.curso-pagina .resultado-quiz:has(.resultado-percentual)::before {
+  content: "Seu resultado";
+
+  display: block;
+
+  color: #DCE8FF;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.curso-pagina .resultado-percentual {
+  margin: 4px 0 14px;
+
+  color: #ffffff;
+
+  font-size: clamp(3.2rem, 10vw, 4.4rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+/* "1 acertos e 9 erros" e "Tempo utilizado" viram dois blocos brancos */
+.curso-pagina .resultado-detalhe {
+  display: inline-block;
+
+  margin: 6px 4px;
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: var(--azul);
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* "Teste aprovado" / "Teste reprovado" como selo */
+.curso-pagina .resultado-detalhe + .resultado-mensagem {
+  display: inline-block;
+
+  margin-top: 16px;
+  padding: 7px 18px;
+
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, .16);
+  color: #ffffff;
+
+  font-weight: 750;
+}
+
+.curso-pagina .resultado-mensagem + .resultado-mensagem {
+  margin-top: 14px;
+  color: #ffffff;
+}
+
+/* Aviso "Você respondeu X de Y perguntas" (sem porcentagem) */
+.curso-pagina .resultado-quiz.erro:not(:has(.resultado-percentual)) {
+  padding: 16px 20px;
+
+  border: 1px solid var(--azul-medio);
+
+  background: var(--azul-claro);
+  color: var(--azul-escuro);
+
+  font-weight: 600;
+}
+
+
+/* ---------- Celular ---------- */
+
+@media (max-width: 700px) {
+
+  .curso-pagina .curso-topo {
+    padding: 10px 14px;
+  }
+
+  .curso-pagina .curso-topo h1 {
+    width: 200px;
+    height: 40px;
+  }
+
+  .curso-pagina .curso-topo button {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .curso-pagina .pergunta-card {
+    padding: 16px;
+  }
+
+  .curso-pagina .cronometro-quiz .cronometro-info strong {
+    font-size: 1.15rem;
+  }
+
+}
 
 
