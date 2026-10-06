@@ -3565,3 +3565,164 @@ td.vazio {
 }
 
 }
+/* =========================================================
+   ACRESCENTAR NO FINAL DO CSS (não altera nada acima)
+   Área do aluno: remove imagens e refaz os cards
+   ========================================================= */
+
+/* ---------- 1) Remove as imagens dos cursos (aluno) ---------- */
+
+#cursos img,
+#catalogo-cursos img,
+.cursos-grid img,
+.curso-card img,
+.curso-imagem,
+.curso-imagem-vazia {
+  display: none !important;
+}
+
+/* Se preferir MINIATURA em vez de remover, apague o bloco acima
+   e use este:
+
+#cursos img,
+#catalogo-cursos img,
+.cursos-grid img,
+.curso-card img,
+.curso-imagem {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 160px !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+*/
+
+
+/* ---------- 2) Grade alinhada ---------- */
+
+#cursos,
+#catalogo-cursos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (min-width: 1100px) {
+  #cursos,
+  #catalogo-cursos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  #cursos,
+  #catalogo-cursos {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+
+/* ---------- 3) Cards ---------- */
+
+#cursos .curso-card,
+#catalogo-cursos .curso-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  padding: 0 !important;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow:
+    0 2px 5px rgba(15, 23, 42, 0.04),
+    0 8px 24px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+#cursos .curso-card:hover,
+#catalogo-cursos .curso-card:hover {
+  transform: translateY(-4px);
+  border-color: #bfdbfe;
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.08),
+    0 18px 35px rgba(37, 99, 235, 0.08);
+}
+
+#cursos .curso-card-conteudo,
+#catalogo-cursos .curso-card-conteudo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 1.25rem;
+}
+
+#cursos .curso-categoria,
+#catalogo-cursos .curso-categoria {
+  display: inline-flex;
+  align-self: flex-start;
+  max-width: 100%;
+  margin: 0 0 0.65rem;
+  padding: 0.32rem 0.65rem;
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#cursos .curso-titulo,
+#catalogo-cursos .curso-titulo {
+  margin: 0;
+  color: #0f2f6f;
+  font-size: 1.08rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+#cursos .curso-descricao,
+#catalogo-cursos .curso-descricao {
+  margin: 0.7rem 0 0;
+  color: #64748b;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+#cursos .curso-meta,
+#catalogo-cursos .curso-meta {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  color: #64748b;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+#cursos .curso-card .btn,
+#catalogo-cursos .curso-card .btn {
+  width: 100%;
+  margin-top: auto;
+  padding: 0.72rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+#cursos .curso-meta + .btn,
+#catalogo-cursos .curso-meta + .btn {
+  margin-top: 1.2rem;
+}
