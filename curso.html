@@ -603,6 +603,168 @@
     }
 
 
+    async function salvarResposta(pergunta, respostaEscolhida) {
+
+      if (!cursoAtual) {
+        console.error("Curso atual não encontrado.");
+        return;
+      }
+
+
+      const {
+        data: {
+          session
+        }
+      } = await supabase.auth.getSession();
+
+
+      if (!session) {
+        console.error("Usuário não autenticado.");
+        return;
+      }
+
+
+      const acertou =
+        Number(respostaEscolhida) ===
+        Number(pergunta.resposta_correta);
+
+
+      const {
+        data: respostaExistente,
+        error: erroBusca
+      } = await supabase
+        .from("respostas_quiz")
+        .select("id")
+        .eq("usuario_id", session.user.id)
+        .eq("curso_id", cursoAtual.id)
+        .eq("questao_id", pergunta.id)
+        .maybeSingle();
+
+
+      if (erroBusca) {
+        console.error(
+          "Erro ao verificar resposta existente:",
+          erroBusca
+        );
+        return;
+      }
+
+
+      let erroSalvar = null;
+
+
+      if (respostaExistente) {
+
+        const {
+          error
+        } = await supabase
+          .from("respostas_quiz")
+          .update({
+            resposta_escolhida: Number(respostaEscolhida),
+            acertou: acertou,
+            respondida_em: new Date().toISOString()
+          })
+          .eq("id", respostaExistente.id);
+
+        erroSalvar = error;
+
+      } else {
+
+        const {
+          error
+        } = await supabase
+          .from("respostas_quiz")
+          .insert({
+            usuario_id: session.user.id,
+            curso_id: cursoAtual.id,
+            questao_id: pergunta.id,
+            resposta_escolhida: Number(respostaEscolhida),
+            acertou: acertou
+          });
+
+        erroSalvar = error;
+
+      }
+
+
+      if (erroSalvar) {
+
+        console.error(
+          "Erro ao salvar resposta:",
+          erroSalvar
+        );
+
+        return;
+      }
+
+
+      console.log(
+        "Resposta salva com sucesso."
+      );
+
+    }
+
+
+    function ativarSalvamentoRespostas() {
+
+      el("perguntas").addEventListener(
+        "change",
+        async event => {
+
+          const input =
+            event.target.closest(
+              'input[type="radio"]'
+            );
+
+
+          if (!input) {
+            return;
+          }
+
+
+          const nome =
+            input.getAttribute("name");
+
+
+          if (!nome) {
+            return;
+          }
+
+
+          const perguntaId =
+            nome.replace(
+              "pergunta-",
+              ""
+            );
+
+
+          const pergunta =
+            perguntasCurso.find(
+              item =>
+                String(item.id) ===
+                String(perguntaId)
+            );
+
+
+          if (!pergunta) {
+            console.error(
+              "Pergunta não encontrada."
+            );
+            return;
+          }
+
+
+          await salvarResposta(
+            pergunta,
+            input.value
+          );
+
+        }
+      );
+
+    }
+
+
     function finalizarQuiz() {
 
       if (!perguntasCurso.length) {
@@ -714,6 +876,8 @@
       perguntasCurso = data || [];
 
       renderizarPerguntas();
+
+      ativarSalvamentoRespostas();
 
     }
 
