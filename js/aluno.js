@@ -720,11 +720,6 @@ function abrirCurso(
   cursoId
 ) {
 
-  console.log(
-    "ID DO CURSO NO BOTÃO:",
-    cursoId
-  );
-
   if (!cursoId) {
 
     console.error(
@@ -736,16 +731,12 @@ function abrirCurso(
 
   const id = String(cursoId).trim();
 
-  const urlCurso =
-  `${window.location.origin}/curso?id=${encodeURIComponent(id)}`;
-
-  console.log(
-    "ABRINDO CURSO:",
-    urlCurso
+  window.location.assign(
+    `curso.html?id=${encodeURIComponent(id)}`
   );
-
-  window.location.assign(urlCurso);
 }
+
+
 // ===============================
 // INICIALIZAÇÃO
 // ===============================
