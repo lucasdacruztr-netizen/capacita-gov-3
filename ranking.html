@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ranking | Capacita Gov</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      margin: 0;
+      background: #f5f7fb;
+      font-family: Arial, sans-serif;
+    }
+
+    .ranking-topo {
+      background: #0b5ed7;
+      color: #fff;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .ranking-topo h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .ranking-acoes {
+      display: flex;
+      gap: 10px;
+    }
+
+    .ranking-acoes button {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #btnVoltar {
+      background: #fff;
+      color: #0b5ed7;
+    }
+
+    #btnSair {
+      background: rgba(255,255,255,.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.3);
+    }
+
+    .ranking-container {
+      width: min(1000px, calc(100% - 30px));
+      margin: 30px auto;
+    }
+
+    .ranking-cabecalho {
+      background: #fff;
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .ranking-cabecalho h2 {
+      margin: 0 0 8px;
+      color: #123;
+    }
+
+    .ranking-cabecalho p {
+      margin: 0;
+      color: #667085;
+    }
+
+    .ranking-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ranking-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 70px 1fr 130px 150px;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      border: 1px solid #e5e7eb;
+    }
+
+    .ranking-posicao {
+      font-size: 25px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .ranking-nome {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1f2937;
+    }
+
+    .ranking-curso {
+      margin-top: 5px;
+      color: #667085;
+      font-size: 14px;
+    }
+
+    .ranking-acertos {
+      text-align: center;
+      font-weight: 700;
+      color: #374151;
+    }
+
+    .ranking-percentual {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: #0b5ed7;
+    }
+
+    .ranking-vazio {
+      background: #fff;
+      padding: 30px;
+      border-radius: 14px;
+      text-align: center;
+      color: #667085;
+    }
+
+    .carregando {
+      text-align: center;
+      padding: 30px;
+      color: #667085;
+    }
+
+    @media (max-width: 700px) {
+
+      .ranking-topo {
+        padding: 14px 16px;
+      }
+
+      .ranking-topo h1 {
+        font-size: 18px;
+      }
+
+      .ranking-acoes button {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+
+      .ranking-container {
+        width: min(100% - 20px, 1000px);
+        margin: 20px auto;
+      }
+
+      .ranking-item {
+        grid-template-columns: 55px 1fr;
+      }
+
+      .ranking-acertos,
+      .ranking-percentual {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="ranking-topo">
+
+    <h1>🏆 Ranking Capacita Gov</h1>
+
+    <div class="ranking-acoes">
+
+      <button
+        type="button"
+        id="btnVoltar">
+        Voltar
+      </button>
+
+      <button
+        type="button"
+        id="btnSair">
+        Sair
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main class="ranking-container">
+
+    <section class="ranking-cabecalho">
+
+      <h2>Ranking dos alunos</h2>
+
+      <p>
+        Classificação baseada no desempenho nas perguntas dos cursos.
+      </p>
+
+    </section>
+
+
+    <div id="estado" class="carregando">
+      Carregando ranking...
+    </div>
+
+
+    <div
+      id="rankingLista"
+      class="ranking-lista">
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    import {
+      supabase,
+      exigirPerfil,
+      sair,
+      esc
+    } from "./js/config.js";
+
+
+    const el = id =>
+      document.getElementById(id);
+
+
+    async function carregarRanking() {
+
+      try {
+
+        await exigirPerfil("aluno");
+
+
+        const {
+          data: respostas,
+          error: erroRespostas
+        } = await supabase
+          .from("respostas_quiz")
+          .select(`
+            usuario_id,
+            curso_id,
+            acertou,
+            cursos (
+              nome
+            )
+          `);
+
+
+        if (erroRespostas) {
+
+          throw new Error(
+            "Erro ao carregar respostas: " +
+            erroRespostas.message
+          );
+
+        }
+
+
+        const {
+          data: perfis,
+          error: erroPerfis
+        } = await supabase
+          .from("perfis")
+          .select("id, nome")
+          .eq("tipo", "aluno")
+          .eq("ativo", true);
+
+
+        if (erroPerfis) {
+
+          throw new Error(
+            "Erro ao carregar alunos: " +
+            erroPerfis.message
+          );
+
+        }
+
+
+        const mapaPerfis = new Map();
+
+        (perfis || []).forEach(perfil => {
+
+          mapaPerfis.set(
+            perfil.id,
+            perfil.nome
+          );
+
+        });
+
+
+        const rankingMapa = new Map();
+
+
+        (respostas || []).forEach(resposta => {
+
+          const usuarioId =
+            resposta.usuario_id;
+
+          const cursoId =
+            resposta.curso_id;
+
+          const chave =
+            usuarioId + "-" + cursoId;
+
+
+          if (!rankingMapa.has(chave)) {
+
+            rankingMapa.set(
+              chave,
+              {
+                usuarioId: usuarioId,
+                cursoId: cursoId,
+                nome:
+                  mapaPerfis.get(usuarioId) ||
+                  "Aluno",
+                curso:
+                  resposta.cursos?.nome ||
+                  "Curso",
+                total: 0,
+                acertos: 0
+              }
+            );
+
+          }
+
+
+          const item =
+            rankingMapa.get(chave);
+
+
+          item.total++;
+
+
+          if (resposta.acertou) {
+            item.acertos++;
+          }
+
+        });
+
+
+        const ranking =
+          Array.from(
+            rankingMapa.values()
+          );
+
+
+        ranking.forEach(item => {
+
+          item.percentual =
+            item.total > 0
+              ? Math.round(
+                  (item.acertos /
+                    item.total) *
+                  100
+                )
+              : 0;
+
+        });
+
+
+        ranking.sort((a, b) => {
+
+          if (
+            b.percentual !==
+            a.percentual
+          ) {
+            return (
+              b.percentual -
+              a.percentual
+            );
+          }
+
+          if (
+            b.acertos !==
+            a.acertos
+          ) {
+            return (
+              b.acertos -
+              a.acertos
+            );
+          }
+
+          return (
+            b.total -
+            a.total
+          );
+
+        });
+
+
+        renderizarRanking(
+          ranking
+        );
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        el("estado").textContent =
+          "Erro ao carregar ranking: " +
+          erro.message;
+
+      }
+
+    }
+
+
+    function renderizarRanking(ranking) {
+
+      const estado =
+        el("estado");
+
+      const lista =
+        el("rankingLista");
+
+
+      estado.style.display =
+        "none";
+
+
+      if (!ranking.length) {
+
+        lista.innerHTML = `
+          <div class="ranking-vazio">
+            Ainda não existem respostas suficientes
+            para montar o ranking.
+          </div>
+        `;
+
+        return;
+      }
+
+
+      lista.innerHTML =
+        ranking
+          .map((item, indice) => {
+
+            const posicao =
+              indice + 1;
+
+
+            let medalha =
+              posicao + "º";
+
+
+            if (posicao === 1) {
+              medalha = "🥇";
+            }
+
+            if (posicao === 2) {
+              medalha = "🥈";
+            }
+
+            if (posicao === 3) {
+              medalha = "🥉";
+            }
+
+
+            return `
+
+              <article class="ranking-item">
+
+                <div class="ranking-posicao">
+                  ${medalha}
+                </div>
+
+
+                <div>
+
+                  <div class="ranking-nome">
+                    ${esc(item.nome)}
+                  </div>
+
+                  <div class="ranking-curso">
+                    ${esc(item.curso)}
+                  </div>
+
+                </div>
+
+
+                <div class="ranking-acertos">
+
+                  ${item.acertos}
+                  /${item.total}
+                  acertos
+
+                </div>
+
+
+                <div class="ranking-percentual">
+
+                  ${item.percentual}%
+
+                </div>
+
+              </article>
+
+            `;
+
+          })
+          .join("");
+
+    }
+
+
+    el("btnVoltar")
+      .addEventListener(
+        "click",
+        () => {
+
+          window.location.href =
+            "aluno.html";
+
+        }
+      );
+
+
+    el("btnSair")
+      .addEventListener(
+        "click",
+        async () => {
+
+          await sair();
+
+        }
+      );
+
+
+    carregarRanking();
+
+  </script>
+
+</body>
+</html>
