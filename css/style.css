@@ -4165,9 +4165,5 @@ td.vazio {
 [data-curso-id="ID_sadsdsa"] {
   display: none !important;
 }
-/* Catálogo: esconde os cursos em que o aluno não está matriculado (sem botão) */
-#catalogo-cursos > .curso-card:not(:has(.btn, button)),
-#catalogo-cursos > .card:not(:has(.btn, button)),
-.secao-catalogo .cursos-grid > .card:not(:has(.btn, button)) {
-  display: none !important;
-}
+
+
