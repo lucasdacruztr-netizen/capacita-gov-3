@@ -405,14 +405,14 @@
 
       <!-- MÓDULOS -->
       <section class="curso-secao">
-        <h2>📚 Conteúdo do curso</h2>
+        <h2> Conteúdo do curso</h2>
 
         <div id="modulos" class="modulos-lista"></div>
       </section>
 
       <!-- PERGUNTAS -->
       <section class="curso-secao" id="secaoPerguntas" style="display:none">
-        <h2>❓ Perguntas do curso</h2>
+        <h2> Perguntas do curso</h2>
 
         <div id="perguntas" class="perguntas-lista"></div>
 
@@ -458,10 +458,10 @@
     function tipoAula(tipo) {
 
       const tipos = {
-        texto: "📝 Texto",
-        atividade: "📄 Material",
-        video: "🔗 Material externo",
-        pdf: "📄 PDF"
+        texto: " Texto",
+        atividade: " Material",
+        video: " Material externo",
+        pdf: " PDF"
       };
 
       return tipos[String(tipo || "").toLowerCase()] || "📚 Conteúdo";
@@ -506,7 +506,7 @@
                     href="${esc(aula.url)}"
                     target="_blank"
                     rel="noopener noreferrer">
-                    📄 Abrir material
+                     Abrir material
                   </a>
                 </div>
               `
@@ -536,7 +536,7 @@
                     href="${esc(aula.url)}"
                     target="_blank"
                     rel="noopener noreferrer">
-                    🔗 Acessar material
+                     Acessar material
                   </a>
                 </div>
               `
@@ -565,7 +565,7 @@
                     href="${esc(aula.url)}"
                     target="_blank"
                     rel="noopener noreferrer">
-                    🔗 Abrir conteúdo
+                     Abrir conteúdo
                   </a>
                 </div>
               `
