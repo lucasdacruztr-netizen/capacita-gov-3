@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curso - Capacita Gov</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Estilos locais apenas desta página (não altera o style.css) */
+    :root {
+      --azul-900: #0f2a5c;
+      --azul-700: #1d4ed8;
+      --azul-600: #2563eb;
+      --azul-100: #dbeafe;
+      --azul-50: #eff6ff;
+      --texto: #0f172a;
+      --texto-suave: #475569;
+      --borda: #e2e8f0;
+    }
+    body { margin: 0; background: linear-gradient(180deg, var(--azul-50) 0%, #f8fafc 280px); color: var(--texto); font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; min-height: 100vh; }
+    .curso-wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+    .curso-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; padding: 14px 20px; background: #fff; border: 1px solid var(--borda); border-radius: 14px; box-shadow: 0 2px 8px rgba(15,42,92,.06); }
+    .curso-topo strong { color: var(--azul-900); font-size: 18px; letter-spacing: .2px; }
+    .curso-topo .acoes { display: flex; gap: 8px; }
+    .curso-btn { cursor: pointer; border: 1px solid var(--azul-700); background: var(--azul-700); color: #fff; padding: 9px 18px; border-radius: 10px; font-size: 14px; font-weight: 600; transition: background .15s, box-shadow .15s, transform .1s; }
+    .curso-btn:hover { background: var(--azul-900); border-color: var(--azul-900); box-shadow: 0 4px 10px rgba(29,78,216,.25); }
+    .curso-btn:active { transform: translateY(1px); }
+    .curso-btn:focus-visible { outline: 3px solid var(--azul-100); outline-offset: 2px; }
+    .curso-btn.sec { background: #fff; color: var(--azul-700); }
+    .curso-btn.sec:hover { background: var(--azul-50); color: var(--azul-900); box-shadow: none; }
+    .curso-header { background: linear-gradient(135deg, var(--azul-900), var(--azul-700)); color: #fff; padding: 28px 24px; border-radius: 16px; box-shadow: 0 8px 24px rgba(29,78,216,.25); }
+    .curso-header h1 { margin: 0 0 10px; font-size: 28px; line-height: 1.2; }
+    .curso-header p { margin: 0; color: #dbeafe; line-height: 1.6; font-size: 15px; }
+    .curso-secao { margin-top: 36px; }
+    .curso-secao h2 { margin: 0 0 16px; font-size: 20px; color: var(--azul-900); padding-left: 12px; border-left: 4px solid var(--azul-600); }
+    .modulos-lista { display: grid; gap: 14px; }
+    .modulo-card { display: flex; gap: 16px; align-items: flex-start; background: #fff; border: 1px solid var(--borda); border-radius: 14px; padding: 18px; box-shadow: 0 1px 3px rgba(15,42,92,.06); transition: box-shadow .2s, transform .2s, border-color .2s; }
+    .modulo-card:hover { border-color: var(--azul-100); box-shadow: 0 8px 20px rgba(29,78,216,.12); transform: translateY(-2px); }
+    .modulo-num { flex: 0 0 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--azul-600), var(--azul-900)); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+    .modulo-card h3 { margin: 0 0 4px; font-size: 17px; color: var(--texto); }
+    .modulo-card p { margin: 0; color: var(--texto-suave); font-size: 14px; line-height: 1.5; }
+    .aviso { padding: 16px 18px; border-radius: 12px; margin-top: 16px; font-size: 15px; line-height: 1.5; }
+    .aviso.erro { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+    .aviso.info { background: var(--azul-50); color: #1e3a8a; border: 1px solid var(--azul-100); }
+    @media (max-width: 600px) {
+      .curso-wrap { padding: 16px 12px 32px; }
+      .curso-topo { padding: 12px 14px; }
+      .curso-header { padding: 22px 18px; }
+      .curso-header h1 { font-size: 22px; }
+      .modulo-card { padding: 14px; gap: 12px; }
+      .modulo-num { flex-basis: 34px; height: 34px; border-radius: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="curso-wrap">
+    <div class="curso-topo">
+      <strong>Capacita Gov</strong>
+      <div class="acoes">
+        <button class="curso-btn sec" id="btnVoltar" type="button">Voltar</button>
+        <button class="curso-btn" id="btnSair" type="button">Sair</button>
+      </div>
+    </div>
+
+    <div id="estado" class="aviso info">Carregando curso...</div>
+
+    <div id="conteudo" style="display:none">
+      <div class="curso-header">
+        <h1 id="cursoNome"></h1>
+        <p id="cursoDescricao"></p>
+      </div>
+
+      <section class="curso-secao">
+        <h2>Módulos do curso</h2>
+        <div id="modulos" class="modulos-lista"></div>
+      </section>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase, exigirPerfil, sair, esc } from "./js/config.js";
+
+    const el = id => document.getElementById(id);
+
+    function mostrarEstado(msg, tipo) {
+      const e = el('estado');
+      e.className = 'aviso ' + (tipo || 'info');
+      e.textContent = msg;
+      e.style.display = 'block';
+      el('conteudo').style.display = 'none';
+    }
+
+    el('btnVoltar').addEventListener('click', () => { window.location.href = 'aluno.html'; });
+    el('btnSair').addEventListener('click', () => sair());
+
+    async function iniciar() {
+      // 1) Login + perfil de aluno (mesmo mecanismo do aluno.html)
+      //    ATENÇÃO: confira no aluno.html como o exigirPerfil é chamado
+      //    (argumento e retorno) e copie igual.
+      const perfil = await exigirPerfil("aluno");
+      if (!perfil) return; // exigirPerfil já redireciona se não autorizado
+
+      // 2) Usuário logado
+      const { data: sess } = await supabase.auth.getSession();
+      const user = sess?.session?.user;
+      if (!user) { window.location.href = 'index.html'; return; }
+
+      // 3) ID do curso pela URL
+      const cursoId = new URLSearchParams(window.location.search).get('id');
+      if (!cursoId) return mostrarEstado('Curso não informado na URL.', 'erro');
+
+      // 4) Verificar matrícula ativa (coluna usuario_id)
+      const { data: mat, error: errMat } = await supabase
+        .from('matriculas').select('*')
+        .eq('usuario_id', user.id).eq('curso_id', cursoId).eq('ativo', true)
+        .limit(1);
+      if (errMat) return mostrarEstado('Erro ao verificar matrícula: ' + errMat.message, 'erro');
+      if (!mat || mat.length === 0) {
+        return mostrarEstado('Acesso não autorizado: você não está matriculado neste curso.', 'erro');
+      }
+
+      // 5) Carregar curso
+      const { data: curso, error: errCurso } = await supabase
+        .from('cursos').select('*').eq('id', cursoId).maybeSingle();
+      if (errCurso || !curso) return mostrarEstado('Curso não encontrado.', 'erro');
+      el('cursoNome').textContent = curso.nome || curso.titulo || 'Curso';
+      el('cursoDescricao').textContent = curso.descricao || '';
+
+      // 6) Carregar módulos ativos ordenados
+      const { data: modulos, error: errMod } = await supabase
+        .from('modulos').select('*')
+        .eq('curso_id', cursoId).eq('ativo', true).order('ordem', { ascending: true });
+      if (errMod) return mostrarEstado('Erro ao carregar módulos: ' + errMod.message, 'erro');
+
+      const lista = el('modulos');
+      if (!modulos || modulos.length === 0) {
+        lista.innerHTML = '<div class="aviso info">Este curso ainda não possui módulos cadastrados.</div>';
+      } else {
+        lista.innerHTML = modulos.map((m, i) => `
+          <div class="modulo-card">
+            <div class="modulo-num">${esc(m.ordem != null ? m.ordem : i + 1)}</div>
+            <div>
+              <h3>${esc(m.nome || m.titulo)}</h3>
+              <p>${esc(m.descricao || '')}</p>
+            </div>
+          </div>`).join('');
+      }
+
+      el('estado').style.display = 'none';
+      el('conteudo').style.display = 'block';
+    }
+
+    iniciar().catch(err => mostrarEstado('Erro inesperado: ' + err.message, 'erro'));
+  </script>
+</body>
+</html>

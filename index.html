@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar · Capacita Gov</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="login-wrap">
+    <main class="login-card">
+      <div class="brand">Capacita Gov</div>
+      <h1>Acesse sua conta</h1>
+      <p class="mut">Plataforma de cursos online</p>
+
+      <form id="form-login" novalidate>
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" autocomplete="current-password" required>
+        <div id="erro" class="alerta" role="alert" hidden></div>
+        <button id="btn-entrar" class="btn" type="submit">Entrar</button>
+      </form>
+    </main>
+  </div>
+  <script type="module" src="js/login.js"></script>
+</body>
+</html>

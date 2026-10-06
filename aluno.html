@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meus cursos · Capacita Gov</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<!-- Oculto até o perfil ser confirmado -->
+<body hidden>
+  <header class="app-bar">
+    <div class="brand">Capacita Gov</div>
+    <div>
+      <span class="mut">Olá, <b id="aluno-nome"></b></span>
+      <button id="btn-sair" class="btn ghost" type="button" style="margin-left:1rem">Sair</button>
+    </div>
+  </header>
+
+  <div class="conteudo" style="margin:0 auto">
+    <h2 style="margin-bottom:.8rem">Meu perfil</h2>
+    <div class="card" id="perfil"></div>
+
+    <h2 style="margin:1.5rem 0 .8rem">Meus cursos</h2>
+    <div id="cursos" class="grid"></div>
+  </div>
+  <script type="module" src="js/aluno.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel administrativo · Capacita Gov</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<!-- Oculto até o perfil admin ser confirmado (evita "piscar" o painel) -->
+<body hidden>
+  <div class="layout">
+    <aside class="side">
+      <div class="brand">Capacita Gov</div>
+      <nav>
+        <button class="nav-btn ativo" data-tab="resumo">Visão geral</button>
+        <button class="nav-btn" data-tab="alunos">Alunos</button>
+        <button class="nav-btn" data-tab="cursos">Cursos</button>
+        <button class="nav-btn" data-tab="matriculas">Matrículas</button>
+      </nav>
+      <button id="btn-sair" class="btn ghost" type="button">Sair</button>
+    </aside>
+
+    <main>
+      <header class="top">
+        <h1 id="titulo">Visão geral</h1>
+        <span class="mut">Admin: <b id="admin-nome"></b></span>
+      </header>
+
+      <section id="tab-resumo" class="tab">
+        <div class="stats">
+          <div class="card stat"><span class="mut">Alunos</span><b id="st-alunos">–</b></div>
+          <div class="card stat"><span class="mut">Cursos ativos</span><b id="st-cursos">–</b></div>
+          <div class="card stat"><span class="mut">Matrículas ativas</span><b id="st-matriculas">–</b></div>
+        </div>
+        <div class="card futuro" style="margin-top:1rem">
+          Em breve: aulas, materiais, progresso, certificados, categorias, turmas e estatísticas.
+        </div>
+      </section>
+
+      <section id="tab-alunos" class="tab" hidden>
+        <div class="card table-wrap">
+          <table>
+            <thead><tr><th>Nome</th><th>E-mail</th><th>Status</th><th>Cadastro</th></tr></thead>
+            <tbody id="tb-alunos"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-cursos" class="tab" hidden>
+        <div class="card table-wrap">
+          <table>
+            <thead><tr><th>Nome</th><th>Descrição</th><th>Status</th><th>Criado em</th></tr></thead>
+            <tbody id="tb-cursos"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tab-matriculas" class="tab" hidden>
+        <div id="lista-matriculas" class="grid"></div>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
