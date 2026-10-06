@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,23 +7,409 @@
   <title>Entrar · Capacita Gov</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <div class="login-wrap">
-    <main class="login-card">
-      <div class="brand">Capacita Gov</div>
-      <h1>Acesse sua conta</h1>
-      <p class="mut">Plataforma de cursos online</p>
 
-      <form id="form-login" novalidate>
-        <label for="email">E-mail</label>
-        <input id="email" type="email" autocomplete="username" required>
-        <label for="senha">Senha</label>
-        <input id="senha" type="password" autocomplete="current-password" required>
-        <div id="erro" class="alerta" role="alert" hidden></div>
-        <button id="btn-entrar" class="btn" type="submit">Entrar</button>
-      </form>
-    </main>
+<body>
+
+  <div class="login-page">
+
+    <!-- =========================================
+         PAINEL ESQUERDO — LOGIN
+         ========================================= -->
+    <section class="login-side">
+
+      <!-- LOGO -->
+      <div class="login-brand brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M3.5 8.2 12 4l8.5 4.2L12 12.5 3.5 8.2Z"
+              fill="currentColor"
+            />
+            <path
+              d="M7 10.2v5.2c0 1.4 2.2 2.9 5 2.9s5-1.5 5-2.9v-5.2"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <path
+              d="M20.5 8.4v5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+        </div>
+
+        <div class="brand-text">
+          <div class="brand-name">
+            <span>Capacita</span> <strong>Gov</strong>
+          </div>
+          <div class="brand-subtitle">
+            PLATAFORMA DE CAPACITAÇÃO
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ÁREA DO FORMULÁRIO -->
+      <div class="login-content">
+
+        <div class="login-heading">
+          <span class="login-eyebrow">CAPACITA GOV</span>
+
+          <h1 id="titulo-pagina">
+            Acesse sua conta
+          </h1>
+        </div>
+
+
+        <!-- =====================================
+             LOGIN
+             ===================================== -->
+        <form id="form-login" novalidate>
+
+          <label for="email">
+            E-mail
+          </label>
+
+          <input
+            id="email"
+            type="email"
+            autocomplete="username"
+            placeholder="seuemail@exemplo.com"
+            required
+          >
+
+
+          <label for="senha">
+            Senha
+          </label>
+
+          <input
+            id="senha"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Digite sua senha"
+            required
+          >
+
+
+          <div class="login-options">
+
+            <label class="remember-option">
+              <span class="fake-checkbox">
+                ✓
+              </span>
+
+              <span>
+                Manter conectado
+              </span>
+            </label>
+
+            <a
+              href="#"
+              class="forgot-link"
+              onclick="return false;"
+            >
+              Esqueci minha senha
+            </a>
+
+          </div>
+
+
+          <div
+            id="erro"
+            class="alerta"
+            role="alert"
+            hidden
+          ></div>
+
+
+          <button
+            id="btn-entrar"
+            class="btn login-submit"
+            type="submit"
+          >
+            Entrar
+          </button>
+
+        </form>
+
+
+        <!-- =====================================
+             ACESSO / CADASTRO
+             ===================================== -->
+
+        <div class="login-divider">
+          <span id="texto-acesso">
+            Ainda não tem acesso?
+          </span>
+        </div>
+
+
+        <button
+          id="btn-solicitar-acesso"
+          class="btn btn-outline login-access"
+          type="button"
+        >
+          Solicitar acesso
+        </button>
+
+
+        <!-- =====================================
+             FORMULÁRIO DE SOLICITAÇÃO
+             ===================================== -->
+
+        <form
+          id="form-cadastro"
+          class="cadastro-form"
+          novalidate
+          hidden
+        >
+
+          <div class="cadastro-header">
+            <span class="login-eyebrow">
+              NOVO ACESSO
+            </span>
+
+            <h2>
+              Solicite seu acesso
+            </h2>
+
+            
+          </div>
+
+
+          <label for="cadastro-nome">
+            Nome completo
+          </label>
+
+          <input
+            id="cadastro-nome"
+            type="text"
+            autocomplete="name"
+            placeholder="Digite seu nome completo"
+            required
+          >
+
+
+          <label for="cadastro-email">
+            E-mail
+          </label>
+
+          <input
+            id="cadastro-email"
+            type="email"
+            autocomplete="email"
+            placeholder="seuemail@exemplo.com"
+            required
+          >
+
+
+          <label for="cadastro-senha">
+            Senha
+          </label>
+
+          <input
+            id="cadastro-senha"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Mínimo de 6 caracteres"
+            minlength="6"
+            required
+          >
+
+
+          <div
+            id="erro-cadastro"
+            class="alerta"
+            role="alert"
+            hidden
+          ></div>
+
+
+          <button
+            id="btn-cadastrar"
+            class="btn login-submit"
+            type="submit"
+          >
+            Solicitar acesso
+          </button>
+
+
+          <button
+            id="btn-voltar-login"
+            class="btn btn-outline login-access"
+            type="button"
+          >
+            Voltar para o login
+          </button>
+
+        </form>
+
+
+        <p class="login-terms">
+          Ao continuar, você concorda com os termos de uso
+          e a política de privacidade.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PAINEL DIREITO — INSTITUCIONAL
+         ========================================= -->
+    <section class="login-visual">
+
+      <!-- DECORAÇÕES -->
+      <div class="visual-circle visual-circle-one"></div>
+      <div class="visual-circle visual-circle-two"></div>
+
+      <div class="visual-lines"></div>
+
+
+      <!-- VOLTAR -->
+      <a
+        href="index.html"
+        class="back-home"
+      >
+        <span>←</span>
+        Voltar ao início
+      </a>
+
+
+      <div class="visual-content">
+
+        <span class="visual-label">
+          CAPACITA GOV
+        </span>
+
+        <h2>
+          Capacitação para transformar
+          <span>conhecimento</span>
+          em oportunidade.
+        </h2>
+
+        <p>
+          Cursos online em módulos, com conteúdos práticos
+          para você aprender no seu ritmo.
+        </p>
+
+
+        <a
+          href="#"
+          class="visual-button"
+          onclick="return false;"
+        >
+          Conhecer os cursos
+          <span>→</span>
+        </a>
+
+
+        <!-- MINI CARDS -->
+        <div class="visual-features">
+
+          <div class="visual-feature">
+            <div class="feature-icon">
+              ✓
+            </div>
+
+            <div>
+              <strong>100% online</strong>
+              <span>Acesse de onde estiver</span>
+            </div>
+          </div>
+
+
+          <div class="visual-feature">
+            <div class="feature-icon">
+              ✓
+            </div>
+
+            <div>
+              <strong>Acesso seguro</strong>
+              <span>Conta pessoal protegida</span>
+            </div>
+          </div>
+
+
+          <div class="visual-feature">
+            <div class="feature-icon">
+              ✓
+            </div>
+
+            <div>
+              <strong>Passo a passo</strong>
+              <span>Conteúdo organizado</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ELEMENTOS FLUTUANTES -->
+        <div class="floating-card floating-course">
+
+          <div class="floating-card-top">
+            <span class="floating-course-icon">
+              ▣
+            </span>
+
+            <span>
+              Informática Básica
+            </span>
+          </div>
+
+          <div class="progress-info">
+            <span>Seu progresso</span>
+            <strong>85%</strong>
+          </div>
+
+          <div class="progress-bar">
+            <span></span>
+          </div>
+
+        </div>
+
+
+        <div class="floating-card floating-check">
+
+          <div class="check-circle">
+            ✓
+          </div>
+
+          <div>
+            <strong>Módulo concluído</strong>
+            <span>Você está avançando!</span>
+          </div>
+
+        </div>
+
+
+        <div class="floating-card floating-video">
+
+          <div class="play-circle">
+            ▶
+          </div>
+
+          <div>
+            <strong>Vídeo-aula</strong>
+            <span>Conteúdo em vídeo</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </div>
-  <script type="module" src="js/login.js"></script>
+
+
+ <link rel="stylesheet" href="css/style.css">
+
 </body>
 </html>
+```
