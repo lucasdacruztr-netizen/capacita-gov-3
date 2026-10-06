@@ -231,6 +231,16 @@
       background: #084298;
     }
 
+    .btn-finalizar:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .btn-finalizar:disabled:hover {
+      background: #0b5ed7;
+    }
+
+
     .resultado-quiz {
       display: none;
       margin-top: 20px;
@@ -274,6 +284,64 @@
       text-align: center;
       color: #667085;
     }
+
+    /* Cronômetro do quiz */
+    .cronometro-quiz {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      background: #eff6ff;
+    }
+
+    .cronometro-info {
+      color: #1e3a8a;
+      font-weight: 700;
+    }
+
+    #cronometroQuiz {
+      min-width: 78px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: #0b5ed7;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .cronometro-quiz.aviso {
+      border-color: #fcd34d;
+      background: #fffbeb;
+    }
+
+    .cronometro-quiz.aviso .cronometro-info,
+    .cronometro-quiz.aviso #cronometroQuiz {
+      color: #92400e;
+    }
+
+    .cronometro-quiz.bloqueado {
+      border-color: #fecaca;
+      background: #fef2f2;
+    }
+
+    .cronometro-quiz.bloqueado .cronometro-info,
+    .cronometro-quiz.bloqueado #cronometroQuiz {
+      color: #991b1b;
+    }
+
+    .quiz-bloqueado .alternativa {
+      cursor: not-allowed;
+      opacity: .65;
+    }
+
+    .quiz-bloqueado .alternativa:hover {
+      border-color: #e2e8f0;
+      background: #fff;
+    }
+
 
     @media (max-width: 700px) {
       .curso-topo {
@@ -357,6 +425,10 @@
 
         <h2>Perguntas do curso</h2>
 
+        <div id="cronometroQuiz" class="cronometro-quiz" aria-live="polite">
+          <span class="cronometro-info">Tempo para responder: <strong id="tempoQuiz">05:00</strong></span>
+        </div>
+
         <div id="perguntas" class="perguntas-lista"></div>
 
         <div class="quiz-acoes">
@@ -390,6 +462,16 @@
 
     let cursoAtual = null;
     let perguntasCurso = [];
+
+    // Cronômetro do quiz
+    let intervaloQuiz = null;
+    let intervaloBloqueio = null;
+    let tempoRestanteQuiz = 5 * 60;
+    let tempoRestanteBloqueio = 0;
+    let quizBloqueado = false;
+
+    const TEMPO_QUIZ = 5 * 60;
+    const TEMPO_BLOQUEIO = 2 * 60;
 
 
     function renderizarAula(aula) {
@@ -599,6 +681,178 @@
        * quando o resultado aparece.
        */
       el("resultadoQuiz").style.display = "";
+
+    }
+
+
+    function formatarTempo(segundos) {
+
+      const minutos = Math.floor(segundos / 60);
+      const segundosRestantes = segundos % 60;
+
+      return (
+        String(minutos).padStart(2, "0") +
+        ":" +
+        String(segundosRestantes).padStart(2, "0")
+      );
+
+    }
+
+
+    function atualizarCronometro() {
+
+      const tempo = el("tempoQuiz");
+      const caixa = el("cronometroQuiz");
+
+      if (!tempo || !caixa) {
+        return;
+      }
+
+      tempo.textContent = formatarTempo(
+        quizBloqueado
+          ? tempoRestanteBloqueio
+          : tempoRestanteQuiz
+      );
+
+      caixa.classList.toggle(
+        "aviso",
+        !quizBloqueado &&
+        tempoRestanteQuiz <= 120 &&
+        tempoRestanteQuiz > 0
+      );
+
+      caixa.classList.toggle(
+        "bloqueado",
+        quizBloqueado
+      );
+
+      if (quizBloqueado) {
+
+        caixa.querySelector(".cronometro-info").innerHTML =
+          'Quiz bloqueado. Volta em: <strong id="tempoQuiz">' +
+          formatarTempo(tempoRestanteBloqueio) +
+          "</strong>";
+
+      } else if (tempoRestanteQuiz <= 120) {
+
+        caixa.querySelector(".cronometro-info").innerHTML =
+          'Atenção! Tempo restante: <strong id="tempoQuiz">' +
+          formatarTempo(tempoRestanteQuiz) +
+          "</strong>";
+
+      } else {
+
+        caixa.querySelector(".cronometro-info").innerHTML =
+          'Tempo para responder: <strong id="tempoQuiz">' +
+          formatarTempo(tempoRestanteQuiz) +
+          "</strong>";
+
+      }
+
+    }
+
+
+    function alterarEstadoQuiz(bloqueado) {
+
+      quizBloqueado = bloqueado;
+
+      const secao = el("secaoPerguntas");
+      const botao = el("btnFinalizarQuiz");
+
+      if (secao) {
+        secao.classList.toggle(
+          "quiz-bloqueado",
+          bloqueado
+        );
+      }
+
+      if (secao) {
+        secao.querySelectorAll(
+          'input[type="radio"]'
+        ).forEach(input => {
+          input.disabled = bloqueado;
+        });
+      }
+
+      if (botao) {
+        botao.disabled = bloqueado;
+        botao.textContent = bloqueado
+          ? "Quiz bloqueado"
+          : "Finalizar perguntas";
+      }
+
+      atualizarCronometro();
+
+    }
+
+
+    function iniciarBloqueioQuiz() {
+
+      clearInterval(intervaloQuiz);
+      clearInterval(intervaloBloqueio);
+
+      tempoRestanteBloqueio = TEMPO_BLOQUEIO;
+
+      alterarEstadoQuiz(true);
+
+      intervaloBloqueio = setInterval(() => {
+
+        tempoRestanteBloqueio--;
+
+        if (tempoRestanteBloqueio <= 0) {
+
+          clearInterval(intervaloBloqueio);
+
+          quizBloqueado = false;
+          tempoRestanteQuiz = TEMPO_QUIZ;
+
+          alterarEstadoQuiz(false);
+
+          iniciarCronometroQuiz();
+
+          return;
+        }
+
+        atualizarCronometro();
+
+      }, 1000);
+
+    }
+
+
+    function iniciarCronometroQuiz() {
+
+      clearInterval(intervaloQuiz);
+
+      clearInterval(intervaloBloqueio);
+
+      quizBloqueado = false;
+      tempoRestanteQuiz = TEMPO_QUIZ;
+
+      alterarEstadoQuiz(false);
+
+      atualizarCronometro();
+
+      intervaloQuiz = setInterval(() => {
+
+        tempoRestanteQuiz--;
+
+        if (tempoRestanteQuiz <= 0) {
+
+          tempoRestanteQuiz = 0;
+
+          clearInterval(intervaloQuiz);
+
+          atualizarCronometro();
+
+          iniciarBloqueioQuiz();
+
+          return;
+        }
+
+        atualizarCronometro();
+
+      }, 1000);
 
     }
 
@@ -878,6 +1132,8 @@
       renderizarPerguntas();
 
       ativarSalvamentoRespostas();
+
+      iniciarCronometroQuiz();
 
     }
 
