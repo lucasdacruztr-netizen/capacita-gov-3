@@ -412,11 +412,11 @@
           }
 
           ${
-            aula.material_url
+            aula.url || aula.material_url
               ? `
                 <div class="aula-material">
                   <a
-                    href="${esc(aula.material_url)}"
+                    href="${esc(aula.url || aula.material_url)}"
                     target="_blank"
                     rel="noopener noreferrer">
                     Abrir material
