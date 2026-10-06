@@ -1,286 +1,795 @@
-/* =========================================================
-   CAPACITA GOV — CARTÕES DE CURSOS DO ALUNO
-   Ajuste visual final
-   ========================================================= */
+import {
+  supabase,
+  exigirPerfil,
+  sair,
+  esc,
+  fmtData
+} from "./config.js";
 
-.secao-catalogo .cursos-grid,
-.secao-meus-cursos .cursos-grid,
-#catalogo-cursos,
-#cursos {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(280px, 1fr)
-  );
-  gap: 1.5rem;
-  align-items: stretch;
+
+const $ = (id) =>
+  document.getElementById(id);
+
+
+let cursosCatalogo = [];
+let cursosMatriculados = [];
+let categoriaSelecionada =
+  "Todas as Categorias";
+
+
+// ===============================
+// PERFIL
+// ===============================
+function mostrarPerfil(perfil) {
+
+  const nome =
+    perfil.nome || "Aluno";
+
+  $("aluno-nome").textContent =
+    nome;
+
+  $("titulo-boas-vindas").textContent =
+    `Olá, ${nome}!`;
+
+  $("aluno-avatar-letra").textContent =
+    nome
+      .trim()
+      .charAt(0)
+      .toUpperCase();
 }
 
 
-/* ===============================
-   CARTÃO
-   =============================== */
+// ===============================
+// CATÁLOGO
+// ===============================
 
-#catalogo-cursos .curso-card,
-#cursos .curso-card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  height: 100%;
-  padding: 0 !important;
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 18px;
-  box-shadow:
-    0 2px 5px rgba(15, 23, 42, 0.04),
-    0 8px 24px rgba(15, 23, 42, 0.06);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+async function carregarCatalogo() {
+
+  const {
+    data,
+    error
+  } = await supabase
+    .from("cursos")
+    .select(`
+      id,
+      nome,
+      descricao,
+      ativo,
+      categoria,
+      imagem_url,
+      carga_horaria
+    `)
+    .eq(
+      "ativo",
+      true
+    )
+    .order(
+      "nome",
+      {
+        ascending: true
+      }
+    );
+
+
+  if (error) {
+
+    console.error(
+      "Erro ao carregar catálogo:",
+      error
+    );
+
+
+    $("catalogo-cursos").innerHTML = `
+      <div class="estado erro">
+        Não foi possível carregar os cursos.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  cursosCatalogo =
+    data || [];
+
+
+  carregarCategorias();
+
+  renderizarCatalogo();
 }
 
 
-#catalogo-cursos .curso-card:hover,
-#cursos .curso-card:hover {
-  transform: translateY(-4px);
-  border-color: #bfdbfe;
-  box-shadow:
-    0 8px 18px rgba(15, 23, 42, 0.08),
-    0 18px 35px rgba(37, 99, 235, 0.08);
-}
+// ===============================
+// CATEGORIAS
+// ===============================
+
+function carregarCategorias() {
+
+  const categorias = [
+    "Todas as Categorias",
+
+    ...new Set(
+      cursosCatalogo
+        .map(
+          (curso) =>
+            curso.categoria
+        )
+        .filter(Boolean)
+    )
+  ];
 
 
-/* ===============================
-   IMAGEM
-   =============================== */
+  $("categorias").innerHTML =
+    categorias
+      .map(
+        (categoria) => `
+          <button
+            type="button"
+            class="categoria-btn ${
+              categoria ===
+              categoriaSelecionada
+                ? "ativo"
+                : ""
+            }"
+            data-categoria="${esc(
+              categoria
+            )}"
+          >
+            ${esc(categoria)}
+          </button>
+        `
+      )
+      .join("");
 
-#catalogo-cursos .curso-imagem,
-#cursos .curso-imagem {
-  display: block;
-  width: 100%;
-  height: 175px;
-  flex-shrink: 0;
-  object-fit: cover;
-  margin: 0 !important;
-  border: 0;
-  border-radius: 0 !important;
-  background:
-    linear-gradient(
-      135deg,
-      #dbeafe 0%,
-      #eff6ff 50%,
-      #f8fafc 100%
+
+  document
+    .querySelectorAll(
+      "[data-categoria]"
+    )
+    .forEach(
+      (botao) => {
+
+        botao.addEventListener(
+          "click",
+          () => {
+
+            categoriaSelecionada =
+              botao.dataset.categoria;
+
+
+            carregarCategorias();
+
+            renderizarCatalogo();
+          }
+        );
+
+      }
     );
 }
 
 
-/* Área neutra quando o curso não possui imagem */
+// ===============================
+// RENDERIZAR CATÁLOGO
+// ===============================
 
-#catalogo-cursos .curso-imagem-vazia,
-#cursos .curso-imagem-vazia {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+function renderizarCatalogo() {
+
+  const campoBusca =
+    $("campo-busca");
 
 
-#catalogo-cursos .curso-imagem-vazia::after,
-#cursos .curso-imagem-vazia::after {
-  content: "CURSO";
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: #2563eb;
-  opacity: 0.55;
-}
+  const busca =
+    (
+      campoBusca?.value ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
 
 
-/* ===============================
-   CONTEÚDO
-   =============================== */
+  const cursosFiltrados =
+    cursosCatalogo.filter(
+      (curso) => {
 
-#catalogo-cursos .curso-card-conteudo,
-#cursos .curso-card-conteudo {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-  padding: 1.25rem;
-}
+        const correspondeCategoria =
+          categoriaSelecionada ===
+            "Todas as Categorias" ||
+          curso.categoria ===
+            categoriaSelecionada;
 
 
-/* ===============================
-   CATEGORIA
-   =============================== */
+        const correspondeBusca =
+          !busca ||
+          String(
+            curso.nome || ""
+          )
+            .toLowerCase()
+            .includes(busca) ||
 
-#catalogo-cursos .curso-categoria,
-#cursos .curso-categoria {
-  display: inline-flex;
-  align-self: flex-start;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 0 0.65rem;
-  padding: 0.32rem 0.65rem;
-  border: 1px solid #dbeafe;
-  border-radius: 999px;
-  background: #eff6ff;
-  color: #2563eb;
-  font-size: 0.72rem;
-  font-weight: 700;
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+          String(
+            curso.categoria || ""
+          )
+            .toLowerCase()
+            .includes(busca) ||
+
+          String(
+            curso.descricao || ""
+          )
+            .toLowerCase()
+            .includes(busca);
 
 
-/* ===============================
-   TÍTULO
-   =============================== */
-
-#catalogo-cursos .curso-titulo,
-#cursos .curso-titulo {
-  margin: 0;
-  color: #0f2f6f;
-  font-size: 1.08rem;
-  font-weight: 750;
-  line-height: 1.35;
-}
+        return (
+          correspondeCategoria &&
+          correspondeBusca
+        );
+      }
+    );
 
 
-/* ===============================
-   DESCRIÇÃO
-   =============================== */
+  if (!cursosFiltrados.length) {
 
-#catalogo-cursos .curso-descricao,
-#cursos .curso-descricao {
-  margin: 0.7rem 0 0;
-  color: #64748b;
-  font-size: 0.88rem;
-  line-height: 1.55;
+    $("catalogo-cursos").innerHTML = `
+      <div class="estado">
+        Nenhum curso encontrado.
+      </div>
+    `;
 
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-
-
-/* ===============================
-   CARGA HORÁRIA
-   =============================== */
-
-#catalogo-cursos .curso-meta,
-#cursos .curso-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 1rem;
-  color: #64748b;
-  font-size: 0.82rem;
-  font-weight: 600;
-}
-
-
-/* ===============================
-   BOTÃO
-   =============================== */
-
-#catalogo-cursos .curso-btn,
-#cursos .curso-btn {
-  width: 100%;
-  margin-top: auto;
-  padding: 0.72rem 1rem;
-  border-radius: 10px;
-  font-weight: 700;
-}
-
-
-/* Quando o botão aparece,
-   cria espaço entre meta e botão */
-
-#catalogo-cursos .curso-meta + .curso-btn,
-#cursos .curso-meta + .curso-btn {
-  margin-top: 1.2rem;
-}
-
-
-/* ===============================
-   CATÁLOGO
-   =============================== */
-
-.secao-catalogo {
-  margin-top: 0;
-}
-
-
-.secao-catalogo > h2,
-#catalogo > h2 {
-  margin-bottom: 1rem;
-}
-
-
-/* ===============================
-   CATEGORIAS
-   =============================== */
-
-#categorias {
-  margin-bottom: 1.5rem !important;
-  gap: 0.55rem !important;
-}
-
-
-#categorias .categoria-btn {
-  border-radius: 999px;
-}
-
-
-/* ===============================
-   ESTADO SEM CURSOS
-   =============================== */
-
-#catalogo-cursos > .estado,
-#cursos > .estado {
-  grid-column: 1 / -1;
-  margin: 0;
-}
-
-
-/* ===============================
-   RESPONSIVO
-   =============================== */
-
-@media (max-width: 700px) {
-
-  #catalogo-cursos,
-  #cursos {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    return;
   }
 
 
-  #catalogo-cursos .curso-imagem,
-  #cursos .curso-imagem {
-    height: 165px;
-  }
+  $("catalogo-cursos").innerHTML =
+    cursosFiltrados
+      .map(
+        (curso) => {
+
+          const matriculado =
+            cursosMatriculados.some(
+              (item) =>
+                String(
+                  item.curso_id
+                ) ===
+                  String(
+                    curso.id
+                  ) &&
+                item.ativo
+            );
 
 
-  #catalogo-cursos .curso-card-conteudo,
-  #cursos .curso-card-conteudo {
-    padding: 1.1rem;
+          const imagem =
+            curso.imagem_url ||
+            "";
+
+
+          return `
+            <article
+              class="card curso-card"
+            >
+
+              ${
+                imagem
+                  ? `
+                    <img
+                      src="${esc(imagem)}"
+                      alt="${esc(
+                        curso.nome
+                      )}"
+                      class="curso-imagem"
+                    >
+                  `
+                  : `
+                    <div
+                      class="curso-imagem curso-imagem-vazia"
+                    >
+                      Capacita Gov
+                    </div>
+                  `
+              }
+
+
+              <div
+                class="curso-card-conteudo"
+              >
+
+                ${
+                  curso.categoria
+                    ? `
+                      <span
+                        class="curso-categoria"
+                      >
+                        ${esc(
+                          curso.categoria
+                        )}
+                      </span>
+                    `
+                    : ""
+                }
+
+
+                <h3
+                  class="curso-titulo"
+                >
+                  ${esc(
+                    curso.nome
+                  )}
+                </h3>
+
+
+                <p
+                  class="curso-descricao"
+                >
+                  ${
+                    esc(
+                      curso.descricao
+                    ) ||
+                    "Curso disponível na plataforma."
+                  }
+                </p>
+
+
+                ${
+                  curso.carga_horaria
+                    ? `
+                      <div
+                        class="curso-meta"
+                      >
+                        <span>
+                          ◷
+                          ${esc(
+                            curso.carga_horaria
+                          )}
+                          horas
+                        </span>
+                      </div>
+                    `
+                    : ""
+                }
+
+
+                ${
+                  matriculado
+                    ? `
+                      <button
+                        type="button"
+                        class="btn"
+                        data-abrir-curso="${esc(
+                          curso.id
+                        )}"
+                      >
+                        Acessar curso
+                      </button>
+                    `
+                    : `
+                      <p
+                        class="mut curso-nao-matriculado"
+                      >
+                        Você ainda não está
+                        matriculado neste curso.
+                      </p>
+                    `
+                }
+
+              </div>
+
+            </article>
+          `;
+        }
+      )
+      .join("");
+
+
+  document
+    .querySelectorAll(
+      "[data-abrir-curso]"
+    )
+    .forEach(
+      (botao) => {
+
+        botao.addEventListener(
+          "click",
+          () => {
+
+            const cursoId =
+              botao.dataset.abrirCurso;
+
+
+            abrirCurso(
+              cursoId
+            );
+          }
+        );
+
+      }
+    );
+}
+
+
+// ===============================
+// PESQUISA
+// ===============================
+
+function configurarPesquisa() {
+
+  const campo =
+    $("campo-busca");
+
+  const botao =
+    $("btn-pesquisar");
+
+
+  if (campo) {
+
+    campo.addEventListener(
+      "input",
+      () => {
+
+        renderizarCatalogo();
+      }
+    );
+
+
+    campo.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key ===
+          "Enter"
+        ) {
+
+          event.preventDefault();
+
+          renderizarCatalogo();
+
+
+          $("catalogo-cursos")
+            ?.scrollIntoView({
+              behavior:
+                "smooth"
+            });
+        }
+      }
+    );
   }
 }
 
 
-@media (min-width: 1100px) {
+// ===============================
+// MEUS CURSOS
+// ===============================
 
-  #catalogo-cursos,
-  #cursos {
-    grid-template-columns:
-      repeat(3, minmax(0, 1fr));
+async function carregarCursos() {
+
+  const {
+    data: {
+      user
+    }
+  } =
+    await supabase.auth.getUser();
+
+
+  if (!user) {
+
+    location.replace(
+      "index.html"
+    );
+
+    return;
   }
+
+
+  const {
+    data,
+    error
+  } =
+    await supabase
+      .from("matriculas")
+      .select(`
+        id,
+        usuario_id,
+        curso_id,
+        ativo,
+        cursos (
+          id,
+          nome,
+          descricao,
+          ativo,
+          categoria,
+          imagem_url,
+          carga_horaria
+        )
+      `)
+      .eq(
+        "usuario_id",
+        user.id
+      )
+      .eq(
+        "ativo",
+        true
+      );
+
+
+  if (error) {
+
+    console.error(
+      "Erro ao carregar meus cursos:",
+      error
+    );
+
+
+    $("cursos").innerHTML = `
+      <div class="estado erro">
+        Não foi possível carregar seus cursos.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  cursosMatriculados =
+    data || [];
+
+
+  const cursosAtivos =
+    cursosMatriculados.filter(
+      (matricula) =>
+        matricula.ativo &&
+        matricula.cursos &&
+        matricula.cursos.ativo
+    );
+
+
+  if (!cursosAtivos.length) {
+
+    $("cursos").innerHTML = `
+      <div class="estado">
+        Você ainda não possui cursos matriculados.
+      </div>
+    `;
+
+  } else {
+
+    $("cursos").innerHTML =
+      cursosAtivos
+        .map(
+          (matricula) => {
+
+            const curso =
+              matricula.cursos;
+
+
+            if (!curso) {
+              return "";
+            }
+
+
+            const imagem =
+              curso.imagem_url ||
+              "";
+
+
+            return `
+              <article
+                class="card curso-card"
+              >
+
+                ${
+                  imagem
+                    ? `
+                      <img
+                        src="${esc(
+                          imagem
+                        )}"
+                        alt="${esc(
+                          curso.nome
+                        )}"
+                        class="curso-imagem"
+                      >
+                    `
+                    : `
+                      <div
+                        class="curso-imagem curso-imagem-vazia"
+                      >
+                        Capacita Gov
+                      </div>
+                    `
+                }
+
+
+                <div
+                  class="curso-card-conteudo"
+                >
+
+                  ${
+                    curso.categoria
+                      ? `
+                        <span
+                          class="curso-categoria"
+                        >
+                          ${esc(
+                            curso.categoria
+                          )}
+                        </span>
+                      `
+                      : ""
+                  }
+
+
+                  <h3
+                    class="curso-titulo"
+                  >
+                    ${esc(
+                      curso.nome
+                    )}
+                  </h3>
+
+
+                  <p
+                    class="curso-descricao"
+                  >
+                    ${
+                      esc(
+                        curso.descricao
+                      ) ||
+                      "Curso disponível na plataforma."
+                    }
+                  </p>
+
+
+                  ${
+                    curso.carga_horaria
+                      ? `
+                        <div
+                          class="curso-meta"
+                        >
+                          <span>
+                            ◷
+                            ${esc(
+                              curso.carga_horaria
+                            )}
+                            horas
+                          </span>
+                        </div>
+                      `
+                      : ""
+                  }
+
+
+                  <button
+                    type="button"
+                    class="btn"
+                    data-abrir-meu-curso="${esc(
+                      curso.id
+                    )}"
+                  >
+                    Acessar curso
+                  </button>
+
+                </div>
+
+              </article>
+            `;
+          }
+        )
+        .join("");
+
+
+    document
+      .querySelectorAll(
+        "[data-abrir-meu-curso]"
+      )
+      .forEach(
+        (botao) => {
+
+          botao.addEventListener(
+            "click",
+            () => {
+
+              const cursoId =
+                botao.dataset
+                  .abrirMeuCurso;
+
+
+              abrirCurso(
+                cursoId
+              );
+            }
+          );
+
+        }
+      );
+  }
+
+
+  // Atualiza o catálogo
+  // depois que sabemos
+  // quais cursos estão
+  // matriculados.
+
+  renderizarCatalogo();
 }
+
+
+// ===============================
+// ABRIR CURSO
+// ===============================
+
+function abrirCurso(
+  cursoId
+) {
+
+  if (!cursoId) {
+
+    console.error(
+      "ID do curso não informado."
+    );
+
+    return;
+  }
+
+  const id = String(cursoId).trim();
+
+  window.location.assign(
+    `curso.html?id=${encodeURIComponent(id)}`
+  );
+}
+
+
+// ===============================
+// INICIALIZAÇÃO
+// ===============================
+
+async function init() {
+
+  const perfil =
+    await exigirPerfil(
+      "aluno"
+    );
+
+
+  if (!perfil) {
+    return;
+  }
+
+
+  mostrarPerfil(
+    perfil
+  );
+
+
+  $("btn-sair")
+    .addEventListener(
+      "click",
+      sair
+    );
+
+
+  configurarPesquisa();
+
+
+  await carregarCursos();
+
+
+  await carregarCatalogo();
+
+
+  document.body.hidden =
+    false;
+}
+
+
+init().catch(
+  (erro) => {
+
+    console.error(
+      "Erro ao iniciar página do aluno:",
+      erro
+    );
+
+
+    document.body.hidden =
+      false;
+  }
+);
