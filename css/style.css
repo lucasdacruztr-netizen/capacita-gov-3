@@ -1,25 +1,3275 @@
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --txt: #1e293b;
+  --mut: #64748b;
+  --bd: #e2e8f0;
+
+  --pri: #3b82f6;
+  --pri-dark: #2563eb;
+  --pri-soft: #eff6ff;
+
+  --ok: #15803d;
+  --ok-bg: #dcfce7;
+
+  --bad: #b91c1c;
+  --bad-bg: #fee2e2;
+
+  --r: 14px;
+}
+
+/* =============================== */
+/* BASE */
+/* =============================== */
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  background: var(--bg);
+  color: var(--txt);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  color: var(--txt);
+}
+
+h1,
+h2,
+h3,
+button,
+input {
+  font-family: inherit;
+}
+
+.mut {
+  color: var(--mut);
+  font-size: 0.92rem;
+}
+
+/* =============================== */
+/* BOTÕES */
+/* =============================== */
+
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+
+  font: inherit;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  background: var(--pri);
+  color: #fff;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--pri-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(59, 130, 246, 0.22);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn.ghost {
+  background: #fff;
+  color: var(--mut);
+  border: 1px solid var(--bd);
+  box-shadow: none;
+}
+
+.btn.ghost:hover {
+  background: #f8fafc;
+  color: var(--txt);
+  border-color: #cbd5e1;
+}
+
+/* =============================== */
+/* INPUTS */
+/* =============================== */
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 1rem 0 0.3rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+
+  background: #fff;
+  color: var(--txt);
+
+  font-size: 0.95rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--pri);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+}
+
+/* =============================== */
+/* ALERTAS */
+/* =============================== */
+
+.alerta {
+  margin-top: 1rem;
+  padding: 0.75rem 0.9rem;
+
+  border-radius: 10px;
+
+  background: var(--bad-bg);
+  color: var(--bad);
+
+  font-size: 0.92rem;
+}
+
+/* =============================== */
+/* LOGIN */
+/* =============================== */
+
+.login-wrap {
+  min-height: 100vh;
+
+  display: grid;
+  place-items: center;
+
+  padding: 1rem;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(59, 130, 246, 0.08),
+      transparent 35%
+    ),
+    var(--bg);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 410px;
+
+  background: var(--card);
+
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+
+  padding: 2rem;
+
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.login-card .btn {
+  width: 100%;
+  margin-top: 1.4rem;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--pri);
+}
+
+.login-card h1 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+/* =============================== */
+/* LAYOUT ADMIN */
+/* =============================== */
+
+.layout {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  min-height: 100vh;
+}
+
+.side {
+  background: var(--card);
+
+  border-right: 1px solid var(--bd);
+
+  padding: 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.side nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.nav-btn {
+  text-align: left;
+
+  background: none;
+  border: 0;
+
+  padding: 0.65rem 0.8rem;
+
+  border-radius: 9px;
+
+  font: inherit;
+  color: var(--mut);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.nav-btn:hover,
+.nav-btn.ativo {
+  background: var(--pri-soft);
+  color: var(--pri-dark);
+  font-weight: 650;
+}
+
+main,
+.conteudo {
+  padding: 1.5rem;
+
+  max-width: 1100px;
+  width: 100%;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-bottom: 1.2rem;
+
+  flex-wrap: wrap;
+}
+
+.app-bar {
+  background: rgba(255, 255, 255, 0.96);
+
+  border-bottom: 1px solid var(--bd);
+
+  padding: 0.85rem 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
+
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  backdrop-filter: blur(10px);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(180px, 1fr)
+  );
+
+  gap: 1rem;
+}
+
+/* =============================== */
+/* CARDS GERAIS */
+/* =============================== */
+
+.card {
+  background: var(--card);
+
+  border: 1px solid var(--bd);
+
+  border-radius: var(--r);
+
+  padding: 1.2rem;
+
+  box-shadow:
+    0 4px 14px rgba(15, 23, 42, 0.035);
+}
+
+.stat b {
+  display: block;
+  font-size: 2rem;
+}
+
+/* =============================== */
+/* GRID */
+/* =============================== */
+
+.grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(260px, 1fr)
+    );
+
+  gap: 1.2rem;
+}
+
+/* =============================== */
+/* TABELAS */
+/* =============================== */
+
+.table-wrap {
+  overflow-x: auto;
+  padding: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  text-align: left;
+
+  padding: 0.75rem 1rem;
+
+  border-bottom: 1px solid var(--bd);
+
+  white-space: nowrap;
+}
+
+th {
+  color: var(--mut);
+  font-weight: 650;
+  background: #f8fafc;
+}
+
+tr:last-child td {
+  border-bottom: 0;
+}
+
+td.vazio {
+  text-align: center;
+  color: var(--mut);
+  white-space: normal;
+}
+
+/* =============================== */
+/* BADGES */
+/* =============================== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  width: fit-content;
+
+  padding: 0.25rem 0.65rem;
+
+  border-radius: 999px;
+
+  font-size: 0.76rem;
+  font-weight: 700;
+
+  background: var(--pri-soft);
+  color: var(--pri-dark);
+}
+
+.badge.ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.badge.off {
+  background: var(--bad-bg);
+  color: var(--bad);
+}
+
+.lista {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.futuro {
+  border-style: dashed;
+  color: var(--mut);
+}
+
+/* ================================================= */
+/* ÁREA DO ALUNO */
+/* ================================================= */
+
+.aluno-pagina {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 2.5rem 2rem 4rem;
+}
+
+/* =============================== */
+/* HERO */
+/* =============================== */
+
+.aluno-hero {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 2.5rem;
+
+  padding: 2.2rem;
+
+  margin-bottom: 2.5rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8fafc 0%,
+      #eef5ff 100%
+    );
+
+  border: 1px solid var(--bd);
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 12px 32px rgba(15, 23, 42, 0.06);
+}
+
+.aluno-hero h1 {
+  font-size: clamp(1.7rem, 3vw, 2.15rem);
+
+  letter-spacing: -0.025em;
+
+  margin-bottom: 0.5rem;
+}
+
+.aluno-hero p {
+  margin: 0;
+}
+
+/* =============================== */
+/* PESQUISA */
+/* =============================== */
+
+.busca-cursos {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.65rem;
+
+  width: 100%;
+
+  max-width: 530px;
+
+  background: #fff;
+
+  padding: 0.45rem;
+
+  border: 1px solid var(--bd);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 5px 18px rgba(15, 23, 42, 0.05);
+}
+
+.busca-cursos input {
+  flex: 1;
+
+  min-width: 0;
+
+  border: 0;
+
+  box-shadow: none;
+
+  padding: 0.65rem 0.75rem;
+}
+
+.busca-cursos input:focus {
+  border: 0;
+
+  box-shadow: none;
+
+  outline: none;
+}
+
+.busca-cursos .btn {
+  white-space: nowrap;
+
+  margin: 0;
+}
+
+#btn-pesquisar::before {
+  content: "⌕";
+
+  display: inline-block;
+
+  font-size: 1.15rem;
+
+  margin-right: 0.35rem;
+
+  vertical-align: -1px;
+}
+
+.sr-only {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* =============================== */
+/* TÍTULOS DAS SEÇÕES */
+/* =============================== */
+
+.secao-titulo {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-bottom: 1.1rem;
+}
+
+.secao-titulo h2 {
+  font-size: 1.35rem;
+
+  letter-spacing: -0.015em;
+}
+
+.secao-titulo p {
+  margin: 0.25rem 0 0;
+}
+
+/* =============================== */
+/* CATEGORIAS */
+/* =============================== */
+
+.secao-categorias {
+  margin-bottom: 2.5rem;
+}
+
+.categorias-lista {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 0.55rem;
+}
+
+.categoria-btn {
+  border: 1px solid var(--bd);
+
+  background: #fff;
+
+  color: var(--mut);
+
+  border-radius: 999px;
+
+  padding: 0.58rem 0.95rem;
+
+  font: inherit;
+
+  font-size: 0.88rem;
+
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.categoria-btn:hover {
+  border-color: #bfdbfe;
+
+  color: var(--pri-dark);
+
+  background: var(--pri-soft);
+
+  transform: translateY(-1px);
+}
+
+.categoria-btn.ativo {
+  background: var(--pri);
+
+  color: #fff;
+
+  border-color: var(--pri);
+
+  box-shadow:
+    0 4px 12px rgba(59, 130, 246, 0.18);
+}
+
+/* =============================== */
+/* CATÁLOGO */
+/* =============================== */
+
+.secao-catalogo {
+  margin-bottom: 3rem;
+}
+
+.cursos-grid {
+  align-items: stretch;
+}
+
+.cursos-grid > .card {
+  display: flex;
+
+  flex-direction: column;
+
+  height: 100%;
+
+  overflow: hidden;
+
+  padding: 1.15rem;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.cursos-grid > .card:hover {
+  transform: translateY(-3px);
+
+  border-color: #d6e4f7;
+
+  box-shadow:
+    0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.cursos-grid > .card h3 {
+  line-height: 1.35;
+
+  font-size: 1.08rem;
+
+  margin-top: 0.65rem;
+
+  display: -webkit-box;
+
+  -webkit-line-clamp: 2;
+
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+.cursos-grid > .card p {
+  margin-top: 0.7rem;
+
+  margin-bottom: 0;
+}
+
+.cursos-grid > .card .btn {
+  margin-top: auto;
+
+  align-self: flex-start;
+}
+
+/* =============================== */
+/* IMAGENS DOS CURSOS */
+/* =============================== */
+
+.cursos-grid > .card img {
+  display: block;
+
+  width: 100% !important;
+
+  aspect-ratio: 16 / 9;
+
+  object-fit: cover;
+
+  border-radius: 11px !important;
+
+  margin-bottom: 0.9rem !important;
+
+  background: #eef2f7;
+
+  transition: transform 0.25s ease;
+}
+
+.cursos-grid > .card:hover img {
+  transform: scale(1.015);
+}
+
+/* =============================== */
+/* MEUS CURSOS */
+/* =============================== */
+
+.secao-meus-cursos {
+  margin-bottom: 3rem;
+}
+
+.secao-meus-cursos .card[data-curso-id] {
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.secao-meus-cursos .card[data-curso-id]:hover {
+  transform: translateY(-2px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 10px 24px rgba(15, 23, 42, 0.07);
+}
+
+/* =============================== */
+/* MÓDULOS E AULAS */
+/* =============================== */
+
+.modulo-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.modulo-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 9px 22px rgba(15, 23, 42, 0.07);
+}
+
+/* =============================== */
+/* PERFIL */
+/* =============================== */
+
+.secao-perfil {
+  margin-bottom: 2rem;
+}
+
+.secao-perfil h2 {
+  margin-bottom: 1rem;
+}
+
+/* ================================================= */
+/* RESPONSIVO */
+/* ================================================= */
+
+@media (max-width: 850px) {
+
+  .aluno-hero {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 1.5rem;
+  }
+
+  .busca-cursos {
+    max-width: none;
+  }
+
+}
+
+@media (max-width: 760px) {
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side {
+    border-right: 0;
+
+    border-bottom: 1px solid var(--bd);
+  }
+
+  .side nav {
+    flex-direction: row;
+
+    flex-wrap: wrap;
+  }
+
+  .app-bar {
+    padding: 0.8rem 1rem;
+  }
+
+  .aluno-pagina {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  .aluno-hero {
+    padding: 1.5rem;
+
+    border-radius: 16px;
+  }
+
+}
+
+@media (max-width: 560px) {
+
+  .busca-cursos {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 0.5rem;
+  }
+
+  .busca-cursos .btn {
+    width: 100%;
+  }
+
+  .aluno-hero h1 {
+    font-size: 1.55rem;
+  }
+
+  .categorias-lista {
+    gap: 0.45rem;
+  }
+
+  .categoria-btn {
+    font-size: 0.82rem;
+
+    padding: 0.5rem 0.75rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .aluno-pagina {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+  .aluno-hero {
+    padding: 1.2rem;
+  }
+
+  .cursos-grid {
+    gap: 0.9rem;
+  }
+
+}
+/* =========================================================
+   CATÁLOGO DE CURSOS — VISUAL MODERNO
+   ========================================================= */
+
+.secao-catalogo {
+  margin-top: 2rem;
+}
+
+.secao-catalogo .secao-titulo {
+  margin-bottom: 1.25rem;
+}
+
+/* Grid dos cursos */
+.secao-catalogo .cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Card do catálogo */
+.secao-catalogo .cursos-grid > .card {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+/* Efeito ao passar o mouse */
+.secao-catalogo .cursos-grid > .card:hover {
+  transform: translateY(-4px);
+  border-color: #cbd5e1;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.10);
+}
+
+/* Imagem do curso */
+.secao-catalogo .cursos-grid > .card img {
+  display: block;
+  width: 100% !important;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: #e2e8f0;
+}
+
+/* Conteúdo interno do card */
+.secao-catalogo .cursos-grid > .card > .badge,
+.secao-catalogo .cursos-grid > .card > h3,
+.secao-catalogo .cursos-grid > .card > p,
+.secao-catalogo .cursos-grid > .card > button,
+.secao-catalogo .cursos-grid > .card > span:not(.badge) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* Categoria */
+.secao-catalogo .cursos-grid > .card > .badge {
+  display: inline-flex;
+  margin-top: 1rem;
+  margin-bottom: .15rem;
+  padding: .35rem .65rem;
+  border-radius: 999px;
+  background: var(--pri-soft);
+  color: var(--pri-dark);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+/* Título */
+.secao-catalogo .cursos-grid > .card > h3 {
+  margin-top: .55rem !important;
+  margin-bottom: .55rem;
+  color: var(--txt);
+  font-size: 1.08rem;
+  line-height: 1.35;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Descrição */
+.secao-catalogo .cursos-grid > .card > p.mut {
+  margin-top: 0;
+  margin-bottom: .7rem;
+  font-size: .9rem;
+  line-height: 1.5;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Carga horária */
+.secao-catalogo .cursos-grid > .card > p.mut:has(+ button),
+.secao-catalogo .cursos-grid > .card > p.mut:last-of-type {
+  color: var(--mut);
+  font-size: .84rem;
+}
+
+/* Botão */
+.secao-catalogo .cursos-grid > .card > button {
+  margin-top: .5rem;
+  margin-bottom: 1.15rem;
+}
+
+/* Mensagem de curso não matriculado */
+.secao-catalogo .cursos-grid > .card > span.mut {
+  display: block;
+  margin-top: .8rem;
+  margin-bottom: 1.15rem;
+  padding: .7rem 1rem;
+  border-radius: 10px;
+  background: #f8fafc;
+  color: var(--mut);
+  font-size: .82rem;
+  line-height: 1.4;
+}
+
+/* Curso sem imagem */
+.secao-catalogo .cursos-grid > .card:not(:has(img)) {
+  padding-top: 1rem;
+}
+
+/* Mensagem nenhum curso */
+.secao-catalogo .cursos-grid > .card.mut {
+  padding: 1.25rem;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .secao-catalogo .cursos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .secao-catalogo .cursos-grid > .card > h3 {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .secao-catalogo .cursos-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+/* =========================================================
+   TOPO DO ALUNO — PERFIL E SAIR
+   ========================================================= */
+
+.aluno-topo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+/* ===============================
+   BOTÃO DO PERFIL
+   =============================== */
+
+.aluno-perfil-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 5px 14px 5px 5px;
+
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+
+  background: #fff;
+  color: var(--txt);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.aluno-perfil-btn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+
+  box-shadow:
+    0 5px 16px rgba(15, 23, 42, 0.08);
+
+  transform: translateY(-1px);
+}
+
+.aluno-perfil-btn:active {
+  transform: translateY(0);
+}
+
+
+/* ===============================
+   AVATAR
+   =============================== */
+
+.aluno-avatar {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    var(--pri),
+    var(--pri-dark)
+  );
+
+  color: #fff;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  box-shadow:
+    0 3px 8px rgba(59, 130, 246, 0.22);
+}
+
+#aluno-avatar-letra {
+  line-height: 1;
+}
+
+
+/* ===============================
+   NOME DO ALUNO
+   =============================== */
+
+.aluno-saudacao {
+  display: flex;
+  align-items: center;
+
+  color: var(--txt);
+
+  font-size: 0.9rem;
+}
+
+.aluno-saudacao b {
+  font-weight: 650;
+}
+
+
+/* ===============================
+   BOTÃO SAIR
+   =============================== */
+
+#btn-sair {
+  min-height: 40px;
+
+  padding: 0 16px;
+
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+
+  background: #fff;
+  color: var(--mut);
+
+  font-size: 0.9rem;
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+#btn-sair:hover {
+  background: #f8fafc;
+
+  color: var(--txt);
+
+  border-color: #cbd5e1;
+
+  box-shadow:
+    0 4px 12px rgba(15, 23, 42, 0.07);
+
+  transform: translateY(-1px);
+}
+
+#btn-sair:active {
+  transform: translateY(0);
+}
+
+
+/* ===============================
+   CELULAR
+   =============================== */
+
+@media (max-width: 600px) {
+
+  .aluno-topo {
+    gap: 8px;
+  }
+
+  .aluno-perfil-btn {
+    padding-right: 9px;
+  }
+
+  .aluno-saudacao {
+    font-size: 0.82rem;
+  }
+
+  #btn-sair {
+    padding: 0 12px;
+  }
+
+}
+/* Oculta a seção "Meus cursos" do aluno */
+.secao-meus-cursos {
+  display: none !important;
+}#tb-cursos td:nth-child(6),
+#tb-cursos th:nth-child(6) {
+  display: none !important;
+}
+/* =========================================================
+   PAINEL ADMINISTRATIVO — DESIGN MODERNO
+   ========================================================= */
+
+.layout {
+  grid-template-columns: 248px minmax(0, 1fr);
+  background: #f8fafc;
+}
+
+/* ===============================
+   MENU LATERAL
+   =============================== */
+
+.layout .side {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  padding: 1.5rem 1rem;
+
+  background: #ffffff;
+  border-right: 1px solid #e5e7eb;
+
+  box-shadow:
+    4px 0 18px rgba(15, 23, 42, 0.025);
+
+  z-index: 30;
+}
+
+.layout .side .brand {
+  padding: 0.25rem 0.65rem 1.25rem;
+
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+.layout .side nav {
+  gap: 0.35rem;
+}
+
+.layout .side .nav-btn {
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0.7rem 0.85rem;
+
+  border: 1px solid transparent;
+  border-radius: 11px;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.layout .side .nav-btn:hover {
+  background: #f8fafc;
+  color: var(--txt);
+  transform: translateX(2px);
+}
+
+.layout .side .nav-btn.ativo {
+  background: #eff6ff;
+  color: #2563eb;
+  border-color: #dbeafe;
+}
+
+/* ===============================
+   ÁREA PRINCIPAL
+   =============================== */
+
+.layout > main,
+.layout > .conteudo {
+  max-width: none;
+  width: 100%;
+
+  padding: 2rem 2.5rem 3rem;
+}
+
+/* ===============================
+   CABEÇALHO
+   =============================== */
+
+.layout .top {
+  margin-bottom: 1.75rem;
+}
+
+.layout .top h1 {
+  font-size: clamp(1.65rem, 2.5vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+.layout .top .mut {
+  margin-top: 0.25rem;
+}
+
+/* ===============================
+   INDICADORES
+   =============================== */
+
+.layout .stats {
+  gap: 1.15rem;
+  margin-bottom: 1.5rem;
+}
+
+.layout .stats .card {
+  position: relative;
+
+  min-height: 132px;
+
+  padding: 1.35rem 1.4rem;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 4px 16px rgba(15, 23, 42, 0.035);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.layout .stats .card:hover {
+  transform: translateY(-2px);
+
+  border-color: #dbeafe;
+
+  box-shadow:
+    0 10px 25px rgba(15, 23, 42, 0.07);
+}
+
+.layout .stats .card .mut {
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+}
+
+.layout .stats .card .stat b,
+.layout .stats .card b {
+  margin-top: 0.35rem;
+
+  font-size: 2.1rem;
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+/* ===============================
+   CARDS DO ADMIN
+   =============================== */
+
+.layout .card {
+  border-radius: 16px;
+
+  border-color: #e5e7eb;
+
+  box-shadow:
+    0 4px 16px rgba(15, 23, 42, 0.035);
+}
+
+/* ===============================
+   TABELAS
+   =============================== */
+
+.layout .table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+}
+
+.layout table {
+  min-width: 620px;
+}
+
+.layout th {
+  padding: 0.85rem 1rem;
+
+  background: #f8fafc;
+
+  color: #64748b;
+
+  font-size: 0.78rem;
+  font-weight: 750;
+
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+}
+
+.layout td {
+  padding: 0.9rem 1rem;
+
+  background: #ffffff;
+
+  color: #334155;
+}
+
+.layout tbody tr {
+  transition: background 0.15s ease;
+}
+
+.layout tbody tr:hover td {
+  background: #f8fafc;
+}
+
+/* ===============================
+   ÁREA DE FUTURO
+   =============================== */
+
+.layout .futuro {
+  margin-top: 1.5rem;
+
+  padding: 1.4rem;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+
+  background: #ffffff;
+
+  color: #64748b;
+}
+
+/* ===============================
+   RESPONSIVO
+   =============================== */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .layout .side {
+    position: static;
+    height: auto;
+
+    border-right: 0;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .layout .side nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .layout > main,
+  .layout > .conteudo {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .layout > main,
+  .layout > .conteudo {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .layout .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .layout .side nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout .side .nav-btn {
+    width: 100%;
+  }
+}
+/* =========================================================
+   GRÁFICOS — VISÃO GERAL
+   ========================================================= */
+
+.graficos-resumo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.grafico-card {
+  min-width: 0;
+  overflow: hidden;
+  padding: 1.25rem;
+}
+
+.grafico-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.grafico-cabecalho h2 {
+  margin: 0;
+  color: #212529;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.grafico-cabecalho .mut {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.82rem;
+}
+
+.grafico-area {
+  width: 100%;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grafico-area svg {
+  display: block;
+  width: 100%;
+  height: 280px;
+  overflow: visible;
+}
+
+.grafico-vazio {
+  color: #6c757d;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.grafico-grade {
+  stroke: #e9ecef;
+  stroke-width: 1;
+}
+
+.grafico-eixo {
+  fill: #6c757d;
+  font-size: 11px;
+}
+
+.grafico-linha {
+  fill: none;
+  stroke: #007bff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.grafico-ponto {
+  fill: #ffffff;
+  stroke: #007bff;
+  stroke-width: 3;
+}
+
+.grafico-barra {
+  fill: #007bff;
+  transition: opacity 0.2s ease;
+}
+
+.grafico-barra:hover {
+  opacity: 0.82;
+}
+
+.grafico-valor {
+  fill: #212529;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.grafico-legenda {
+  fill: #6c757d;
+  font-size: 11px;
+}
+
+@media (max-width: 850px) {
+  .graficos-resumo {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .grafico-card {
+    padding: 1rem;
+  }
+
+  .grafico-area,
+  .grafico-area svg {
+    min-height: 240px;
+    height: 240px;
+  }
+}
+/* Oculta controles de status/ação duplicados dentro de Cursos */
+#tab-cursos [data-status-aluno],
+#tab-cursos [data-status-curso],
+#tab-cursos .status,
+#tab-cursos .acao,
+#tab-cursos .acoes {
+  display: none !important;
+}
+/* ===============================
+   FORMULÁRIOS LADO A LADO
+   =============================== */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.2rem;
+}
+
+/* No celular, volta para uma coluna */
+@media (max-width: 760px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Oculta controles de status/ação duplicados dentro de Cursos */
+#tab-cursos [data-status-aluno],
+#tab-cursos [data-status-curso],
+#tab-cursos .status,
+#tab-cursos .acao,
+#tab-cursos .acoes {
+  display: none !important;
+}
+/* Oculta somente a coluna Ação da tabela de Cursos */
+#tb-cursos th:nth-child(5) {
+  display: none !important;
+}
+/* Oculta a tabela de cursos cadastrados */
+#tab-cursos .table-wrap:has(#tb-cursos) {
+  display: none !important;
+}
+/* =========================================================
+   CAPACITA GOV — NOVO LOGIN
+   ========================================================= */
+
+:root {
+  --login-blue-dark: #0B2A6F;
+  --login-blue: #2563EB;
+  --login-blue-light: #3B82F6;
+  --login-blue-soft: #EFF6FF;
+  --login-bg: #F5F9FF;
+  --login-text: #0F172A;
+  --login-muted: #475569;
+  --login-border: #E2E8F0;
+  --login-green: #22C55E;
+}
+
+
+/* =========================================================
+   PÁGINA
+   ========================================================= */
+
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: minmax(480px, 0.95fr) minmax(520px, 1.05fr);
+
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   LADO ESQUERDO
+   ========================================================= */
+
+.login-side {
+  position: relative;
+
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+
+  padding: 2.1rem 5.5vw 1.5rem;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.login-brand {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  width: fit-content;
+}
+
+.login-brand .brand-icon {
+  width: 46px;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #1D4ED8,
+      #3B82F6
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 20px rgba(37, 99, 235, 0.24);
+}
+
+.login-brand .brand-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.login-brand .brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-brand .brand-name {
+  color: #0B2A6F;
+
+  font-size: 1.45rem;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: -0.04em;
+}
+
+.login-brand .brand-name strong {
+  color: #2563EB;
+}
+
+.login-brand .brand-subtitle {
+  margin-top: 0.28rem;
+
+  color: #64748B;
+
+  font-size: 0.62rem;
+  font-weight: 700;
+
+  letter-spacing: 0.105em;
+}
+
+
+/* =========================================================
+   CONTEÚDO DO LOGIN
+   ========================================================= */
+
+.login-content {
+  width: 100%;
+  max-width: 470px;
+
+  margin: auto;
+
+  padding: 3.5rem 0 2rem;
+
+  animation:
+    loginFadeUp 0.55s ease both;
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.login-heading {
+  margin-bottom: 2rem;
+}
+
+.login-eyebrow {
+  display: inline-block;
+
+  margin-bottom: 0.7rem;
+
+  color: #2563EB;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  letter-spacing: 0.13em;
+}
+
+.login-heading h1 {
+  margin: 0;
+
+  color: #0B2A6F;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+
+  line-height: 1.08;
+
+  letter-spacing: -0.045em;
+
+  font-weight: 800;
+}
+
+.login-heading p {
+  margin: 0.75rem 0 0;
+
+  color: #64748B;
+
+  font-size: 1rem;
+}
+
+
+/* =========================================================
+   LABELS
+   ========================================================= */
+
+.login-page label {
+  color: #0F172A;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  margin: 1.15rem 0 0.45rem;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.login-page input {
+  width: 100%;
+
+  height: 54px;
+
+  padding: 0 1rem;
+
+  border: 1px solid #E2E8F0;
+
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  color: #0F172A;
+
+  font-size: 0.95rem;
+
+  box-shadow:
+    0 2px 5px rgba(15, 23, 42, 0.025);
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.login-page input:hover {
+  border-color: #CBD5E1;
+}
+
+.login-page input:focus {
+  outline: none;
+
+  border-color: #2563EB;
+
+  box-shadow:
+    0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.login-page input::placeholder {
+  color: #94A3B8;
+}
+
+
+/* =========================================================
+   OPÇÕES DO LOGIN
+   ========================================================= */
+
+.login-options {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 1rem;
+
+  margin-top: 0.8rem;
+}
+
+.login-options .remember-option {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.55rem;
+
+  margin: 0;
+
+  color: #64748B;
+
+  font-size: 0.85rem;
+
+  font-weight: 500;
+
+  cursor: default;
+}
+
+.fake-checkbox {
+  width: 19px;
+  height: 19px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 5px;
+
+  background: #2563EB;
+
+  color: #ffffff;
+
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.forgot-link {
+  color: #2563EB;
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.forgot-link:hover {
+  color: #1D4ED8;
+}
+
+
+/* =========================================================
+   ALERTA
+   ========================================================= */
+
+.login-page .alerta {
+  margin-top: 1rem;
+
+  padding: 0.8rem 0.9rem;
+
+  border: 1px solid #FECACA;
+
+  border-radius: 10px;
+
+  background: #FEF2F2;
+
+  color: #B91C1C;
+
+  font-size: 0.87rem;
+}
+
+
+/* =========================================================
+   BOTÃO PRINCIPAL
+   ========================================================= */
+
+.login-page .login-submit {
+  width: 100%;
+
+  min-height: 54px;
+
+  margin-top: 1.35rem;
+
+  border: 0;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563EB,
+      #3B82F6
+    );
+
+  color: #ffffff;
+
+  font-size: 0.98rem;
+
+  font-weight: 750;
+
+  box-shadow:
+    0 9px 22px rgba(37, 99, 235, 0.22);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.login-page .login-submit:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #1D4ED8,
+      #2563EB
+    );
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 13px 28px rgba(37, 99, 235, 0.28);
+
+  filter: brightness(0.98);
+}
+
+.login-page .login-submit:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   SEPARADOR
+   ========================================================= */
+
+.login-divider {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.9rem;
+
+  margin: 1.5rem 0 0.8rem;
+
+  color: #94A3B8;
+
+  font-size: 0.82rem;
+
+  text-align: center;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+
+  flex: 1;
+
+  height: 1px;
+
+  background: #E2E8F0;
+}
+
+.login-divider span {
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   BOTÃO SOLICITAR ACESSO
+   ========================================================= */
+
+.login-page .login-access {
+  width: 100%;
+
+  min-height: 52px;
+
+  margin-top: 0.25rem;
+
+  border: 1.5px solid #BFDBFE;
+
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  color: #2563EB;
+
+  font-weight: 750;
+
+  box-shadow: none;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-page .login-access:hover {
+  background: #EFF6FF;
+
+  border-color: #93C5FD;
+
+  color: #1D4ED8;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 18px rgba(37, 99, 235, 0.09);
+}
+
+
+/* =========================================================
+   FORMULÁRIO DE CADASTRO
+   ========================================================= */
+
+.cadastro-form {
+  animation:
+    loginFadeUp 0.35s ease both;
+}
+
+.cadastro-header {
+  margin-bottom: 1.4rem;
+}
+
+.cadastro-header h2 {
+  margin: 0;
+
+  color: #0B2A6F;
+
+  font-size: 1.65rem;
+
+  letter-spacing: -0.035em;
+}
+
+.cadastro-header p {
+  margin: 0.45rem 0 0;
+
+  color: #64748B;
+
+  font-size: 0.9rem;
+
+  line-height: 1.55;
+}
+
+.cadastro-form .login-access {
+  margin-top: 0.7rem;
+}
+
+
+/* =========================================================
+   TERMOS
+   ========================================================= */
+
+.login-terms {
+  margin: 2rem auto 0;
+
+  max-width: 430px;
+
+  color: #94A3B8;
+
+  font-size: 0.72rem;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   PAINEL AZUL
+   ========================================================= */
+
+.login-visual {
+  position: relative;
+
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  display: flex;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0B2A6F 0%,
+      #1D4ED8 52%,
+      #3B82F6 100%
+    );
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   PADRÃO DIAGONAL
+   ========================================================= */
+
+.visual-lines {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0.08;
+
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      transparent 0,
+      transparent 14px,
+      #ffffff 14px,
+      #ffffff 15px
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CÍRCULOS DECORATIVOS
+   ========================================================= */
+
+.visual-circle {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.visual-circle-one {
+  width: 520px;
+  height: 520px;
+
+  top: -280px;
+  right: -170px;
+
+  background:
+    rgba(255, 255, 255, 0.09);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.visual-circle-two {
+  width: 320px;
+  height: 320px;
+
+  bottom: -180px;
+  left: -150px;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+}
+
+
+/* =========================================================
+   BOTÃO VOLTAR
+   ========================================================= */
+
+.back-home {
+  position: absolute;
+
+  top: 2.1rem;
+  right: 3rem;
+
+  z-index: 5;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.55rem;
+
+  min-height: 45px;
+
+  padding: 0 1.15rem;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #0B2A6F;
+
+  font-size: 0.88rem;
+
+  font-weight: 750;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.1);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.back-home:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 11px 25px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =========================================================
+   CONTEÚDO DO PAINEL
+   ========================================================= */
+
+.visual-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(650px, 100%);
+
+  margin: auto;
+
+  padding: 7rem 6vw 4rem;
+}
+
+.visual-label {
+  display: block;
+
+  margin-bottom: 1.1rem;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 0.78rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.15em;
+}
+
+.visual-content h2 {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(2.5rem, 4vw, 4rem);
+
+  line-height: 1.06;
+
+  letter-spacing: -0.055em;
+
+  font-weight: 800;
+}
+
+.visual-content h2 span {
+  color: #BFDBFE;
+}
+
+.visual-content > p {
+  max-width: 570px;
+
+  margin: 1.5rem 0 0;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 1.05rem;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   BOTÃO DO PAINEL
+   ========================================================= */
+
+.visual-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  margin-top: 2rem;
+
+  min-height: 50px;
+
+  padding: 0 1.35rem;
+
+  border-radius: 11px;
+
+  background: #ffffff;
+
+  color: #0B2A6F;
+
+  font-size: 0.9rem;
+
+  font-weight: 750;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.visual-button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+.visual-button span {
+  font-size: 1.15rem;
+}
+
+
+/* =========================================================
+   MINI CARDS
+   ========================================================= */
+
+.visual-features {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 0.8rem;
+
+  margin-top: 3.2rem;
+
+  max-width: 620px;
+}
+
+.visual-feature {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 0.7rem;
+
+  min-height: 92px;
+
+  padding: 1rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.17);
+
+  border-radius: 13px;
+
+  background:
+    rgba(255, 255, 255, 0.10);
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.feature-icon {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #22C55E;
+
+  color: #ffffff;
+
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.visual-feature strong {
+  display: block;
+
+  color: #ffffff;
+
+  font-size: 0.82rem;
+
+  line-height: 1.2;
+}
+
+.visual-feature span {
+  display: block;
+
+  margin-top: 0.3rem;
+
+  color: rgba(255, 255, 255, 0.7);
+
+  font-size: 0.7rem;
+
+  line-height: 1.35;
+}
+
+
+/* =========================================================
+   CARTÕES FLUTUANTES
+   ========================================================= */
+
+.floating-card {
+  position: absolute;
+
+  z-index: 4;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  border-radius: 14px;
+
+  background:
+    rgba(255, 255, 255, 0.96);
+
+  color: #0F172A;
+
+  box-shadow:
+    0 18px 40px rgba(5, 25, 80, 0.25);
+
+  backdrop-filter: blur(10px);
+
+  animation:
+    floatingCard 5s ease-in-out infinite;
+}
+
+.floating-course {
+  width: 250px;
+
+  top: 15%;
+
+  right: 7%;
+
+  padding: 1rem;
+}
+
+.floating-card-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.55rem;
+
+  color: #0B2A6F;
+
+  font-size: 0.76rem;
+
+  font-weight: 750;
+}
+
+.floating-course-icon {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #EFF6FF;
+
+  color: #2563EB;
+}
+
+.progress-info {
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-top: 1rem;
+
+  color: #64748B;
+
+  font-size: 0.68rem;
+}
+
+.progress-info strong {
+  color: #2563EB;
+}
+
+.progress-bar {
+  height: 6px;
+
+  margin-top: 0.45rem;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #E2E8F0;
+}
+
+.progress-bar span {
+  display: block;
+
+  width: 85%;
+
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2563EB,
+      #3B82F6
+    );
+}
+
+
+.floating-check {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  width: 220px;
+
+  top: 43%;
+
+  right: 3%;
+
+  padding: 0.85rem 1rem;
+
+  animation-delay: -1.5s;
+}
+
+.check-circle {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #DCFCE7;
+
+  color: #16A34A;
+
+  font-weight: 900;
+}
+
+.floating-card strong {
+  display: block;
+
+  color: #0F172A;
+
+  font-size: 0.75rem;
+}
+
+.floating-card span {
+  display: block;
+
+  color: #64748B;
+
+  font-size: 0.65rem;
+}
+
+
+.floating-video {
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  width: 215px;
+
+  bottom: 16%;
+
+  left: 7%;
+
+  padding: 0.85rem 1rem;
+
+  animation-delay: -3s;
+}
+
+.play-circle {
+  width: 35px;
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #EFF6FF;
+
+  color: #2563EB;
+
+  font-size: 0.72rem;
+}
+
+
+/* =========================================================
+   ANIMAÇÕES
+   ========================================================= */
+
+@keyframes loginFadeUp {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+@keyframes floatingCard {
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-8px);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVO — TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+
+  .login-page {
+    grid-template-columns:
+      minmax(430px, 1fr)
+      minmax(430px, 1fr);
+  }
+
+  .login-side {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .visual-content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .visual-content h2 {
+    font-size: 2.7rem;
+  }
+
+  .floating-course {
+    right: 4%;
+  }
+
+  .floating-check {
+    right: 1%;
+  }
+
+  .floating-video {
+    left: 4%;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — TABLET PEQUENO
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .login-page {
+    grid-template-columns: 1fr;
+  }
+
+  .login-side {
+    min-height: auto;
+
+    padding:
+      1.5rem
+      clamp(1.25rem, 6vw, 4rem)
+      3rem;
+  }
+
+  .login-content {
+    max-width: 560px;
+
+    padding-top: 3rem;
+  }
+
+  .login-visual {
+    display: none;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVO — CELULAR
+   ========================================================= */
+
+@media (max-width: 560px) {
+
+  .login-side {
+    padding:
+      1.25rem
+      1rem
+      2rem;
+  }
+
+  .login-brand .brand-icon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .login-brand .brand-name {
+    font-size: 1.25rem;
+  }
+
+  .login-brand .brand-subtitle {
+    font-size: 0.55rem;
+  }
+
+  .login-content {
+    padding-top: 3rem;
+  }
+
+  .login-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .login-heading h1 {
+    font-size: 2rem;
+  }
+
+  .login-options {
+    align-items: flex-start;
+  }
+
+  .forgot-link {
+    text-align: right;
+  }
+
+  .login-terms {
+    margin-top: 1.5rem;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+  .login-options {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .forgot-link {
+    margin-left: 1.6rem;
+  }
+
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .login-page *,
+  .login-page *::before,
+  .login-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
+/* Oculta o bloco "Ainda não tem acesso?" quando o formulário
+   de solicitação de acesso estiver aberto */
+.login-card:has(#form-cadastro:not([hidden])) > div:has(#btn-solicitar-acesso) {
+  display: none !important;
+}
+.login-page:has(#form-cadastro:not([hidden])) .login-divider,
+.login-page:has(#form-cadastro:not([hidden])) #btn-solicitar-acesso {
+  display: none !important;
+}
+/* =========================================================
+   ÁREA DO ALUNO — CABEÇALHO SOBRE O BANNER AZUL
+   ========================================================= */
+
+/* Cabeçalho: azul, sem a faixa branca, alinhado ao conteúdo */
+.app-bar {
+  position: static;
+  background: #1D4ED8;
+  border-bottom: 0;
+  backdrop-filter: none;
+  padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+  padding-right: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+}
+
+.app-bar .brand {
+  color: #ffffff;
+}
+
+/* Só a letra do aluno (o nome fica oculto, o clique no perfil continua) */
+.aluno-saudacao {
+  display: none;
+}
+
+.aluno-perfil-btn {
+  padding: 4px;
+  background: #ffffff;
+  border-color: transparent;
+}
+
+.aluno-perfil-btn:hover {
+  background: #EFF6FF;
+  border-color: transparent;
+}
+
+/* Botão Sair branco sobre o azul */
+#btn-sair {
+  background: #ffffff;
+  color: #0B2A6F;
+  border-color: transparent;
+}
+
+#btn-sair:hover {
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border-color: transparent;
+}
+
+/* Página começa colada no cabeçalho */
+.aluno-pagina {
+  padding-top: 0;
+}
+
+/* Banner azul que ocupa a largura toda da tela */
+.aluno-hero {
+  position: relative;
+  background: #1D4ED8;
+  border: 0;
+  border-radius: 0;
+  box-shadow: 0 0 0 100vmax #1D4ED8;
+  clip-path: inset(0 -100vmax);
+  padding: 1.25rem 0 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.aluno-hero > * {
+  position: relative;
+}
+
+.aluno-hero::before {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: -120px;
+  right: -60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  pointer-events: none;
+}
+
+.aluno-hero h1 {
+  color: #ffffff;
+}
+
+.aluno-hero p.mut {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Categorias mais discretas */
+.secao-categorias {
+  margin-bottom: 2rem;
+}
+
+.secao-categorias .secao-titulo h2 {
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--mut);
+}
+
+.categoria-btn.ativo {
+  background: #DBEAFE;
+  color: #1D4ED8;
+  border-color: #BFDBFE;
+  box-shadow: none;
+}
+
+/* Títulos das seções em azul escuro */
+.secao-catalogo .secao-titulo h2 {
+  color: #0B2A6F;
+}
+/* =========================================================
+   ÁREA DO ALUNO — AJUSTES (cabeçalho e cards)
+   ========================================================= */
+
+/* Cabeçalho e banner sem emenda visível */
+.app-bar {
+  box-shadow: none;
+  border-bottom: 0;
+}
+
+.aluno-hero {
+  margin-top: -1px;
+}
+
+/* Letra do aluno do mesmo tamanho do botão Sair */
+.aluno-perfil-btn {
+  height: 40px;
+  padding: 4px;
+  border: 0;
+}
+
+.aluno-perfil-btn .aluno-avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  box-shadow: none;
+}
+
+/* ---------- Cards dos cursos ---------- */
+
+.secao-catalogo .cursos-grid > .card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.25rem !important;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.secao-catalogo .cursos-grid > .card:hover {
+  transform: translateY(-3px);
+  border-color: #BFDBFE;
+  box-shadow: 0 14px 30px rgba(37, 99, 235, 0.10);
+}
+
+/* Zera as margens antigas dos itens de dentro */
+.secao-catalogo .cursos-grid > .card > * {
+  margin: 0 !important;
+}
+
+.secao-catalogo .cursos-grid > .card > h3 {
+  color: #0B2A6F;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.secao-catalogo .cursos-grid > .card > p {
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* Botão ocupa a largura toda e fica sempre no rodapé do card */
+.secao-catalogo .cursos-grid > .card > button {
+  width: 100%;
+  align-self: stretch;
+  margin-top: auto !important;
+  padding: 0.7rem 1rem;
+}
+
+/* Imagem de capa (quando o curso tiver) ocupa o topo inteiro */
+.secao-catalogo .cursos-grid > .card > img {
+  width: calc(100% + 2.5rem) !important;
+  max-width: none;
+  margin: -1.25rem -1.25rem 0.4rem !important;
+  border-radius: 0 !important;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+/* =========================================================
+   ÁREA DO ALUNO — LOGO NOVO NO CABEÇALHO
+   (reaproveita o logo .login-brand da tela de login)
+   ========================================================= */
+
+/* Cartão branco: mantém as cores originais do logo sobre o azul */
+.app-bar .login-brand {
+  background: #ffffff;
+  padding: 6px 18px 6px 6px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(8, 25, 80, 0.22);
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+/* Margem lateral do topo alinhada com o conteúdo da página */
+@media (max-width: 760px) {
+
+  .app-bar {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .app-bar {
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+  }
+
+}
+
+@media (max-width: 560px) {
+
+  .app-bar .login-brand {
+    gap: 0.5rem;
+    padding: 4px 10px 4px 4px;
+    border-radius: 12px;
+  }
+
+  .app-bar .login-brand .brand-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .app-bar .login-brand .brand-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .app-bar .login-brand .brand-name {
+    font-size: 1.05rem;
+    white-space: nowrap;
+  }
+
+  .app-bar .login-brand .brand-subtitle {
+    letter-spacing: 0.06em;
+    margin-top: 0.2rem;
+    white-space: nowrap;
+  }
+
+}
+
 /* Telas muito estreitas: esconde só o subtítulo para não quebrar o topo */
 @media (max-width: 380px) {
 
   .app-bar .login-brand .brand-subtitle {
     display: none;
   }
-
-}  /* <-- ESTA CHAVE FALTAVA. Era o que prendia o design dos cards em telas de 380px */
-
-
-/* =========================================================
+  /* =========================================================
    CAPACITA GOV — NOVO VISUAL DOS CARTÕES DO ALUNO
+   NÃO ALTERA O aluno.js
    ========================================================= */
 
 /* Grade dos cursos */
 #cursos,
 #catalogo-cursos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
   gap: 1.5rem;
   align-items: stretch;
 }
+
 
 /* Cartão */
 #cursos .curso-card,
@@ -28,151 +3278,268 @@
   flex-direction: column;
   height: 100%;
   min-width: 0;
+
   padding: 0 !important;
+
   overflow: hidden;
+
   background: #ffffff;
+
   border: 1px solid #e2e8f0;
   border-radius: 18px;
+
   box-shadow:
     0 2px 5px rgba(15, 23, 42, 0.04),
     0 8px 24px rgba(15, 23, 42, 0.06);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
+
+/* Efeito ao passar o mouse */
 #cursos .curso-card:hover,
 #catalogo-cursos .curso-card:hover {
   transform: translateY(-4px);
+
   border-color: #bfdbfe;
+
   box-shadow:
     0 8px 18px rgba(15, 23, 42, 0.08),
     0 18px 35px rgba(37, 99, 235, 0.08);
 }
 
-/* Imagem do curso (limitada: 175px de altura, sem estourar o card) */
+
+/* =========================================================
+   IMAGEM DO CURSO
+   ========================================================= */
+
 #cursos .curso-imagem,
 #catalogo-cursos .curso-imagem {
   display: block;
+
   width: 100%;
-  max-width: 100%;
   height: 175px;
+
   flex-shrink: 0;
+
   margin: 0 !important;
+
   object-fit: cover;
+
   border-radius: 0 !important;
-  background: linear-gradient(135deg, #dbeafe, #eff6ff, #f8fafc);
+
+  background:
+    linear-gradient(
+      135deg,
+      #dbeafe,
+      #eff6ff,
+      #f8fafc
+    );
 }
 
-/* Curso sem imagem */
+
+/* Quando não existe imagem */
 #cursos .curso-imagem-vazia,
 #catalogo-cursos .curso-imagem-vazia {
   display: flex;
+
   align-items: center;
   justify-content: center;
+
   position: relative;
+
   color: transparent;
+}
+
+
+/* Evita mostrar "Capacita Gov" */
+#cursos .curso-imagem-vazia {
   font-size: 0;
 }
 
-/* Conteúdo */
+#catalogo-cursos .curso-imagem-vazia {
+  font-size: 0;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
 #cursos .curso-card-conteudo,
 #catalogo-cursos .curso-card-conteudo {
   display: flex;
   flex-direction: column;
+
   flex: 1;
+
   min-width: 0;
+
   padding: 1.25rem;
 }
 
-/* Categoria */
+
+/* =========================================================
+   CATEGORIA
+   ========================================================= */
+
 #cursos .curso-categoria,
 #catalogo-cursos .curso-categoria {
   display: inline-flex;
+
   align-self: flex-start;
+
   max-width: 100%;
+
   margin: 0 0 0.65rem;
+
   padding: 0.32rem 0.65rem;
+
   border: 1px solid #dbeafe;
   border-radius: 999px;
+
   background: #eff6ff;
+
   color: #2563eb;
+
   font-size: 0.72rem;
   font-weight: 700;
+
   line-height: 1.2;
+
   white-space: nowrap;
+
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* Título */
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
 #cursos .curso-titulo,
 #catalogo-cursos .curso-titulo {
   margin: 0;
+
   color: #0f2f6f;
+
   font-size: 1.08rem;
+
   font-weight: 750;
+
   line-height: 1.35;
 }
 
-/* Descrição */
+
+/* =========================================================
+   DESCRIÇÃO
+   ========================================================= */
+
 #cursos .curso-descricao,
 #catalogo-cursos .curso-descricao {
   margin: 0.7rem 0 0;
+
   color: #64748b;
+
   font-size: 0.88rem;
+
   line-height: 1.55;
+
   display: -webkit-box;
+
   -webkit-box-orient: vertical;
+
   -webkit-line-clamp: 3;
+
   overflow: hidden;
 }
 
-/* Carga horária */
+
+/* =========================================================
+   CARGA HORÁRIA
+   ========================================================= */
+
 #cursos .curso-meta,
 #catalogo-cursos .curso-meta {
   display: flex;
+
   align-items: center;
+
   margin-top: 1rem;
+
   color: #64748b;
+
   font-size: 0.82rem;
+
   font-weight: 600;
 }
 
-/* Botão */
+
+/* =========================================================
+   BOTÃO
+   ========================================================= */
+
 #cursos .curso-card .btn,
 #catalogo-cursos .curso-card .btn {
   width: 100%;
+
   margin-top: auto;
+
   padding: 0.72rem 1rem;
+
   border-radius: 10px;
+
   font-weight: 700;
 }
 
+
+/* Espaçamento quando existe carga horária */
 #cursos .curso-meta + .btn,
 #catalogo-cursos .curso-meta + .btn {
   margin-top: 1.2rem;
 }
 
-/* Categorias */
+
+/* =========================================================
+   CATEGORIAS DO CATÁLOGO
+   ========================================================= */
+
 #categorias {
   gap: 0.55rem !important;
+
   margin-bottom: 1.5rem !important;
 }
+
 
 #categorias .categoria-btn {
   border-radius: 999px;
 }
+
+
+/* =========================================================
+   TÍTULOS DAS SEÇÕES
+   ========================================================= */
 
 #meus-cursos > h2,
 #catalogo > h2 {
   margin-bottom: 1rem;
 }
 
-/* Responsivo */
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
 @media (max-width: 700px) {
 
   #cursos,
   #catalogo-cursos {
     grid-template-columns: 1fr;
+
     gap: 1rem;
   }
 
@@ -187,28 +3554,14 @@
   }
 }
 
+
 @media (min-width: 1100px) {
 
   #cursos,
   #catalogo-cursos {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
   }
 }
 
-/* (a chave "}" solta que existia aqui no final foi removida) */
-
-
-/* =========================================================
-   OPCIONAL: REMOVER A IMAGEM NA ÁREA DO ALUNO
-   Para usar, apague a abertura e o fechamento de comentario ao redor do bloco abaixo.
-   ========================================================= */
-
-/*
-#cursos .curso-imagem,
-#catalogo-cursos .curso-imagem,
-#cursos .curso-imagem-vazia,
-#catalogo-cursos .curso-imagem-vazia,
-.secao-catalogo .cursos-grid > .card > img {
-  display: none !important;
 }
-*/
