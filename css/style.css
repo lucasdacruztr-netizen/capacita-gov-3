@@ -3253,5 +3253,315 @@ td.vazio {
   .app-bar .login-brand .brand-subtitle {
     display: none;
   }
+  /* =========================================================
+   CAPACITA GOV — NOVO VISUAL DOS CARTÕES DO ALUNO
+   NÃO ALTERA O aluno.js
+   ========================================================= */
+
+/* Grade dos cursos */
+#cursos,
+#catalogo-cursos {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+
+/* Cartão */
+#cursos .curso-card,
+#catalogo-cursos .curso-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+
+  padding: 0 !important;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  box-shadow:
+    0 2px 5px rgba(15, 23, 42, 0.04),
+    0 8px 24px rgba(15, 23, 42, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+
+/* Efeito ao passar o mouse */
+#cursos .curso-card:hover,
+#catalogo-cursos .curso-card:hover {
+  transform: translateY(-4px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.08),
+    0 18px 35px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================================
+   IMAGEM DO CURSO
+   ========================================================= */
+
+#cursos .curso-imagem,
+#catalogo-cursos .curso-imagem {
+  display: block;
+
+  width: 100%;
+  height: 175px;
+
+  flex-shrink: 0;
+
+  margin: 0 !important;
+
+  object-fit: cover;
+
+  border-radius: 0 !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #dbeafe,
+      #eff6ff,
+      #f8fafc
+    );
+}
+
+
+/* Quando não existe imagem */
+#cursos .curso-imagem-vazia,
+#catalogo-cursos .curso-imagem-vazia {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  color: transparent;
+}
+
+
+/* Evita mostrar "Capacita Gov" */
+#cursos .curso-imagem-vazia {
+  font-size: 0;
+}
+
+#catalogo-cursos .curso-imagem-vazia {
+  font-size: 0;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+#cursos .curso-card-conteudo,
+#catalogo-cursos .curso-card-conteudo {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 1.25rem;
+}
+
+
+/* =========================================================
+   CATEGORIA
+   ========================================================= */
+
+#cursos .curso-categoria,
+#catalogo-cursos .curso-categoria {
+  display: inline-flex;
+
+  align-self: flex-start;
+
+  max-width: 100%;
+
+  margin: 0 0 0.65rem;
+
+  padding: 0.32rem 0.65rem;
+
+  border: 1px solid #dbeafe;
+  border-radius: 999px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+
+  line-height: 1.2;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+#cursos .curso-titulo,
+#catalogo-cursos .curso-titulo {
+  margin: 0;
+
+  color: #0f2f6f;
+
+  font-size: 1.08rem;
+
+  font-weight: 750;
+
+  line-height: 1.35;
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+   ========================================================= */
+
+#cursos .curso-descricao,
+#catalogo-cursos .curso-descricao {
+  margin: 0.7rem 0 0;
+
+  color: #64748b;
+
+  font-size: 0.88rem;
+
+  line-height: 1.55;
+
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+
+  -webkit-line-clamp: 3;
+
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   CARGA HORÁRIA
+   ========================================================= */
+
+#cursos .curso-meta,
+#catalogo-cursos .curso-meta {
+  display: flex;
+
+  align-items: center;
+
+  margin-top: 1rem;
+
+  color: #64748b;
+
+  font-size: 0.82rem;
+
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   BOTÃO
+   ========================================================= */
+
+#cursos .curso-card .btn,
+#catalogo-cursos .curso-card .btn {
+  width: 100%;
+
+  margin-top: auto;
+
+  padding: 0.72rem 1rem;
+
+  border-radius: 10px;
+
+  font-weight: 700;
+}
+
+
+/* Espaçamento quando existe carga horária */
+#cursos .curso-meta + .btn,
+#catalogo-cursos .curso-meta + .btn {
+  margin-top: 1.2rem;
+}
+
+
+/* =========================================================
+   CATEGORIAS DO CATÁLOGO
+   ========================================================= */
+
+#categorias {
+  gap: 0.55rem !important;
+
+  margin-bottom: 1.5rem !important;
+}
+
+
+#categorias .categoria-btn {
+  border-radius: 999px;
+}
+
+
+/* =========================================================
+   TÍTULOS DAS SEÇÕES
+   ========================================================= */
+
+#meus-cursos > h2,
+#catalogo > h2 {
+  margin-bottom: 1rem;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  #cursos,
+  #catalogo-cursos {
+    grid-template-columns: 1fr;
+
+    gap: 1rem;
+  }
+
+  #cursos .curso-imagem,
+  #catalogo-cursos .curso-imagem {
+    height: 165px;
+  }
+
+  #cursos .curso-card-conteudo,
+  #catalogo-cursos .curso-card-conteudo {
+    padding: 1.1rem;
+  }
+}
+
+
+@media (min-width: 1100px) {
+
+  #cursos,
+  #catalogo-cursos {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+}
 
 }
