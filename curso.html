@@ -286,9 +286,11 @@
 
     .resultado-quiz {
       margin-top: 20px;
-      padding: 16px;
-      border-radius: 12px;
+      padding: 24px 20px;
+      border-radius: 16px;
       font-weight: 600;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(15,42,92,.08);
       display: none;
     }
 
@@ -297,6 +299,7 @@
       background: var(--verde-bg);
       color: var(--verde);
       border: 1px solid #bbf7d0;
+      animation: resultadoEntrada .35s ease;
     }
 
     .resultado-quiz.erro {
@@ -304,6 +307,37 @@
       background: var(--vermelho-bg);
       color: var(--vermelho);
       border: 1px solid #fecaca;
+      animation: resultadoEntrada .35s ease;
+    }
+
+    .resultado-percentual {
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .resultado-detalhe {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .resultado-mensagem {
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: .9;
+    }
+
+    @keyframes resultadoEntrada {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .btn-finalizar {
@@ -819,8 +853,17 @@
       resultado.className = "resultado-quiz " +
         (percentual >= 50 ? "sucesso" : "erro");
 
-      resultado.textContent =
-        `Resultado: ${acertos} de ${total} acertos (${percentual}%).`;
+      resultado.innerHTML = `
+        <div class="resultado-percentual">${percentual}%</div>
+        <div class="resultado-detalhe">${acertos} de ${total} acertos</div>
+        <div class="resultado-mensagem">
+          ${
+            percentual >= 50
+              ? "Parabéns, você foi aprovado!"
+              : "Continue estudando e tente novamente!"
+          }
+        </div>
+      `;
 
     }
 
