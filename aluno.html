@@ -3,25 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meus cursos · Capacita Gov</title>
+  <title>Área do aluno · Capacita Gov</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<!-- Oculto até o perfil ser confirmado -->
+<!-- Oculto até o perfil do aluno ser confirmado (evita "piscar" a página) -->
 <body hidden>
-  <header class="app-bar">
-    <div class="brand">Capacita Gov</div>
-    <div>
-      <span class="mut">Olá, <b id="aluno-nome"></b></span>
-      <button id="btn-sair" class="btn ghost" type="button" style="margin-left:1rem">Sair</button>
-    </div>
-  </header>
+  <div class="layout">
+    <aside class="side">
+      <div class="brand">Capacita Gov</div>
+      <nav>
+        <a class="nav-btn ativo" href="#meus-cursos">Meus cursos</a>
+        <a class="nav-btn" href="#catalogo">Catálogo</a>
+      </nav>
+      <button id="btn-sair" class="btn ghost" type="button">Sair</button>
+    </aside>
 
-  <div class="conteudo" style="margin:0 auto">
-    <h2 style="margin-bottom:.8rem">Meu perfil</h2>
-    <div class="card" id="perfil"></div>
+    <main>
+      <header class="top">
+        <h1 id="titulo-boas-vindas">Olá!</h1>
+        <span class="mut" style="display:flex;align-items:center;gap:.5rem">
+          <span id="aluno-avatar-letra"
+                style="width:34px;height:34px;border-radius:50%;background:#e2e8f0;display:inline-flex;align-items:center;justify-content:center;font-weight:700"></span>
+          Aluno: <b id="aluno-nome"></b>
+        </span>
+      </header>
 
-    <h2 style="margin:1.5rem 0 .8rem">Meus cursos</h2>
-    <div id="cursos" class="grid"></div>
+      <!-- ============ PESQUISA ============ -->
+      <section class="card" style="margin-bottom:1rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <input id="campo-busca" type="search" placeholder="Pesquisar cursos"
+                 autocomplete="off" style="flex:1;min-width:220px">
+          <button id="btn-pesquisar" class="btn" type="button">Pesquisar</button>
+        </div>
+      </section>
+
+      <!-- ============ MEUS CURSOS ============ -->
+      <section id="meus-cursos" style="margin-bottom:2rem">
+        <h2>Meus cursos</h2>
+        <div id="cursos" class="grid"></div>
+      </section>
+
+      <!-- ============ CATÁLOGO ============ -->
+      <section id="catalogo">
+        <h2>Catálogo de cursos</h2>
+        <div id="categorias" style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem"></div>
+        <div id="catalogo-cursos" class="grid"></div>
+      </section>
+    </main>
   </div>
   <script type="module" src="js/aluno.js"></script>
 </body>
