@@ -1,1048 +1,1096 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Curso | Capacita Gov</title>
-
-  <link rel="stylesheet" href="css/style.css">
-
-  <style>
-    .curso-pagina {
-      min-height: 100vh;
-      background: #f5f7fb;
-    }
-
-    .curso-topo {
-      background: #0b5ed7;
-      color: #fff;
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .curso-topo h1 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 700;
-    }
-
-    .curso-topo-acoes {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .curso-topo button {
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    #btnVoltar {
-      background: #fff;
-      color: #0b5ed7;
-    }
-
-    #btnSair {
-      background: rgba(255,255,255,.15);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.3);
-    }
-
-    .curso-conteudo {
-      width: min(1100px, calc(100% - 32px));
-      margin: 30px auto;
-    }
-
-    .curso-cabecalho {
-      background: #fff;
-      border-radius: 14px;
-      padding: 28px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 18px rgba(0,0,0,.06);
-    }
-
-    .curso-cabecalho h2 {
-      margin: 0 0 10px;
-      color: #123;
-      font-size: 28px;
-    }
-
-    .curso-cabecalho p {
-      margin: 0;
-      color: #667085;
-      line-height: 1.6;
-    }
-
-    .curso-secao {
-      background: #fff;
-      border-radius: 14px;
-      padding: 24px;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 18px rgba(0,0,0,.06);
-    }
-
-    .curso-secao h2 {
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: #123;
-    }
-
-    .modulo-card {
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-
-    .modulo-titulo {
-      background: #f8fafc;
-      padding: 16px 18px;
-      font-weight: 700;
-      color: #123;
-    }
-
-    .aulas-lista {
-      padding: 10px;
-    }
-
-    .aula-card {
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 10px;
-    }
-
-    .aula-card:last-child {
-      margin-bottom: 0;
-    }
-
-    .aula-titulo {
-      font-weight: 700;
-      color: #123;
-      margin-bottom: 8px;
-    }
-
-    .aula-descricao {
-      color: #667085;
-      line-height: 1.5;
-    }
-
-    .aula-material {
-      margin-top: 12px;
-    }
-
-    .aula-material a {
-      color: #0b5ed7;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .perguntas-lista {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .pergunta-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 20px;
-      background: #fff;
-    }
-
-    .pergunta-numero {
-      display: inline-block;
-      background: #eaf2ff;
-      color: #0b5ed7;
-      border-radius: 7px;
-      padding: 6px 10px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .pergunta-enunciado {
-      margin: 0 0 16px;
-      color: #1f2937;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.5;
-    }
-
-    .alternativas {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .alternativa {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 13px 14px;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: .2s;
-      background: #fff;
-    }
-
-    .alternativa:hover {
-      border-color: #0b5ed7;
-      background: #f8fbff;
-    }
-
-    .alternativa input {
-      margin-top: 3px;
-      accent-color: #0b5ed7;
-      cursor: pointer;
-    }
-
-    .alternativa span {
-      color: #374151;
-      line-height: 1.4;
-    }
-
-    .quiz-acoes {
-      margin-top: 24px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .btn-finalizar {
-      border: none;
-      border-radius: 10px;
-      background: #0b5ed7;
-      color: #fff;
-      padding: 13px 22px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn-finalizar:hover {
-      background: #084298;
-    }
-
-    .btn-finalizar:disabled {
-      opacity: .55;
-      cursor: not-allowed;
-    }
-
-    .btn-finalizar:disabled:hover {
-      background: #0b5ed7;
-    }
-
-
-    .resultado-quiz {
-      display: none;
-      margin-top: 20px;
-      padding: 22px;
-      border-radius: 12px;
-      text-align: center;
-    }
-
-    .resultado-quiz.sucesso {
-      display: block;
-      background: #ecfdf3;
-      border: 1px solid #a7f3d0;
-      color: #065f46;
-    }
-
-    .resultado-quiz.erro {
-      display: block;
-      background: #fef2f2;
-      border: 1px solid #fecaca;
-      color: #991b1b;
-    }
-
-    .resultado-quiz.atencao {
-      display: block;
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      color: #92400e;
-    }
-
-    .resultado-percentual {
-      font-size: 38px;
-      font-weight: 800;
-      margin-bottom: 5px;
-    }
-
-    .resultado-detalhe {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .resultado-mensagem {
-      margin-top: 8px;
-    }
-
-    #estado {
-      width: min(1100px, calc(100% - 32px));
-      margin: 30px auto;
-      text-align: center;
-      color: #667085;
-    }
-
-    /* Cronômetro do quiz */
-    .cronometro-quiz {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 20px;
-      padding: 14px 16px;
-      border: 1px solid #dbeafe;
-      border-radius: 12px;
-      background: #eff6ff;
-    }
-
-    .cronometro-info {
-      color: #1e3a8a;
-      font-weight: 700;
-    }
-
-    #cronometroQuiz {
-      min-width: 78px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 800;
-      color: #0b5ed7;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .cronometro-quiz.aviso {
-      border-color: #fcd34d;
-      background: #fffbeb;
-    }
-
-    .cronometro-quiz.aviso .cronometro-info,
-    .cronometro-quiz.aviso #cronometroQuiz {
-      color: #92400e;
-    }
-
-    .cronometro-quiz.bloqueado {
-      border-color: #fecaca;
-      background: #fef2f2;
-    }
-
-    .cronometro-quiz.bloqueado .cronometro-info,
-    .cronometro-quiz.bloqueado #cronometroQuiz {
-      color: #991b1b;
-    }
-
-    .quiz-bloqueado .alternativa {
-      cursor: not-allowed;
-      opacity: .65;
-    }
-
-    .quiz-bloqueado .alternativa:hover {
-      border-color: #e2e8f0;
-      background: #fff;
-    }
-
-
-    @media (max-width: 700px) {
-      .curso-topo {
-        padding: 14px 16px;
-      }
-
-      .curso-topo h1 {
-        font-size: 18px;
-      }
-
-      .curso-topo-acoes {
-        gap: 6px;
-      }
-
-      .curso-topo button {
-        padding: 8px 10px;
-        font-size: 13px;
-      }
-
-      .curso-conteudo {
-        width: min(100% - 20px, 1100px);
-        margin: 20px auto;
-      }
-
-      .curso-cabecalho,
-      .curso-secao {
-        padding: 18px;
-      }
-
-      .curso-cabecalho h2 {
-        font-size: 23px;
-      }
-
-      .quiz-acoes {
-        justify-content: stretch;
-      }
-
-      .btn-finalizar {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="curso-pagina">
-
-    <header class="curso-topo">
-      <h1>Capacita Gov</h1>
-
-      <div class="curso-topo-acoes">
-        <button type="button" id="btnVoltar">
-          Voltar
-        </button>
-
-        <button type="button" id="btnSair">
-          Sair
-        </button>
-      </div>
-    </header>
-
-    <div id="estado">
-      Carregando curso...
-    </div>
-
-    <main id="conteudo" class="curso-conteudo" style="display:none">
-
-      <section class="curso-cabecalho">
-        <h2 id="cursoNome"></h2>
-        <p id="cursoDescricao"></p>
-      </section>
-
-      <section class="curso-secao">
-        <h2>Módulos do curso</h2>
-
-        <div id="modulos"></div>
-      </section>
-
-      <section class="curso-secao" id="secaoPerguntas" style="display:none">
-
-        <h2>Perguntas do curso</h2>
-
-        <div id="cronometroQuiz" class="cronometro-quiz" aria-live="polite">
-          <span class="cronometro-info">Tempo para responder: <strong id="tempoQuiz">05:00</strong></span>
-        </div>
-
-        <div id="perguntas" class="perguntas-lista"></div>
-
-        <div class="quiz-acoes">
-          <button
-            type="button"
-            id="btnFinalizarQuiz"
-            class="btn-finalizar">
-            Finalizar perguntas
-          </button>
-        </div>
-
-        <div id="resultadoQuiz" class="resultado-quiz"></div>
-
-      </section>
-
-    </main>
-
-  </div>
-
-  <script type="module">
-
-    import {
-      supabase,
-      exigirPerfil,
-      sair,
-      esc
-    } from "./js/config.js";
-
-
-    const el = id => document.getElementById(id);
-
-    let cursoAtual = null;
-    let perguntasCurso = [];
-
-    // Cronômetro do quiz
-    let intervaloQuiz = null;
-    let intervaloBloqueio = null;
-    let tempoRestanteQuiz = 5 * 60;
-    let tempoRestanteBloqueio = 0;
-    let quizBloqueado = false;
-
-    const TEMPO_QUIZ = 5 * 60;
-    const TEMPO_BLOQUEIO = 2 * 60;
-
-
-    function renderizarAula(aula) {
-
-      return `
-        <article class="aula-card">
-
-          <div class="aula-titulo">
-            ${esc(aula.titulo || "Aula")}
-          </div>
-
-          ${
-            aula.descricao
-              ? `
-                <div class="aula-descricao">
-                  ${esc(aula.descricao)}
-                </div>
-              `
-              : ""
-          }
-
-          ${
-            aula.url || aula.material_url
-              ? `
-                <div class="aula-material">
-                  <a
-                    href="${esc(aula.url || aula.material_url)}"
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    Abrir material
-                  </a>
-                </div>
-              `
-              : ""
-          }
-
-        </article>
-      `;
-    }
-
-
-    async function carregarAulas(modulos) {
-
-      if (!modulos.length) {
-        return [];
-      }
-
-      const ids = modulos.map(modulo => modulo.id);
-
-      const { data, error } = await supabase
-        .from("aulas")
-        .select("*")
-        .in("modulo_id", ids)
-        .eq("ativo", true)
-        .order("ordem", { ascending: true });
-
-      if (error) {
-        throw new Error(
-          "Erro ao carregar aulas: " + error.message
-        );
-      }
-
-      return data || [];
-    }
-
-
-    function renderizarModulos(modulos, aulas) {
-
-      const container = el("modulos");
-
-      if (!modulos.length) {
-
-        container.innerHTML = `
-          <p>
-            Nenhum módulo disponível neste curso.
-          </p>
-        `;
-
-        return;
-      }
-
-      container.innerHTML = modulos
-        .map(modulo => {
-
-          const aulasModulo = aulas.filter(
-            aula => aula.modulo_id === modulo.id
-          );
-
-          return `
-            <article class="modulo-card">
-
-              <div class="modulo-titulo">
-                ${esc(modulo.nome || "Módulo")}
-              </div>
-
-              <div class="aulas-lista">
-
-                ${
-                  aulasModulo.length
-                    ? aulasModulo
-                        .map(renderizarAula)
-                        .join("")
-                    : `
-                      <p>
-                        Nenhuma aula disponível neste módulo.
-                      </p>
-                    `
-                }
-
-              </div>
-
-            </article>
-          `;
-
-        })
-        .join("");
-    }
-
-
-    function renderizarPerguntas() {
-
-      const secao = el("secaoPerguntas");
-      const lista = el("perguntas");
-
-      if (!perguntasCurso.length) {
-
-        secao.style.display = "none";
-
-        return;
-      }
-
-      secao.style.display = "block";
-
-
-      lista.innerHTML =
-        perguntasCurso
-          .map((pergunta, indice) => {
-
-            return `
-              <article class="pergunta-card">
-
-                <div class="pergunta-numero">
-                  Pergunta ${indice + 1}
-                </div>
-
-                <p class="pergunta-enunciado">
-                  ${esc(
-                    pergunta.pergunta ||
-                    "Pergunta"
-                  )}
-                </p>
-
-                <div class="alternativas">
-
-                  <label class="alternativa">
-
-                    <input
-                      type="radio"
-                      name="pergunta-${esc(pergunta.id)}"
-                      value="1">
-
-                    <span>
-                      ${esc(pergunta.opcao_a || "")}
-                    </span>
-
-                  </label>
-
-
-                  <label class="alternativa">
-
-                    <input
-                      type="radio"
-                      name="pergunta-${esc(pergunta.id)}"
-                      value="2">
-
-                    <span>
-                      ${esc(pergunta.opcao_b || "")}
-                    </span>
-
-                  </label>
-
-
-                  <label class="alternativa">
-
-                    <input
-                      type="radio"
-                      name="pergunta-${esc(pergunta.id)}"
-                      value="3">
-
-                    <span>
-                      ${esc(pergunta.opcao_c || "")}
-                    </span>
-
-                  </label>
-
-                </div>
-
-              </article>
-            `;
-
-          })
-          .join("");
-
-
-      /*
-       * Permite que o CSS controle
-       * quando o resultado aparece.
-       */
-      el("resultadoQuiz").style.display = "";
-
-    }
-
-
-    function formatarTempo(segundos) {
-
-      const minutos = Math.floor(segundos / 60);
-      const segundosRestantes = segundos % 60;
-
-      return (
-        String(minutos).padStart(2, "0") +
-        ":" +
-        String(segundosRestantes).padStart(2, "0")
-      );
-
-    }
-
-
-    function atualizarCronometro() {
-
-      const tempo = el("tempoQuiz");
-      const caixa = el("cronometroQuiz");
-
-      if (!tempo || !caixa) {
-        return;
-      }
-
-      tempo.textContent = formatarTempo(
-        quizBloqueado
-          ? tempoRestanteBloqueio
-          : tempoRestanteQuiz
-      );
-
-      caixa.classList.toggle(
-        "aviso",
-        !quizBloqueado &&
-        tempoRestanteQuiz <= 120 &&
-        tempoRestanteQuiz > 0
-      );
-
-      caixa.classList.toggle(
-        "bloqueado",
-        quizBloqueado
-      );
-
-      if (quizBloqueado) {
-
-        caixa.querySelector(".cronometro-info").innerHTML =
-          'Quiz bloqueado. Volta em: <strong id="tempoQuiz">' +
-          formatarTempo(tempoRestanteBloqueio) +
-          "</strong>";
-
-      } else if (tempoRestanteQuiz <= 120) {
-
-        caixa.querySelector(".cronometro-info").innerHTML =
-          'Atenção! Tempo restante: <strong id="tempoQuiz">' +
-          formatarTempo(tempoRestanteQuiz) +
-          "</strong>";
-
-      } else {
-
-        caixa.querySelector(".cronometro-info").innerHTML =
-          'Tempo para responder: <strong id="tempoQuiz">' +
-          formatarTempo(tempoRestanteQuiz) +
-          "</strong>";
-
-      }
-
-    }
-
-
-    function alterarEstadoQuiz(bloqueado) {
-
-      quizBloqueado = bloqueado;
-
-      const secao = el("secaoPerguntas");
-      const botao = el("btnFinalizarQuiz");
-
-      if (secao) {
-        secao.classList.toggle(
-          "quiz-bloqueado",
-          bloqueado
-        );
-      }
-
-      if (secao) {
-        secao.querySelectorAll(
-          'input[type="radio"]'
-        ).forEach(input => {
-          input.disabled = bloqueado;
-        });
-      }
-
-      if (botao) {
-        botao.disabled = bloqueado;
-        botao.textContent = bloqueado
-          ? "Quiz bloqueado"
-          : "Finalizar perguntas";
-      }
-
-      atualizarCronometro();
-
-    }
-
-
-    function iniciarBloqueioQuiz() {
-
-      clearInterval(intervaloQuiz);
-      clearInterval(intervaloBloqueio);
-
-      tempoRestanteBloqueio = TEMPO_BLOQUEIO;
-
-      alterarEstadoQuiz(true);
-
-      intervaloBloqueio = setInterval(() => {
-
-        tempoRestanteBloqueio--;
-
-        if (tempoRestanteBloqueio <= 0) {
-
-          clearInterval(intervaloBloqueio);
-
-          quizBloqueado = false;
-          tempoRestanteQuiz = TEMPO_QUIZ;
-
-          alterarEstadoQuiz(false);
-
-          iniciarCronometroQuiz();
-
-          return;
-        }
-
-        atualizarCronometro();
-
-      }, 1000);
-
-    }
-
-
-    function iniciarCronometroQuiz() {
-
-      clearInterval(intervaloQuiz);
-
-      clearInterval(intervaloBloqueio);
-
-      quizBloqueado = false;
-      tempoRestanteQuiz = TEMPO_QUIZ;
-
-      alterarEstadoQuiz(false);
-
-      el("resultadoQuiz").className =
-        "resultado-quiz";
-
-      el("resultadoQuiz").innerHTML = "";
-
-      atualizarCronometro();
-
-      intervaloQuiz = setInterval(() => {
-
-        tempoRestanteQuiz--;
-
-        if (tempoRestanteQuiz <= 0) {
-
-          tempoRestanteQuiz = 0;
-
-          clearInterval(intervaloQuiz);
-
-          atualizarCronometro();
-
-          iniciarBloqueioQuiz();
-
-          return;
-        }
-
-        atualizarCronometro();
-
-      }, 1000);
-
-    }
-
-
-    async function salvarResposta(pergunta, respostaEscolhida) {
-
-      if (!cursoAtual) {
-        console.error("Curso atual não encontrado.");
-        return;
-      }
-
-
-      const {
-        data: {
-          session
-        }
-      } = await supabase.auth.getSession();
-
-
-      if (!session) {
-        console.error("Usuário não autenticado.");
-        return;
-      }
-
-
-      const acertou =
-        Number(respostaEscolhida) ===
-        Number(pergunta.resposta_correta);
-
-
-      const {
-        data: respostaExistente,
-        error: erroBusca
-      } = await supabase
-        .from("respostas_quiz")
-        .select("id")
-        .eq("usuario_id", session.user.id)
-        .eq("curso_id", cursoAtual.id)
-        .eq("questao_id", pergunta.id)
-        .maybeSingle();
-
-
-      if (erroBusca) {
-        console.error(
-          "Erro ao verificar resposta existente:",
-          erroBusca
-        );
-        return;
-      }
-
-
-      let erroSalvar = null;
-
-
-      if (respostaExistente) {
-
-        const {
-          error
-        } = await supabase
-          .from("respostas_quiz")
-          .update({
-            resposta_escolhida: Number(respostaEscolhida),
-            acertou: acertou,
-            respondida_em: new Date().toISOString()
-          })
-          .eq("id", respostaExistente.id);
-
-        erroSalvar = error;
-
-      } else {
-
-        const {
-          error
-        } = await supabase
-          .from("respostas_quiz")
-          .insert({
-            usuario_id: session.user.id,
-            curso_id: cursoAtual.id,
-            questao_id: pergunta.id,
-            resposta_escolhida: Number(respostaEscolhida),
-            acertou: acertou
-          });
-
-        erroSalvar = error;
-
-      }
-
-
-      if (erroSalvar) {
-
-        console.error(
-          "Erro ao salvar resposta:",
-          erroSalvar
-        );
-
-        return;
-      }
-
-
-      console.log(
-        "Resposta salva com sucesso."
-      );
-
-    }
-
-
-    function ativarSalvamentoRespostas() {
-
-      el("perguntas").addEventListener(
-        "change",
-        async event => {
-
-          const input =
-            event.target.closest(
-              'input[type="radio"]'
-            );
-
-
-          if (!input) {
-            return;
-          }
-
-
-          const nome =
-            input.getAttribute("name");
-
-
-          if (!nome) {
-            return;
-          }
-
-
-          const perguntaId =
-            nome.replace(
-              "pergunta-",
-              ""
-            );
-
-
-          const pergunta =
-            perguntasCurso.find(
-              item =>
-                String(item.id) ===
-                String(perguntaId)
-            );
-
-
-          if (!pergunta) {
-            console.error(
-              "Pergunta não encontrada."
-            );
-            return;
-          }
-
-
-          await salvarResposta(
-            pergunta,
-            input.value
-          );
-
-        }
-      );
-
-    }
-
-
-    function finalizarQuiz() {
-
-      if (!perguntasCurso.length) {
-        return;
-      }
-
-
-      let acertos = 0;
-      let respondidas = 0;
-
-
-      perguntasCurso.forEach(pergunta => {
+<!DOCTYPE html> 
+<html lang="pt-BR"> 
+<head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+ 
+  <title>Curso | Capacita Gov</title> 
+ 
+  <link rel="stylesheet" href="css/style.css"> 
+ 
+  <style> 
+    .curso-pagina { 
+      min-height: 100vh; 
+      background: #f5f7fb; 
+    } 
+ 
+    .curso-topo { 
+      background: #0b5ed7; 
+      color: #fff; 
+      padding: 16px 24px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 16px; 
+    } 
+ 
+    .curso-topo h1 { 
+      margin: 0; 
+      font-size: 22px; 
+      font-weight: 700; 
+    } 
+ 
+    .curso-topo-acoes { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+    } 
+ 
+    .curso-topo button { 
+      border: none; 
+      border-radius: 8px; 
+      padding: 10px 16px; 
+      cursor: pointer; 
+      font-weight: 600; 
+    } 
+ 
+    #btnVoltar { 
+      background: #fff; 
+      color: #0b5ed7; 
+    } 
+ 
+    #btnSair { 
+      background: rgba(255,255,255,.15); 
+      color: #fff; 
+      border: 1px solid rgba(255,255,255,.3); 
+    } 
+ 
+    .curso-conteudo { 
+      width: min(1100px, calc(100% - 32px)); 
+      margin: 30px auto; 
+    } 
+ 
+    .curso-cabecalho { 
+      background: #fff; 
+      border-radius: 14px; 
+      padding: 28px; 
+      margin-bottom: 24px; 
+      box-shadow: 0 4px 18px rgba(0,0,0,.06); 
+    } 
+ 
+    .curso-cabecalho h2 { 
+      margin: 0 0 10px; 
+      color: #123; 
+      font-size: 28px; 
+    } 
+ 
+    .curso-cabecalho p { 
+      margin: 0; 
+      color: #667085; 
+      line-height: 1.6; 
+    } 
+ 
+    .curso-secao { 
+      background: #fff; 
+      border-radius: 14px; 
+      padding: 24px; 
+      margin-bottom: 24px; 
+      box-shadow: 0 4px 18px rgba(0,0,0,.06); 
+    } 
+ 
+    .curso-secao h2 { 
+      margin-top: 0; 
+      margin-bottom: 20px; 
+      color: #123; 
+    } 
+ 
+    .modulo-card { 
+      border: 1px solid #e5e7eb; 
+      border-radius: 12px; 
+      margin-bottom: 16px; 
+      overflow: hidden; 
+    } 
+ 
+    .modulo-titulo { 
+      background: #f8fafc; 
+      padding: 16px 18px; 
+      font-weight: 700; 
+      color: #123; 
+    } 
+ 
+    .aulas-lista { 
+      padding: 10px; 
+    } 
+ 
+    .aula-card { 
+      border: 1px solid #e5e7eb; 
+      border-radius: 10px; 
+      padding: 16px; 
+      margin-bottom: 10px; 
+    } 
+ 
+    .aula-card:last-child { 
+      margin-bottom: 0; 
+    } 
+ 
+    .aula-titulo { 
+      font-weight: 700; 
+      color: #123; 
+      margin-bottom: 8px; 
+    } 
+ 
+    .aula-descricao { 
+      color: #667085; 
+      line-height: 1.5; 
+    } 
+ 
+    .aula-material { 
+      margin-top: 12px; 
+    } 
+ 
+    .aula-material a { 
+      color: #0b5ed7; 
+      font-weight: 600; 
+      text-decoration: none; 
+    } 
+ 
+    .perguntas-lista { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 18px; 
+    } 
+ 
+    .pergunta-card { 
+      border: 1px solid #e2e8f0; 
+      border-radius: 14px; 
+      padding: 20px; 
+      background: #fff; 
+    } 
+ 
+    .pergunta-numero { 
+      display: inline-block; 
+      background: #eaf2ff; 
+      color: #0b5ed7; 
+      border-radius: 7px; 
+      padding: 6px 10px; 
+      font-size: 13px; 
+      font-weight: 700; 
+      margin-bottom: 12px; 
+    } 
+ 
+    .pergunta-enunciado { 
+      margin: 0 0 16px; 
+      color: #1f2937; 
+      font-size: 16px; 
+      font-weight: 600; 
+      line-height: 1.5; 
+    } 
+ 
+    .alternativas { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 10px; 
+    } 
+ 
+    .alternativa { 
+      display: flex; 
+      align-items: flex-start; 
+      gap: 10px; 
+      padding: 13px 14px; 
+      border: 1px solid #e2e8f0; 
+      border-radius: 10px; 
+      cursor: pointer; 
+      transition: .2s; 
+      background: #fff; 
+    } 
+ 
+    .alternativa:hover { 
+      border-color: #0b5ed7; 
+      background: #f8fbff; 
+    } 
+ 
+    .alternativa input { 
+      margin-top: 3px; 
+      accent-color: #0b5ed7; 
+      cursor: pointer; 
+    } 
+ 
+    .alternativa span { 
+      color: #374151; 
+      line-height: 1.4; 
+    } 
+ 
+    .quiz-acoes { 
+      margin-top: 24px; 
+      display: flex; 
+      justify-content: flex-end; 
+    } 
+ 
+    .btn-finalizar { 
+      border: none; 
+      border-radius: 10px; 
+      background: #0b5ed7; 
+      color: #fff; 
+      padding: 13px 22px; 
+      font-size: 15px; 
+      font-weight: 700; 
+      cursor: pointer; 
+    } 
+ 
+    .btn-finalizar:hover { 
+      background: #084298; 
+    } 
+ 
+    .btn-finalizar:disabled { 
+      opacity: .55; 
+      cursor: not-allowed; 
+    } 
+ 
+    .btn-finalizar:disabled:hover { 
+      background: #0b5ed7; 
+    } 
+ 
+ 
+    .resultado-quiz { 
+      display: none; 
+      margin-top: 20px; 
+      padding: 22px; 
+      border-radius: 12px; 
+      text-align: center; 
+    } 
+ 
+    .resultado-quiz.sucesso { 
+      display: block; 
+      background: #ecfdf3; 
+      border: 1px solid #a7f3d0; 
+      color: #065f46; 
+    } 
+ 
+    .resultado-quiz.erro { 
+      display: block; 
+      background: #fef2f2; 
+      border: 1px solid #fecaca; 
+      color: #991b1b; 
+    } 
+ 
+    .resultado-quiz.atencao { 
+      display: block; 
+      background: #fffbeb; 
+      border: 1px solid #fde68a; 
+      color: #92400e; 
+    } 
+ 
+    .resultado-percentual { 
+      font-size: 38px; 
+      font-weight: 800; 
+      margin-bottom: 5px; 
+    } 
+ 
+    .resultado-detalhe { 
+      font-size: 16px; 
+      font-weight: 600; 
+    } 
+ 
+    .resultado-mensagem { 
+      margin-top: 8px; 
+    } 
+ 
+    #estado { 
+      width: min(1100px, calc(100% - 32px)); 
+      margin: 30px auto; 
+      text-align: center; 
+      color: #667085; 
+    } 
+ 
+    /* Cronômetro do quiz */ 
+    .cronometro-quiz { 
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      gap: 14px; 
+      margin-bottom: 20px; 
+      padding: 14px 16px; 
+      border: 1px solid #dbeafe; 
+      border-radius: 12px; 
+      background: #eff6ff; 
+    } 
+ 
+    .cronometro-info { 
+      color: #1e3a8a; 
+      font-weight: 700; 
+    } 
+ 
+    #cronometroQuiz { 
+      min-width: 78px; 
+      text-align: center; 
+      font-size: 22px; 
+      font-weight: 800; 
+      color: #0b5ed7; 
+      font-variant-numeric: tabular-nums; 
+    } 
+ 
+    .cronometro-quiz.aviso { 
+      border-color: #fcd34d; 
+      background: #fffbeb; 
+    } 
+ 
+    .cronometro-quiz.aviso .cronometro-info, 
+    .cronometro-quiz.aviso #cronometroQuiz { 
+      color: #92400e; 
+    } 
+ 
+    .cronometro-quiz.bloqueado { 
+      border-color: #fecaca; 
+      background: #fef2f2; 
+    } 
+ 
+    .cronometro-quiz.bloqueado .cronometro-info, 
+    .cronometro-quiz.bloqueado #cronometroQuiz { 
+      color: #991b1b; 
+    } 
+ 
+    .quiz-bloqueado .alternativa { 
+      cursor: not-allowed; 
+      opacity: .65; 
+    } 
+ 
+    .quiz-bloqueado .alternativa:hover { 
+      border-color: #e2e8f0; 
+      background: #fff; 
+    } 
+ 
+ 
+    @media (max-width: 700px) { 
+      .curso-topo { 
+        padding: 14px 16px; 
+      } 
+ 
+      .curso-topo h1 { 
+        font-size: 18px; 
+      } 
+ 
+      .curso-topo-acoes { 
+        gap: 6px; 
+      } 
+ 
+      .curso-topo button { 
+        padding: 8px 10px; 
+        font-size: 13px; 
+      } 
+ 
+      .curso-conteudo { 
+        width: min(100% - 20px, 1100px); 
+        margin: 20px auto; 
+      } 
+ 
+      .curso-cabecalho, 
+      .curso-secao { 
+        padding: 18px; 
+      } 
+ 
+      .curso-cabecalho h2 { 
+        font-size: 23px; 
+      } 
+ 
+      .quiz-acoes { 
+        justify-content: stretch; 
+      } 
+ 
+      .btn-finalizar { 
+        width: 100%; 
+      } 
+    } 
+  </style> 
+</head> 
+ 
+<body> 
+ 
+  <div class="curso-pagina"> 
+ 
+    <header class="curso-topo"> 
+      <h1>Capacita Gov</h1> 
+ 
+      <div class="curso-topo-acoes"> 
+        <button type="button" id="btnVoltar"> 
+          Voltar 
+        </button> 
+ 
+        <button type="button" id="btnSair"> 
+          Sair 
+        </button> 
+      </div> 
+    </header> 
+ 
+    <div id="estado"> 
+      Carregando curso... 
+    </div> 
+ 
+    <main id="conteudo" class="curso-conteudo" style="display:none"> 
+ 
+      <section class="curso-cabecalho"> 
+        <h2 id="cursoNome"></h2> 
+        <p id="cursoDescricao"></p> 
+      </section> 
+ 
+      <section class="curso-secao"> 
+        <h2>Módulos do curso</h2> 
+ 
+        <div id="modulos"></div> 
+      </section> 
+ 
+      <section class="curso-secao" id="secaoPerguntas" style="display:none"> 
+ 
+        <h2>Perguntas do curso</h2> 
+ 
+        <div id="cronometroQuiz" class="cronometro-quiz" aria-live="polite"> 
+          <span class="cronometro-info">Tempo para responder: <strong id="tempoQuiz">05:00</strong></span> 
+        </div> 
+ 
+        <div id="perguntas" class="perguntas-lista"></div> 
+ 
+        <div class="quiz-acoes"> 
+          <button 
+            type="button" 
+            id="btnFinalizarQuiz" 
+            class="btn-finalizar"> 
+            Finalizar perguntas 
+          </button> 
+        </div> 
+ 
+        <div id="resultadoQuiz" class="resultado-quiz"></div> 
+ 
+      </section> 
+ 
+    </main> 
+ 
+  </div> 
+ 
+  <script type="module"> 
+ 
+    import { 
+      supabase, 
+      exigirPerfil, 
+      sair, 
+      esc 
+    } from "./js/config.js"; 
+ 
+ 
+    const el = id => document.getElementById(id); 
+ 
+    let cursoAtual = null; 
+    let perguntasCurso = []; 
+ 
+    // Cronômetro do quiz 
+    let intervaloQuiz = null; 
+    let intervaloBloqueio = null; 
+    let tempoRestanteQuiz = 5 * 60; 
+    let tempoRestanteBloqueio = 0; 
+    let quizBloqueado = false; 
+ 
+    const TEMPO_QUIZ = 5 * 60; 
+    const TEMPO_BLOQUEIO = 2 * 60; 
+ 
+ 
+    function renderizarAula(aula) { 
+ 
+      return ` 
+        <article class="aula-card"> 
+ 
+          <div class="aula-titulo"> 
+            ${esc(aula.titulo || "Aula")} 
+          </div> 
+ 
+          ${ 
+            aula.descricao 
+              ? ` 
+                <div class="aula-descricao"> 
+                  ${esc(aula.descricao)} 
+                </div> 
+              ` 
+              : "" 
+          } 
+ 
+          ${ 
+            aula.url || aula.material_url 
+              ? ` 
+                <div class="aula-material"> 
+                  <a 
+                    href="${esc(aula.url || aula.material_url)}" 
+                    target="_blank" 
+                    rel="noopener noreferrer"> 
+                    Abrir material 
+                  </a> 
+                </div> 
+              ` 
+              : "" 
+          } 
+ 
+        </article> 
+      `; 
+    } 
+ 
+ 
+    async function carregarAulas(modulos) { 
+ 
+      if (!modulos.length) { 
+        return []; 
+      } 
+ 
+      const ids = modulos.map(modulo => modulo.id); 
+ 
+      const { data, error } = await supabase 
+        .from("aulas") 
+        .select("*") 
+        .in("modulo_id", ids) 
+        .eq("ativo", true) 
+        .order("ordem", { ascending: true }); 
+ 
+      if (error) { 
+        throw new Error( 
+          "Erro ao carregar aulas: " + error.message 
+        ); 
+      } 
+ 
+      return data || []; 
+    } 
+ 
+ 
+    function renderizarModulos(modulos, aulas) { 
+ 
+      const container = el("modulos"); 
+ 
+      if (!modulos.length) { 
+ 
+        container.innerHTML = ` 
+          <p> 
+            Nenhum módulo disponível neste curso. 
+          </p> 
+        `; 
+ 
+        return; 
+      } 
+ 
+      container.innerHTML = modulos 
+        .map(modulo => { 
+ 
+          const aulasModulo = aulas.filter( 
+            aula => aula.modulo_id === modulo.id 
+          ); 
+ 
+          return ` 
+            <article class="modulo-card"> 
+ 
+              <div class="modulo-titulo"> 
+                ${esc(modulo.nome || "Módulo")} 
+              </div> 
+ 
+              <div class="aulas-lista"> 
+ 
+                ${ 
+                  aulasModulo.length 
+                    ? aulasModulo 
+                        .map(renderizarAula) 
+                        .join("") 
+                    : ` 
+                      <p> 
+                        Nenhuma aula disponível neste módulo. 
+                      </p> 
+                    ` 
+                } 
+ 
+              </div> 
+ 
+            </article> 
+          `; 
+ 
+        }) 
+        .join(""); 
+    } 
+ 
+ 
+    function renderizarPerguntas() { 
+ 
+      const secao = el("secaoPerguntas"); 
+      const lista = el("perguntas"); 
+ 
+      if (!perguntasCurso.length) { 
+ 
+        secao.style.display = "none"; 
+ 
+        return; 
+      } 
+ 
+      secao.style.display = "block"; 
+ 
+ 
+      lista.innerHTML = 
+        perguntasCurso 
+          .map((pergunta, indice) => { 
+ 
+            return ` 
+              <article class="pergunta-card"> 
+ 
+                <div class="pergunta-numero"> 
+                  Pergunta ${indice + 1} 
+                </div> 
+ 
+                <p class="pergunta-enunciado"> 
+                  ${esc( 
+                    pergunta.pergunta || 
+                    "Pergunta" 
+                  )} 
+                </p> 
+ 
+                <div class="alternativas"> 
+ 
+                  <label class="alternativa"> 
+ 
+                    <input 
+                      type="radio" 
+                      name="pergunta-${esc(pergunta.id)}" 
+                      value="1"> 
+ 
+                    <span> 
+                      ${esc(pergunta.opcao_a || "")} 
+                    </span> 
+ 
+                  </label> 
+ 
+ 
+                  <label class="alternativa"> 
+ 
+                    <input 
+                      type="radio" 
+                      name="pergunta-${esc(pergunta.id)}" 
+                      value="2"> 
+ 
+                    <span> 
+                      ${esc(pergunta.opcao_b || "")} 
+                    </span> 
+ 
+                  </label> 
+ 
+ 
+                  <label class="alternativa"> 
+ 
+                    <input 
+                      type="radio" 
+                      name="pergunta-${esc(pergunta.id)}" 
+                      value="3"> 
+ 
+                    <span> 
+                      ${esc(pergunta.opcao_c || "")} 
+                    </span> 
+ 
+                  </label> 
+ 
+                </div> 
+ 
+              </article> 
+            `; 
+ 
+          }) 
+          .join(""); 
+ 
+ 
+      /* 
+       * Permite que o CSS controle 
+       * quando o resultado aparece. 
+       */ 
+      el("resultadoQuiz").style.display = ""; 
+ 
+    } 
+ 
+ 
+    function formatarTempo(segundos) { 
+ 
+      const minutos = Math.floor(segundos / 60); 
+      const segundosRestantes = segundos % 60; 
+ 
+      return ( 
+        String(minutos).padStart(2, "0") + 
+        ":" + 
+        String(segundosRestantes).padStart(2, "0") 
+      ); 
+ 
+    } 
+ 
+ 
+    function atualizarCronometro() { 
+ 
+      const tempo = el("tempoQuiz"); 
+      const caixa = el("cronometroQuiz"); 
+ 
+      if (!tempo || !caixa) { 
+        return; 
+      } 
+ 
+      tempo.textContent = formatarTempo( 
+        quizBloqueado 
+          ? tempoRestanteBloqueio 
+          : tempoRestanteQuiz 
+      ); 
+ 
+      caixa.classList.toggle( 
+        "aviso", 
+        !quizBloqueado && 
+        tempoRestanteQuiz <= 120 && 
+        tempoRestanteQuiz > 0 
+      ); 
+ 
+      caixa.classList.toggle( 
+        "bloqueado", 
+        quizBloqueado 
+      ); 
+ 
+      if (quizBloqueado) { 
+ 
+        caixa.querySelector(".cronometro-info").innerHTML = 
+          'Quiz bloqueado. Volta em: <strong id="tempoQuiz">' + 
+          formatarTempo(tempoRestanteBloqueio) + 
+          "</strong>"; 
+ 
+      } else if (tempoRestanteQuiz <= 120) { 
+ 
+        caixa.querySelector(".cronometro-info").innerHTML = 
+          'Atenção! Tempo restante: <strong id="tempoQuiz">' + 
+          formatarTempo(tempoRestanteQuiz) + 
+          "</strong>"; 
+ 
+      } else { 
+ 
+        caixa.querySelector(".cronometro-info").innerHTML = 
+          'Tempo para responder: <strong id="tempoQuiz">' + 
+          formatarTempo(tempoRestanteQuiz) + 
+          "</strong>"; 
+ 
+      } 
+ 
+    } 
+ 
+ 
+    function alterarEstadoQuiz(bloqueado) { 
+ 
+      quizBloqueado = bloqueado; 
+ 
+      const secao = el("secaoPerguntas"); 
+      const botao = el("btnFinalizarQuiz"); 
+ 
+      if (secao) { 
+        secao.classList.toggle( 
+          "quiz-bloqueado", 
+          bloqueado 
+        ); 
+      } 
+ 
+      if (secao) { 
+        secao.querySelectorAll( 
+          'input[type="radio"]' 
+        ).forEach(input => { 
+          input.disabled = bloqueado; 
+        }); 
+      } 
+ 
+      if (botao) { 
+        botao.disabled = bloqueado; 
+        botao.textContent = bloqueado 
+          ? "Quiz bloqueado" 
+          : "Finalizar perguntas"; 
+      } 
+ 
+      atualizarCronometro(); 
+ 
+    } 
+ 
+ 
+    function iniciarBloqueioQuiz() { 
+ 
+      clearInterval(intervaloQuiz); 
+      clearInterval(intervaloBloqueio); 
+ 
+      tempoRestanteBloqueio = TEMPO_BLOQUEIO; 
+ 
+      alterarEstadoQuiz(true); 
+ 
+      intervaloBloqueio = setInterval(() => { 
+ 
+        tempoRestanteBloqueio--; 
+ 
+        if (tempoRestanteBloqueio <= 0) { 
+ 
+          clearInterval(intervaloBloqueio); 
+ 
+          quizBloqueado = false; 
+          tempoRestanteQuiz = TEMPO_QUIZ; 
+ 
+          alterarEstadoQuiz(false); 
+ 
+          iniciarCronometroQuiz(); 
+ 
+          return; 
+ 
+        } 
+ 
+        atualizarCronometro(); 
+ 
+      }, 1000); 
+ 
+    } 
+ 
+ 
+    function iniciarCronometroQuiz() { 
+ 
+      clearInterval(intervaloQuiz); 
+ 
+      clearInterval(intervaloBloqueio); 
+ 
+      quizBloqueado = false; 
+      tempoRestanteQuiz = TEMPO_QUIZ; 
+ 
+      alterarEstadoQuiz(false); 
+ 
+      el("resultadoQuiz").className = 
+        "resultado-quiz"; 
+ 
+      el("resultadoQuiz").innerHTML = ""; 
+ 
+      atualizarCronometro(); 
+ 
+      intervaloQuiz = setInterval(() => { 
+ 
+        tempoRestanteQuiz--; 
+ 
+        if (tempoRestanteQuiz <= 0) { 
+ 
+          tempoRestanteQuiz = 0; 
+ 
+          clearInterval(intervaloQuiz); 
+ 
+          atualizarCronometro(); 
+ 
+          iniciarBloqueioQuiz(); 
+ 
+          return; 
+ 
+        } 
+ 
+        atualizarCronometro(); 
+ 
+      }, 1000); 
+ 
+    } 
+ 
+ 
+    async function salvarResposta(pergunta, respostaEscolhida) { 
+ 
+      if (!cursoAtual) { 
+        console.error("Curso atual não encontrado."); 
+        return; 
+      } 
+ 
+ 
+      const { 
+        data: { 
+          session 
+        } 
+      } = await supabase.auth.getSession(); 
+ 
+ 
+      if (!session) { 
+        console.error("Usuário não autenticado."); 
+        return; 
+      } 
+ 
+ 
+      const acertou = 
+        Number(respostaEscolhida) === 
+        Number(pergunta.resposta_correta); 
+ 
+ 
+      const { 
+        data: respostaExistente, 
+        error: erroBusca 
+      } = await supabase 
+        .from("respostas_quiz") 
+        .select("id") 
+        .eq("usuario_id", session.user.id) 
+        .eq("curso_id", cursoAtual.id) 
+        .eq("questao_id", pergunta.id) 
+        .maybeSingle(); 
+ 
+ 
+      if (erroBusca) { 
+        console.error( 
+          "Erro ao verificar resposta existente:", 
+          erroBusca 
+        ); 
+        return; 
+      } 
+ 
+ 
+      let erroSalvar = null; 
+ 
+ 
+      if (respostaExistente) { 
+ 
+        const { 
+          error 
+        } = await supabase 
+          .from("respostas_quiz") 
+          .update({ 
+            resposta_escolhida: Number(respostaEscolhida), 
+            acertou: acertou, 
+            respondida_em: new Date().toISOString() 
+          }) 
+          .eq("id", respostaExistente.id); 
+ 
+        erroSalvar = error; 
+ 
+      } else { 
+ 
+        const { 
+          error 
+        } = await supabase 
+          .from("respostas_quiz") 
+          .insert({ 
+            usuario_id: session.user.id, 
+            curso_id: cursoAtual.id, 
+            questao_id: pergunta.id, 
+            resposta_escolhida: Number(respostaEscolhida), 
+            acertou: acertou 
+          }); 
+ 
+        erroSalvar = error; 
+ 
+      } 
+ 
+ 
+      if (erroSalvar) { 
+ 
+        console.error( 
+          "Erro ao salvar resposta:", 
+          erroSalvar 
+        ); 
+ 
+        return; 
+ 
+      } 
+ 
+ 
+      console.log( 
+        "Resposta salva com sucesso." 
+      ); 
+ 
+    } 
+ 
+ 
+    function ativarSalvamentoRespostas() { 
+ 
+      el("perguntas").addEventListener( 
+        "change", 
+        async event => { 
+ 
+          const input = 
+            event.target.closest( 
+              'input[type="radio"]' 
+            ); 
+ 
+ 
+          if (!input) { 
+            return; 
+          } 
+ 
+ 
+          const nome = 
+            input.getAttribute("name"); 
+ 
+ 
+          if (!nome) { 
+            return; 
+          } 
+ 
+ 
+          const perguntaId = 
+            nome.replace( 
+              "pergunta-", 
+              "" 
+            ); 
+ 
+ 
+          const pergunta = 
+            perguntasCurso.find( 
+              item => 
+                String(item.id) === 
+                String(perguntaId) 
+            ); 
+ 
+ 
+          if (!pergunta) { 
+            console.error( 
+              "Pergunta não encontrada." 
+            ); 
+            return; 
+          } 
+ 
+ 
+          await salvarResposta( 
+            pergunta, 
+            input.value 
+          ); 
+ 
+        } 
+      ); 
+ 
+    } 
+ 
+ 
+    async function finalizarQuiz() { 
+ 
+      if (!perguntasCurso.length) { 
+        return; 
+      } 
+ 
+ 
+      let acertos = 0; 
+      let respondidas = 0; 
+ 
+ 
+      perguntasCurso.forEach(pergunta => { 
+ 
+        const selecionada = 
+          document.querySelector( 
+            `input[name="pergunta-${pergunta.id}"]:checked` 
+          ); 
+ 
+ 
+        if (!selecionada) { 
+          return; 
+        } 
+ 
+ 
+        respondidas++; 
+ 
+ 
+        if ( 
+          Number(selecionada.value) === 
+          Number(pergunta.resposta_correta) 
+        ) { 
+ 
+          acertos++; 
+ 
+        } 
+ 
+      }); 
+ 
+ 
+      const resultado = el("resultadoQuiz"); 
+      const total = perguntasCurso.length; 
+ 
+ 
+      if (respondidas < total) { 
+ 
+        resultado.className = 
+          "resultado-quiz erro"; 
+ 
+        resultado.textContent = 
+          `Você respondeu ${respondidas} de ${total} perguntas. Responda todas antes de finalizar.`; 
+ 
+        return; 
+ 
+      } 
+
+
+      for (const pergunta of perguntasCurso) {
 
         const selecionada =
           document.querySelector(
@@ -1050,340 +1098,316 @@
           );
 
 
-        if (!selecionada) {
-          return;
-        }
+        if (selecionada) {
 
-
-        respondidas++;
-
-
-        if (
-          Number(selecionada.value) ===
-          Number(pergunta.resposta_correta)
-        ) {
-
-          acertos++;
+          await salvarResposta(
+            pergunta,
+            selecionada.value
+          );
 
         }
-
-      });
-
-
-      const resultado = el("resultadoQuiz");
-      const total = perguntasCurso.length;
-
-
-      if (respondidas < total) {
-
-        resultado.className =
-          "resultado-quiz erro";
-
-        resultado.textContent =
-          `Você respondeu ${respondidas} de ${total} perguntas. Responda todas antes de finalizar.`;
-
-        return;
-      }
-
-
-      clearInterval(intervaloQuiz);
-
-      const tempoUtilizado =
-        TEMPO_QUIZ - tempoRestanteQuiz;
-
-      const percentual =
-        Math.round((acertos / total) * 100);
-
-      const erros =
-        total - acertos;
-
-
-      alterarEstadoQuiz(true);
-
-
-      resultado.className =
-        "resultado-quiz " +
-        (percentual >= 50 ? "sucesso" : "erro");
-
-
-      resultado.innerHTML = `
-
-        <div class="resultado-percentual">
-          ${percentual}%
-        </div>
-
-        <div class="resultado-detalhe">
-          ${acertos} acertos e ${erros} erros
-        </div>
-
-        <div class="resultado-detalhe">
-          Tempo utilizado: ${formatarTempo(tempoUtilizado)}
-        </div>
-
-        <div class="resultado-mensagem">
-
-          ${
-            percentual >= 50
-              ? "Teste aprovado"
-              : "Teste reprovado"
-          }
-
-        </div>
-
-        <div class="resultado-mensagem">
-
-          ${
-            percentual >= 50
-              ? "Teste finalizado com sucesso."
-              : "Você poderá refazer o teste após o período de bloqueio."
-          }
-
-        </div>
-
-      `;
-
-      iniciarBloqueioQuiz();
-
-    }
-
-
-    async function carregarPerguntas(cursoId) {
-
-      const { data, error } = await supabase
-        .from("questoes")
-        .select("*")
-        .eq("curso_id", cursoId)
-        .order("ordem", { ascending: true });
-
-
-      if (error) {
-
-        throw new Error(
-          "Erro ao carregar perguntas: " +
-          error.message
-        );
 
       }
 
 
-      perguntasCurso = data || [];
-
-      renderizarPerguntas();
-
-      ativarSalvamentoRespostas();
-
-      iniciarCronometroQuiz();
-
-    }
-
-
-    async function iniciar() {
-
-      try {
-
-        await exigirPerfil("aluno");
-
-
-        const {
-          data: {
-            session
-          }
-        } = await supabase.auth.getSession();
-
-
-        if (!session) {
-          throw new Error("Usuário não autenticado.");
-        }
-
-
-        const params =
-          new URLSearchParams(
-            window.location.search
-          );
-
-
-        const cursoId =
-          params.get("id");
-
-
-        if (!cursoId) {
-          throw new Error(
-            "Curso não informado."
-          );
-        }
-
-
-        const {
-          data: matricula,
-          error: erroMatricula
-        } = await supabase
-          .from("matriculas")
-          .select("id, ativo")
-          .eq("usuario_id", session.user.id)
-          .eq("curso_id", cursoId)
-          .eq("ativo", true)
-          .maybeSingle();
-
-
-        if (erroMatricula) {
-
-          throw new Error(
-            "Erro ao verificar matrícula: " +
-            erroMatricula.message
-          );
-
-        }
-
-
-        if (!matricula) {
-
-          throw new Error(
-            "Você não está matriculado neste curso."
-          );
-
-        }
-
-
-        const {
-          data: curso,
-          error: erroCurso
-        } = await supabase
-          .from("cursos")
-          .select("*")
-          .eq("id", cursoId)
-          .eq("ativo", true)
-          .single();
-
-
-        if (erroCurso) {
-
-          throw new Error(
-            "Erro ao carregar curso: " +
-            erroCurso.message
-          );
-
-        }
-
-
-        if (!curso) {
-
-          throw new Error(
-            "Curso não encontrado."
-          );
-
-        }
-
-
-        cursoAtual = curso;
-
-
-        el("cursoNome").textContent =
-          curso.nome || "Curso";
-
-
-        el("cursoDescricao").textContent =
-          curso.descricao ||
-          "Curso disponível no Capacita Gov.";
-
-
-        const {
-          data: modulos,
-          error: erroModulos
-        } = await supabase
-          .from("modulos")
-          .select("*")
-          .eq("curso_id", cursoId)
-          .eq("ativo", true)
-          .order("ordem", {
-            ascending: true
-          });
-
-
-        if (erroModulos) {
-
-          throw new Error(
-            "Erro ao carregar módulos: " +
-            erroModulos.message
-          );
-
-        }
-
-
-        const listaModulos =
-          modulos || [];
-
-
-        const aulas =
-          await carregarAulas(
-            listaModulos
-          );
-
-
-        renderizarModulos(
-          listaModulos,
-          aulas
-        );
-
-
-        await carregarPerguntas(
-          cursoId
-        );
-
-
-        el("estado").style.display =
-          "none";
-
-        el("conteudo").style.display =
-          "block";
-
-      }
-
-      catch (erro) {
-
-        console.error(erro);
-
-        el("estado").textContent =
-          "Erro inesperado: " +
-          erro.message;
-
-      }
-
-    }
-
-
-    el("btnVoltar")
-      .addEventListener(
-        "click",
-        () => {
-
-          window.location.href =
-            "aluno.html";
-
-        }
-      );
-
-
-    el("btnSair")
-      .addEventListener(
-        "click",
-        async () => {
-
-          await sair();
-
-        }
-      );
-
-
-    el("btnFinalizarQuiz")
-      .addEventListener(
-        "click",
-        finalizarQuiz
-      );
-
-
-    iniciar();
-
-  </script>
-
-</body>
+      clearInterval(intervaloQuiz); 
+ 
+      const tempoUtilizado = 
+        TEMPO_QUIZ - tempoRestanteQuiz; 
+ 
+      const percentual = 
+        Math.round((acertos / total) * 100); 
+ 
+      const erros = 
+        total - acertos; 
+ 
+ 
+      alterarEstadoQuiz(true); 
+ 
+ 
+      resultado.className = 
+        "resultado-quiz " + 
+        (percentual >= 50 ? "sucesso" : "erro"); 
+ 
+ 
+      resultado.innerHTML = ` 
+ 
+        <div class="resultado-percentual"> 
+          ${percentual}% 
+        </div> 
+ 
+        <div class="resultado-detalhe"> 
+          ${acertos} acertos e ${erros} erros 
+        </div> 
+ 
+        <div class="resultado-detalhe"> 
+          Tempo utilizado: ${formatarTempo(tempoUtilizado)} 
+        </div> 
+ 
+        <div class="resultado-mensagem"> 
+ 
+          ${ 
+            percentual >= 50 
+              ? "Teste aprovado" 
+              : "Teste reprovado" 
+          } 
+ 
+        </div> 
+ 
+        <div class="resultado-mensagem"> 
+ 
+          ${ 
+            percentual >= 50 
+              ? "Teste finalizado com sucesso." 
+              : "Você poderá refazer o teste após o período de bloqueio." 
+          } 
+ 
+        </div> 
+ 
+      `; 
+ 
+      iniciarBloqueioQuiz(); 
+ 
+    } 
+ 
+ 
+    async function carregarPerguntas(cursoId) { 
+ 
+      const { data, error } = await supabase 
+        .from("questoes") 
+        .select("*") 
+        .eq("curso_id", cursoId) 
+        .order("ordem", { ascending: true }); 
+ 
+ 
+      if (error) { 
+ 
+        throw new Error( 
+          "Erro ao carregar perguntas: " + 
+          error.message 
+        ); 
+ 
+      } 
+ 
+ 
+      perguntasCurso = data || []; 
+ 
+      renderizarPerguntas(); 
+ 
+      ativarSalvamentoRespostas(); 
+ 
+      iniciarCronometroQuiz(); 
+ 
+    } 
+ 
+ 
+    async function iniciar() { 
+ 
+      try { 
+ 
+        await exigirPerfil("aluno"); 
+ 
+ 
+        const { 
+          data: { 
+            session 
+          } 
+        } = await supabase.auth.getSession(); 
+ 
+ 
+        if (!session) { 
+          throw new Error("Usuário não autenticado."); 
+        } 
+ 
+ 
+        const params = 
+          new URLSearchParams( 
+            window.location.search 
+          ); 
+ 
+ 
+        const cursoId = 
+          params.get("id"); 
+ 
+ 
+        if (!cursoId) { 
+          throw new Error( 
+            "Curso não informado." 
+          ); 
+        } 
+ 
+ 
+        const { 
+          data: matricula, 
+          error: erroMatricula 
+        } = await supabase 
+          .from("matriculas") 
+          .select("id, ativo") 
+          .eq("usuario_id", session.user.id) 
+          .eq("curso_id", cursoId) 
+          .eq("ativo", true) 
+          .maybeSingle(); 
+ 
+ 
+        if (erroMatricula) { 
+ 
+          throw new Error( 
+            "Erro ao verificar matrícula: " + 
+            erroMatricula.message 
+          ); 
+ 
+        } 
+ 
+ 
+        if (!matricula) { 
+ 
+          throw new Error( 
+            "Você não está matriculado neste curso." 
+          ); 
+ 
+        } 
+ 
+ 
+        const { 
+          data: curso, 
+          error: erroCurso 
+        } = await supabase 
+          .from("cursos") 
+          .select("*") 
+          .eq("id", cursoId) 
+          .eq("ativo", true) 
+          .single(); 
+ 
+ 
+        if (erroCurso) { 
+ 
+          throw new Error( 
+            "Erro ao carregar curso: " + 
+            erroCurso.message 
+          ); 
+ 
+        } 
+ 
+ 
+        if (!curso) { 
+ 
+          throw new Error( 
+            "Curso não encontrado." 
+          ); 
+ 
+        } 
+ 
+ 
+        cursoAtual = curso; 
+ 
+ 
+        el("cursoNome").textContent = 
+          curso.nome || "Curso"; 
+ 
+ 
+        el("cursoDescricao").textContent = 
+          curso.descricao || 
+          "Curso disponível no Capacita Gov."; 
+ 
+ 
+        const { 
+          data: modulos, 
+          error: erroModulos 
+        } = await supabase 
+          .from("modulos") 
+          .select("*") 
+          .eq("curso_id", cursoId) 
+          .eq("ativo", true) 
+          .order("ordem", { 
+            ascending: true 
+          }); 
+ 
+ 
+        if (erroModulos) { 
+ 
+          throw new Error( 
+            "Erro ao carregar módulos: " + 
+            erroModulos.message 
+          ); 
+ 
+        } 
+ 
+ 
+        const listaModulos = 
+          modulos || []; 
+ 
+ 
+        const aulas = 
+          await carregarAulas( 
+            listaModulos 
+          ); 
+ 
+ 
+        renderizarModulos( 
+          listaModulos, 
+          aulas 
+        ); 
+ 
+ 
+        await carregarPerguntas( 
+          cursoId 
+        ); 
+ 
+ 
+        el("estado").style.display = 
+          "none"; 
+ 
+        el("conteudo").style.display = 
+          "block"; 
+ 
+      } 
+ 
+      catch (erro) { 
+ 
+        console.error(erro); 
+ 
+        el("estado").textContent = 
+          "Erro inesperado: " + 
+          erro.message; 
+ 
+      } 
+ 
+    } 
+ 
+ 
+    el("btnVoltar") 
+      .addEventListener( 
+        "click", 
+        () => { 
+ 
+          window.location.href = 
+            "aluno.html"; 
+ 
+        } 
+      ); 
+ 
+ 
+    el("btnSair") 
+      .addEventListener( 
+        "click", 
+        async () => { 
+ 
+          await sair(); 
+ 
+        } 
+      ); 
+ 
+ 
+    el("btnFinalizarQuiz") 
+      .addEventListener( 
+        "click", 
+        finalizarQuiz 
+      ); 
+ 
+ 
+    iniciar(); 
+ 
+  </script> 
+ 
+</body> 
 </html>
